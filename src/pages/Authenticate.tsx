@@ -12,10 +12,10 @@ const Authenticate = () => {
 
   const spaceTop = isLogin && !isRegister ? 'pt-20' : 'pt-12';
   return (
-    <div className="px-5 md:px-10 bg-gradient  bg-no-repeat">
-      <div className="mx-auto w-full max-w-7xl ">
+    <div className="px-5 md:px-10 pb-5 md:pb-0 bg-gradient bg-no-repeat">
+      <div className="mx-auto w-full max-w-7xl">
         <div className={spaceTop}>
-          <div className="grid items-center max-[991px]:justify-items-start grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-20 ">
+          <div className="grid items-center max-[991px]:justify-items-start grid-cols-1 md:grid-cols-2 gap-8 ">
             {isLogin && !isRegister && <Login toggleLoginRegister={toggleLoginRegister} />}
             {isRegister && !isLogin && <Register toggleLoginRegister={toggleLoginRegister} />}
             <div className="max-[991px]:mx-auto max-[991px]:max-w-[720px]">
