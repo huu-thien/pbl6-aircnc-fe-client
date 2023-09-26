@@ -1,8 +1,4 @@
-
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
-
-
 import MainLayout from '@/layouts/MainLayout/MainLayout';
 import AuthenticationRoute from '@/routes/authenticate-route';
 import Authenticate from '@/pages/Authenticate';

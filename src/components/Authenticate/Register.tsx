@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
+import { RegisterData } from '@/shared/types';
+
 import { Button, IconButton, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
@@ -17,16 +19,10 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
-  const handleFormSubmit = (values: {
-    fullName: string;
-    email: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
-    // if(values.confirmPassword) {
-    //   delete values.confirmPassword
-    // }
+  const handleFormSubmit = (values: RegisterData) => {
+    if(values.confirmPassword) {
+      delete values.confirmPassword
+    }
     console.log(values);
   };
 
