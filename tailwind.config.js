@@ -22,6 +22,16 @@ export default {
         },
       },
     },
+    screens: {
+      'xs': '400px',
+      // => @media (min-width: 400px) { ... }
+      'sm': '576px',
+      // => @media (min-width: 576px) { ... }
+      'md': '1024px',
+      // => @media (min-width: 960px) { ... }
+      'lg': '1440px',
+      // => @media (min-width: 1440px) { ... }
+    },
   },
   plugins: [],
 };
