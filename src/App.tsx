@@ -6,6 +6,8 @@ import PageNotFound from '@/pages/PageNotFound';
 import GuestRoute from '@/routes/guest-route';
 
 import { createTheme, ThemeProvider } from '@mui/material';
+import Home from './pages/Home';
+import Wishlist from './pages/Wishlist';
 
 function App() {
   const theme = createTheme({
@@ -16,12 +18,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route path="/" element={<GuestRoute />}>
+        <Route path="" element={<GuestRoute />}>
           <Route path="/authenticate" element={<Authenticate />} />
         </Route>
 
-        <Route path="/" element={<AuthenticationRoute />}>
-          <Route index element={<MainLayout />} />
+        <Route path="" element={<AuthenticationRoute />}>
+          <Route index element={<MainLayout page={<Home />} />} />
+          <Route path="/wishlist" element={<MainLayout page={<Wishlist />}/>} />
         </Route>
 
         <Route path="*" element={<PageNotFound />}></Route>

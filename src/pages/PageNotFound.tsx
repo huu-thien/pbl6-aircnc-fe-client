@@ -1,37 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Alert, Button } from '@mui/material';
 import PageNotFoundImage from '@/assets/images/page-not-found.jpg';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import NotifyRedirect from '@/components/NotifyRedirect';
 
 const PageNotFound = () => {
-  const [second, setSecond] = useState(20);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
-    const secondInterval = setInterval(() => {
-      if (second > 0) {
-        setSecond((second) => second - 1);
-      }
-    }, 1000);
     const idTimeOUt = setTimeout(() => {
       navigate('/');
     }, 20000);
     return () => {
       clearTimeout(idTimeOUt);
-      clearInterval(secondInterval);
     };
   }, [navigate]);
+
   return (
     <section className="block bg-gradient bg-no-repeat">
-      <p className="text-lg text-center text-cyan-700 pt-6">Bạn sẽ quay lại trang chủ trong {second} giây nữa</p>
+      <NotifyRedirect />
       <div className="px-5 md:px-10">
         <div className="mx-auto w-full max-w-7xl">
           <div className="py-16 md:py-24 lg:py-32">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="">
                 <h1 className="font-bold text-cyan-700 mb-8 text-4xl md:text-6xl text-center">Page Not Found 💓</h1>
-
                 <Alert sx={{ mb: 2 }} severity="warning">
                   Bạn vừa truy cập vào liên kết không được quyền truy cập
                 </Alert>

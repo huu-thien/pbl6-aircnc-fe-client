@@ -68,8 +68,8 @@ const Header = () => {
               </MenuItem>
               <Divider light />
               <MenuItem onClick={handleClose}>
-                <Link className="w-full text-cyan-800" to="/authenticate">
-                  Cho thuê chỗ ở qua AirCnC
+                <Link className="w-full text-cyan-800" to="/wishlist">
+                  Danh sách yêu thích
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>

@@ -11,7 +11,9 @@ const ButtonLoginGoogle = () => {
         `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${tokenResponse.access_token}`,
       )
         .then((response) => response.json())
-        .then((userInfo) => console.log(userInfo))
+        .then((userInfo) => {
+          console.log(userInfo)
+        })
         .catch((err) => console.error(err));
     },
   });
