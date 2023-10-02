@@ -1,8 +1,13 @@
-import React from 'react'
+import FilterRoom from "@/components/HomePage/FilterRoom"
+import RoomList from "@/components/HomePage/RoomList"
+
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className="py-10">
+      <FilterRoom />
+      <RoomList />
+    </div>
   )
 }
 

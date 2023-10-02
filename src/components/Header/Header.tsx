@@ -18,7 +18,7 @@ const Header = () => {
     setAnchorEl(null);
   };
   return (
-    <header className="block h-[70px] sm:h-[80px] shadow-md fixed top-0 left-0 right-0 bg-white">
+    <header className="block h-[70px] sm:h-[80px] shadow-md fixed top-0 left-0 right-0 bg-white z-10">
       <div className="px-5 md:px-10">
         <div className="py-4 mx-auto w-full max-w-7xl flex items-center justify-between sm:h-full sm:py-0">
           <img src={Logo} alt="logo" className="h-[80px] hidden sm:block" />
