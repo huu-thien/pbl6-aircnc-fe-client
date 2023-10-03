@@ -13,7 +13,7 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+      width: 200,
     },
   },
 };
@@ -42,10 +42,10 @@ export default function MultipleSelectCheckmarks() {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-
+  console.log(personName);
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, minWidth: 200, minHeight:10 }}>
         <InputLabel id="demo-multiple-checkbox-label">Loại phòng</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
