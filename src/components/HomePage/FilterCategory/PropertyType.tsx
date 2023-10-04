@@ -31,18 +31,18 @@ const names = [
 ];
 
 export default function MultipleSelectCheckmarks() {
-  const [personName, setPersonName] = React.useState<string[]>([]);
+  const [propertyType, setPropertyType] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (event: SelectChangeEvent<typeof propertyType>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setPropertyType(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-  console.log(personName);
+  console.log(propertyType);
   return (
     <div>
       <FormControl sx={{ minWidth: 200, minHeight:10 }}>
@@ -51,7 +51,7 @@ export default function MultipleSelectCheckmarks() {
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
           multiple
-          value={personName}
+          value={propertyType}
           onChange={handleChange}
           input={<OutlinedInput label="Loại phòng" />}
           renderValue={(selected) => selected.join(', ')}
@@ -59,7 +59,7 @@ export default function MultipleSelectCheckmarks() {
         >
           {names.map((name) => (
             <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
+              <Checkbox checked={propertyType.indexOf(name) > -1} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}

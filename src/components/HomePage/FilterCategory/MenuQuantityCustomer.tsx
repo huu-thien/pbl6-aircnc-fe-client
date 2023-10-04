@@ -6,19 +6,19 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 const MenuQuantityCustomer = () => {
-  const [counter1, setCounter1] = React.useState(0);
-  const handleIncrease1 = () => {
-    setCounter1(counter1 + 1);
+  const [quantityOld, setQuantityOld] = React.useState(0);
+  const [quantityYoung, setQuantityYoung] = React.useState(0);
+  const handleIncreaseOld = () => {
+    setQuantityOld(quantityOld + 1);
   };
-  const handleDecrease1 = () => {
-    if (counter1 >= 1) setCounter1(counter1 - 1);
+  const handleDecreaseOld = () => {
+    if (quantityOld >= 1) setQuantityOld(quantityOld - 1);
   };
-  const [counter2, setCounter2] = React.useState(0);
-  const handleIncrease2 = () => {
-    setCounter2(counter2 + 1);
+  const handleIncreaseYoung = () => {
+    setQuantityYoung(quantityYoung + 1);
   };
-  const handleDecrease2 = () => {
-    if (counter2 >= 1) setCounter2(counter2 - 1);
+  const handleDecreaseYoung = () => {
+    if (quantityYoung >= 1) setQuantityYoung(quantityYoung - 1);
   };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -28,10 +28,9 @@ const MenuQuantityCustomer = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log(counter1);
-  console.log(counter2);
+  console.log('Quantity old: ', quantityOld);
+  console.log('Quantity young: ', quantityYoung);
   return (
-
     <div className="">
       <Button
         variant="outlined"
@@ -39,7 +38,7 @@ const MenuQuantityCustomer = () => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{height: 56}}
+        sx={{ height: 56 }}
       >
         Số khách
       </Button>
@@ -60,21 +59,21 @@ const MenuQuantityCustomer = () => {
       >
         <MenuItem>
           Số người lớn:
-          <Button onClick={handleDecrease1}>
+          <Button onClick={handleDecreaseOld}>
             <RemoveCircleOutlineIcon sx={{ color: 'black', mr: 1 }} />
           </Button>
-          <p>{counter1}</p>
-          <Button onClick={handleIncrease1}>
+          <p>{quantityOld}</p>
+          <Button onClick={handleIncreaseOld}>
             <AddCircleOutlineIcon sx={{ color: 'black', ml: 1 }} />
           </Button>
         </MenuItem>
         <MenuItem>
           Số trẻ em:
-          <Button onClick={handleDecrease2}>
+          <Button onClick={handleDecreaseYoung}>
             <RemoveCircleOutlineIcon sx={{ color: 'black', ml: 3.8, mr: 2 }} />
           </Button>
-          <p>{counter2}</p>
-          <Button onClick={handleIncrease2}>
+          <p>{quantityYoung}</p>
+          <Button onClick={handleIncreaseYoung}>
             <AddCircleOutlineIcon sx={{ color: 'black', ml: 1 }} />
           </Button>
         </MenuItem>
