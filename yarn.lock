@@ -53,7 +53,7 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.2.0", "@babel/runtime@^7.22.15", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.2.0", "@babel/runtime@^7.22.15", "@babel/runtime@^7.22.6", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.23.1"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.23.1.tgz#72741dc4d413338a91dcb044a86f3c0bc402646d"
   integrity sha512-hC2v6p8ZSI/W0HUzh3V8C5g+NwSKzKPtJwSpTjwl0o297GP9+ZLQSkdvHz46CM3LqyoXxq+5G9komY+eSqSO0g==
@@ -477,7 +477,7 @@
   resolved "https://registry.yarnpkg.com/@mui/types/-/types-7.2.4.tgz#b6fade19323b754c5c6de679a38f068fd50b9328"
   integrity sha512-LBcwa8rN84bKF+f5sDyku42w1NTxaPgPyYKODsh01U1fVstTClbUoSA96oyRBnSNyEiAVjKm6Gwx9vjR+xyqHA==
 
-"@mui/utils@^5.14.11", "@mui/utils@^5.14.8":
+"@mui/utils@^5.13.7", "@mui/utils@^5.14.11", "@mui/utils@^5.14.8":
   version "5.14.11"
   resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-5.14.11.tgz#d19a1d8725ffd16c6c6817f00b5172931958fb9a"
   integrity sha512-fmkIiCPKyDssYrJ5qk+dime1nlO3dmWfCtaPY/uVBqCRMBZ11JhddB9m8sjI2mgqQQwRJG5bq3biaosNdU/s4Q==
@@ -487,7 +487,21 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/x-date-pickers@^6.16.0":
+"@mui/x-date-pickers-pro@^6.16.0":
+  version "6.16.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-date-pickers-pro/-/x-date-pickers-pro-6.16.0.tgz#94c07b71f40b4170b2b4269a62db462629931b6e"
+  integrity sha512-w79lcC5my0brZ0aF9EvhxSog07E/OnaSxDFShGasbitJYtZB18qRgMl9UBT6SKNvdOsp9TMRso67DvVWzNj/9g==
+  dependencies:
+    "@babel/runtime" "^7.22.15"
+    "@mui/base" "^5.0.0-beta.14"
+    "@mui/utils" "^5.14.8"
+    "@mui/x-date-pickers" "6.16.0"
+    "@mui/x-license-pro" "6.10.2"
+    clsx "^2.0.0"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.5"
+
+"@mui/x-date-pickers@6.16.0", "@mui/x-date-pickers@^6.16.0":
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/@mui/x-date-pickers/-/x-date-pickers-6.16.0.tgz#944440fabd9cdc5c704ccab7b8c44ebac75f15db"
   integrity sha512-5xN/OuVtcy/bX/Yx4cJrGWLmHTMTZkufhQMtInFOM8u93TJJSPwA7X86vQdl6OztYNyYKnEpxNKxSrxcDHfKFQ==
@@ -499,6 +513,14 @@
     clsx "^2.0.0"
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
+
+"@mui/x-license-pro@6.10.2":
+  version "6.10.2"
+  resolved "https://registry.yarnpkg.com/@mui/x-license-pro/-/x-license-pro-6.10.2.tgz#68b069214efb085f7f8c34b73d450743857e0aea"
+  integrity sha512-Baw3shilU+eHgU+QYKNPFUKvfS5rSyNJ98pQx02E0gKA22hWp/XAt88K1qUfUMPlkPpvg/uci6gviQSSLZkuKw==
+  dependencies:
+    "@babel/runtime" "^7.22.6"
+    "@mui/utils" "^5.13.7"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

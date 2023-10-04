@@ -1,18 +1,17 @@
 import CityCategory from "./FilterCategory/CityCategory"
 import MenuQuantityCustomer from "./FilterCategory/MenuQuantityCustomer"
 import PropertyType from "./FilterCategory/PropertyType"
-import TimeStartEnd from "./FilterCategory/TimeStartEnd"
 import PriceRange from "./FilterCategory/PriceRange"
-import Button  from "@mui/material/Button"
+import TimeTravel from "./FilterCategory/TimeTravel"
+
 const FilterRoom = () => {
   return (
-    <div className="flex justify-center m-0">
+    <div className="grid justify-between grid-cols-3 md:flex md:items-center flex-wrap m-0 pb-6">
       <PropertyType />
       <CityCategory />
-      <TimeStartEnd />
+      <TimeTravel />
       <MenuQuantityCustomer />
-      <PriceRange />
-      <Button variant="contained" className=" w-24 min-w-24 h-14 min-h-14 p-1 m-1">Search</Button> 
+      <PriceRange /> 
     </div>
   )
 }

@@ -45,7 +45,7 @@ export default function MultipleSelectCheckmarks() {
   console.log(personName);
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 200, minHeight:10 }}>
+      <FormControl sx={{ minWidth: 200, minHeight:10 }}>
         <InputLabel id="demo-multiple-checkbox-label">Loại phòng</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"

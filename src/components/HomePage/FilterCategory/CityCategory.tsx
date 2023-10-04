@@ -80,7 +80,7 @@ export default function BasicSelect() {
   console.log(city);
   
   return (
-    <Box sx={{ minWidth: 200,minHeight:10,margin:1, }}>
+    <Box sx={{ minWidth: 200, minHeight:10 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Tỉnh/Thành</InputLabel>
         <Select
@@ -90,14 +90,11 @@ export default function BasicSelect() {
           label="Tỉnh/Thành"
           onChange={handleChange}
         >
-          {/* <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem> */}
           {
             provinces.map((city,index)=><MenuItem key={`city-${index}`} value={city}>{city}</MenuItem>)
           }
         </Select>
       </FormControl>
-    </Box>
+     </Box>
   );
 }
