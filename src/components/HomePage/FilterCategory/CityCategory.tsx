@@ -4,6 +4,17 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 200,
+    },
+  },
+};
 const provinces = [
   'Hà Nội',
   'Hà Giang',
@@ -79,8 +90,7 @@ export default function BasicSelect() {
   console.log('city: ', city);
 
   return (
-    <Box sx={{ minWidth: 200, minHeight: 10 }}>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{minWidth: 200, width: 200}}>
         <InputLabel id="demo-simple-select-label">Tỉnh/Thành</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -88,6 +98,7 @@ export default function BasicSelect() {
           value={city}
           label="Tỉnh/Thành"
           onChange={handleChange}
+          MenuProps={MenuProps}
         >
           {provinces.map((city, index) => (
             <MenuItem key={`city-${index}`} value={city}>
@@ -96,6 +107,5 @@ export default function BasicSelect() {
           ))}
         </Select>
       </FormControl>
-    </Box>
   );
 }
