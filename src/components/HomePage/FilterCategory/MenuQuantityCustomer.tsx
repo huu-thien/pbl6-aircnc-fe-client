@@ -4,11 +4,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-interface MyComponentProps {
-  width: number;
-}
 
-const MenuQuantityCustomer: React.FC<MyComponentProps> = ({width}) => {
+const MenuQuantityCustomer = () => {
   const [quantityOld, setQuantityOld] = React.useState(0);
   const [quantityYoung, setQuantityYoung] = React.useState(0);
   const handleIncreaseOld = () => {
@@ -37,14 +34,15 @@ const MenuQuantityCustomer: React.FC<MyComponentProps> = ({width}) => {
   return (
     <div className="">
       <Button
+        sx={{ height: 60 }}
+        fullWidth
         variant="outlined"
         aria-controls={open ? 'account-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{ height: 56 , width: width, color:'#4F4F4F'}}
       >
-        Số khách:  {numberOfGuest} người
+        Số khách: {numberOfGuest} người
       </Button>
       <Menu
         className="rouned-lg"

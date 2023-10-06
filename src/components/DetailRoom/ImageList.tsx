@@ -72,9 +72,9 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 
 const ImageList = () => {
   return (
-    <div style={{ margin: '30px' }}>
+    <div className='rounded-md pb-6'>
       <ImageListMUI
-        sx={{ width: '102%', height: 600 }}
+        sx={{ height: 500 }}
         variant="quilted"
         cols={4}
         rowHeight={300}

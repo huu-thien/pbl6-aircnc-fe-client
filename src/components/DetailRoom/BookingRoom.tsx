@@ -1,51 +1,52 @@
-import MenuQuantityCustomer from "../HomePage/FilterCategory/MenuQuantityCustomer"
-import BookingTime from "./BookingRoom/BookingTime"
-import Button from "@mui/material/Button"
+import MenuQuantityCustomer from '../HomePage/FilterCategory/MenuQuantityCustomer';
+import BookingTime from './BookingRoom/BookingTime';
+import Button from '@mui/material/Button';
 import { Divider } from '@mui/material';
-const infoPriceRoom ={
+const infoPriceRoom = {
   priceRoomPerNight: 74,
   numberOfNights: 5,
   disCount: 10,
-  serviceCharge: 50
-}
+  serviceCharge: 50,
+};
 
 const BookingRoom = () => {
-  const price = infoPriceRoom.numberOfNights* infoPriceRoom.priceRoomPerNight;
+  const price = infoPriceRoom.numberOfNights * infoPriceRoom.priceRoomPerNight;
   const total = price - infoPriceRoom.disCount + infoPriceRoom.serviceCharge;
   return (
-    <div className='grid ' style={{border:'1px solid #000',borderRadius: '7px',background: '#F5F5F5'}}>
-      
-      <div className='grid mt-3 ml-5 mr-5 gap-5'>
-        <p style={{fontSize:'20px'}}>${infoPriceRoom.priceRoomPerNight}/đêm</p>
-        <div className="grid ">
-          <BookingTime/>
-          <MenuQuantityCustomer width={400} />
+    <div className="border shadow-xl rounded-xl">
+      <div className="grid p-5">
+        <p className='py-4 text-cyan-800 text-xl'>${infoPriceRoom.priceRoomPerNight}/đêm</p>
+        <div className="flex flex-col gap-5">
+          <BookingTime />
+          <MenuQuantityCustomer/>
         </div>
-        <Button variant="contained" style={{height:56}}> Đặt phòng</Button>
+        <Button variant="contained" sx={{ height: 56, mt:3 }}>
+          Đặt phòng
+        </Button>
       </div>
-      <div className="grid mt-7 ml-5 mr-5 mb-5 gap-2">
-        <div className="flex justify-between">
-          <p>${infoPriceRoom.priceRoomPerNight} x {infoPriceRoom.numberOfNights} đêm</p>
-          <p>{price}</p>
+      <div className="p-5">
+        <div className="flex justify-between py-3">
+          <p className='text-gray-500 font-thin'>
+            ${infoPriceRoom.priceRoomPerNight} x {infoPriceRoom.numberOfNights} đêm
+          </p>
+          <p className='text-gray-500 font-thin'>{price}</p>
         </div>
-        <div className="flex justify-between">
-          <p>Giảm giá cho thời gian ở dài hạn</p>
-          <p>-${infoPriceRoom.disCount}</p>
+        <div className="flex justify-between py-3">
+          <p className='text-gray-500 font-thin'>Giảm giá cho thời gian ở dài hạn</p>
+          <p className='text-gray-500 font-thin'>-${infoPriceRoom.disCount}</p>
         </div>
-        <div className="flex justify-between">
-          <p>Phí dịch vụ AirCnC</p>
-          <p>${infoPriceRoom.serviceCharge}</p>
+        <div className="flex justify-between py-3">
+          <p className='text-gray-500 font-thin'>Phí dịch vụ AirCnC</p>
+          <p className='text-gray-500 font-thin'>${infoPriceRoom.serviceCharge}</p>
         </div>
-        <Divider/>
-        <div className="flex justify-between" style={{fontSize:18}}>
-          <p>Tổng trước thuế </p>
-          <p>${total}</p>
+        <Divider />
+        <div className="flex justify-between py-3" style={{ fontSize: 18 }}>
+          <p className='text-gray-500 font-thin'>Tổng trước thuế </p>
+          <p className='text-gray-500 font-thin'>${total}</p>
         </div>
       </div>
-
-      
     </div>
-  )
-}
+  );
+};
 
-export default BookingRoom
+export default BookingRoom;

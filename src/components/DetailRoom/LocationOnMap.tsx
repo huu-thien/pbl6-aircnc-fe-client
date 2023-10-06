@@ -1,11 +1,10 @@
 
 const LocationOnMap = () => {
   return (
-    <div>
+    <div className="py-4">
       <h2>
         Nơi bạn sẽ đến
       </h2>
-      
     </div>
   )
 }

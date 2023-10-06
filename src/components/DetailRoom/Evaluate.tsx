@@ -23,19 +23,18 @@ const evaluate = [
 ]
 const Evaluate = () => {
   return (
-    <div >
+    <div className="pt-6">
       <h2 style={{fontSize:'18px',marginBottom:10} }>Đánh giá</h2>
-      <div className="grid grid-cols-2 gap-5 mr-64">
+      <div className="grid grid-cols-2 gap-5">
         {evaluate.map((prop,propIndex) =>(
           <div key={propIndex}>
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4 p-3">
               <Avatar alt={prop.alt} src={prop.src} />
-              <p style={{ marginTop: 7 }}>{prop.alt}</p>
+              <p >{prop.alt}</p>
             </div>
-            <p>{prop.content}</p>
+            <p className="font-thin text-gray-500 px-4 italic text-md">"{prop.content}"</p>
           </div>
-          ))}
-        
+          ))}  
       </div>
     </div>
   )

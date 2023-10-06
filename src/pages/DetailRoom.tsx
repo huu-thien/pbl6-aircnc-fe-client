@@ -10,10 +10,10 @@ import { Divider } from "@mui/material";
 
 const DetailRoom = () => {
   return (
-    <div className="py-10 px-5">
+    <div className="max-w-7xl mx-auto w-full py-8">
         <TitleRoom />
-        <ImageList />
-        <div className="flex justify-between mb-5">
+        <ImageList /> 
+        <div className="flex items-start justify-between mb-5">
           <div className="grid gap-28 mr-60">
             <IntroduceHost />
             <Divider/>
