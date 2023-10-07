@@ -62,21 +62,21 @@ const MenuQuantityCustomer = () => {
         <MenuItem>
           Số người lớn:
           <Button onClick={handleDecreaseOld}>
-            <RemoveCircleOutlineIcon sx={{ color: 'black', mr: 1 }} />
+            <RemoveCircleOutlineIcon sx={{ color: '#257b9a', mr: 1 }} />
           </Button>
           <p>{quantityOld}</p>
           <Button onClick={handleIncreaseOld}>
-            <AddCircleOutlineIcon sx={{ color: 'black', ml: 1 }} />
+            <AddCircleOutlineIcon sx={{ color: '#257b9a', ml: 1 }} />
           </Button>
         </MenuItem>
         <MenuItem>
           Số trẻ em:
           <Button onClick={handleDecreaseYoung}>
-            <RemoveCircleOutlineIcon sx={{ color: 'black', ml: 3.8, mr: 2 }} />
+            <RemoveCircleOutlineIcon sx={{ color: '#257b9a', ml: 3.8, mr: 2 }} />
           </Button>
           <p>{quantityYoung}</p>
           <Button onClick={handleIncreaseYoung}>
-            <AddCircleOutlineIcon sx={{ color: 'black', ml: 1 }} />
+            <AddCircleOutlineIcon sx={{ color: '#257b9a', ml: 1 }} />
           </Button>
         </MenuItem>
       </Menu>

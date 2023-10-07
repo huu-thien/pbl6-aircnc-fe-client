@@ -9,6 +9,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import { Link } from 'react-router-dom';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -87,7 +88,9 @@ const RoomItem = () => {
         />
         <div className="p-4">
           <div className="flex justify-between">
-            <h2 className="text-lg font-semibold">Hà Nội, Việt Nam</h2>
+            <Link to="/detail-room">
+              <h2 className="text-lg font-semibold hover:text-cyan-800">Hà Nội, Việt Nam</h2>
+            </Link>
             <span>
               <StarIcon sx={{ mr: 1, color: '#feb207' }} />
               4.93
@@ -100,6 +103,9 @@ const RoomItem = () => {
                 Review (123)
               </Link>
             </p>
+          </div>
+          <div className="cursor-pointer">
+            <FavoriteBorderIcon sx={{color: '#257b9a'}}/> 
           </div>
         </div>
       </Box>

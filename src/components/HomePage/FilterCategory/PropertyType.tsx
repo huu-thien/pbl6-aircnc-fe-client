@@ -18,17 +18,7 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Room',
-  'House',
-  'Apartment',
-  'Ralph Hubbard',
-  'Villa',
-  'HomeStay',
-  'Miriam Wagner',
-  'Hotel',
-  'Cabin',
-];
+const names = ['Room', 'House', 'Apartment', 'Ralph Hubbard', 'Villa', 'HomeStay', 'Miriam Wagner', 'Hotel', 'Cabin'];
 
 export default function MultipleSelectCheckmarks() {
   const [propertyType, setPropertyType] = React.useState<string[]>([]);
@@ -45,7 +35,7 @@ export default function MultipleSelectCheckmarks() {
   console.log(propertyType);
   return (
     <div>
-      <FormControl sx={{ minWidth: 200, minHeight:10 }}>
+      <FormControl sx={{ minWidth: 200, maxWidth: 200, minHeight: 12 }}>
         <InputLabel id="demo-multiple-checkbox-label">Loại phòng</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"

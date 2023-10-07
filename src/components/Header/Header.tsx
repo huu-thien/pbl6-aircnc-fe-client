@@ -21,7 +21,9 @@ const Header = () => {
     <header className="block h-[70px] sm:h-[80px] shadow-md fixed top-0 left-0 right-0 bg-white z-10">
       <div className="px-5 md:px-10">
         <div className="py-4 mx-auto w-full max-w-7xl flex items-center justify-between sm:h-full sm:py-0">
-          <img src={Logo} alt="logo" className="h-[80px] hidden sm:block" />
+          <Link to="/">
+            <img src={Logo} alt="logo" className="h-[80px] hidden sm:block" />
+          </Link>
           <div className="relative w-full xs:w-[50%] md:max-w-[400px] ">
             <TextField id="search-input" label="Search" variant="outlined" size="small" fullWidth />
             <IconButton sx={{ position: 'absolute', right: '5px' }}>

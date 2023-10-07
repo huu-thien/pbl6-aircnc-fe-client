@@ -16,69 +16,66 @@ const MenuProps = {
   },
 };
 const provinces = [
-  'Hà Nội',
-  'Hà Giang',
-  'Cao Bằng',
-  'Lào Cai',
-  'Điện Biên',
-  'Lai Châu',
-  'Sơn La',
-  'Yên Bái',
-  'Hoà Bình',
-  'Thanh Hóa',
-  'Nghệ An',
-  'Hà Tĩnh',
-  'Quảng Bình',
-  'Quảng Trị',
-  'Thừa Thiên-Huế',
-  'Đà Nẵng',
-  'Quảng Nam',
-  'Quảng Ngãi',
+  'An Giang',
+  'Bà Rịa',
+  'Bà Rịa-Vũng Tàu',
+  'Bạc Liêu',
+  'Bắc Giang',
+  'Bắc Ninh',
+  'Bến Tre',
   'Bình Định',
-  'Phú Yên',
-  'Khánh Hòa',
-  'Ninh Thuận',
-  'Bình Thuận',
-  'Kon Tum',
-  'Gia Lai',
+  'Bình Dương',
+  'Bình Phước',
+  'Cà Mau',
+  'Cao Bằng',
+  'Cần Thơ',
+  'Đà Nẵng',
   'Đắk Lắk',
   'Đắk Nông',
-  'Lâm Đồng',
-  'Bình Phước',
-  'Tây Ninh',
-  'Bình Dương',
-  'Đồng Nai',
-  'Bà Rịa-Vũng Tàu',
-  'TP. Hồ Chí Minh',
-  'Long An',
-  'Tiền Giang',
-  'Bến Tre',
-  'Trà Vinh',
-  'Vĩnh Long',
-  'Đồng Tháp',
-  'An Giang',
-  'Kiên Giang',
-  'Cần Thơ',
-  'Hậu Giang',
-  'Sóc Trăng',
-  'Bạc Liêu',
-  'Cà Mau',
+  'Điện Biên',
   'Đồng Bằng Sông Cửu Long',
-  'Bà Rịa',
-  'Sài Gòn',
-  'Bắc Ninh',
-  'Bắc Giang',
+  'Đồng Nai',
+  'Đồng Tháp',
+  'Gia Lai',
+  'Hà Giang',
+  'Hà Nội',
+  'Hà Tĩnh',
   'Hải Dương',
   'Hải Phòng',
+  'Hậu Giang',
+  'Hoà Bình',
+  'Hòa Bình',
   'Hưng Yên',
-  'Nam Định',
+  'Khánh Hòa',
+  'Kiên Giang',
+  'Kon Tum',
+  'Lai Châu',
+  'Lâm Đồng',
+  'Long An',
+  'Nghệ An',
   'Ninh Bình',
+  'Ninh Thuận',
+  'Phú Thọ',
+  'Phú Yên',
+  'Quảng Bình',
+  'Quảng Nam',
+  'Quảng Ngãi',
+  'Quảng Ninh',
+  'Quảng Trị',
+  'Sài Gòn',
+  'Sóc Trăng',
+  'Sơn La',
+  'Tây Ninh',
   'Thái Bình',
   'Thái Nguyên',
+  'Thanh Hóa',
+  'Thừa Thiên-Huế',
+  'Tiền Giang',
+  'TP. Hồ Chí Minh',
+  'Trà Vinh',
+  'Vĩnh Long',
   'Vĩnh Phúc',
-  'Phú Thọ',
-  'Quảng Ninh',
-  'Hòa Bình',
+  'Yên Bái',
 ];
 
 export default function BasicSelect() {
@@ -90,22 +87,22 @@ export default function BasicSelect() {
   console.log('city: ', city);
 
   return (
-      <FormControl fullWidth sx={{minWidth: 200, width: 200}}>
-        <InputLabel id="demo-simple-select-label">Tỉnh/Thành</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={city}
-          label="Tỉnh/Thành"
-          onChange={handleChange}
-          MenuProps={MenuProps}
-        >
-          {provinces.map((city, index) => (
-            <MenuItem key={`city-${index}`} value={city}>
-              {city}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <FormControl fullWidth sx={{ minWidth: 200, width: 200 }}>
+      <InputLabel id="demo-simple-select-label">Tỉnh/Thành</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={city}
+        label="Tỉnh/Thành"
+        onChange={handleChange}
+        MenuProps={MenuProps}
+      >
+        {provinces.map((city, index) => (
+          <MenuItem key={`city-${index}`} value={city}>
+            {city}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
