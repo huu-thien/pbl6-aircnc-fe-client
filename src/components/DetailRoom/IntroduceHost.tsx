@@ -1,6 +1,7 @@
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import StarIcon from '@mui/icons-material/Star';
+import { Link } from 'react-router-dom';
 
 const numberOfHostReviews = 20;
 const introduceOfHost =
@@ -18,7 +19,7 @@ const IntroduceHost = () => {
           <p className="pt-2">Chủ nhà NHS</p>
         </div>
         <Button variant="contained" sx={{ height: 50 }}>
-          Liên hệ với chủ nhà
+          <Link to="/host">Liên hệ với chủ nhà</Link>
         </Button>
       </div>
       <p className="font-thin text-gray-500 pt-2 italic">{introduceOfHost}</p>

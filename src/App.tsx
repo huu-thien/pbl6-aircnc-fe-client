@@ -9,6 +9,8 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import Home from './pages/Home';
 import Wishlist from './pages/Wishlist';
 import DetailRoom from './pages/DetailRoom';
+import HostInfo from './pages/HostInfo';
+import BecomeHost from './pages/BecomeHost';
 
 function App() {
   const theme = createTheme({
@@ -25,8 +27,10 @@ function App() {
 
         <Route path="" element={<AuthenticationRoute />}>
           <Route index element={<MainLayout page={<Home />} />} />
-          <Route path="/wishlist" element={<MainLayout page={<Wishlist />}/>} />
-          <Route path="/detail-room" element={<MainLayout page={<DetailRoom />}/>} />
+          <Route path="/wishlist" element={<MainLayout page={<Wishlist />} />} />
+          <Route path="/detail-room" element={<MainLayout page={<DetailRoom />} />} />
+          <Route path="/host" element={<MainLayout page={<HostInfo />} />} />
+          <Route path="/become-host" element={<MainLayout page={<BecomeHost />} />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />}></Route>

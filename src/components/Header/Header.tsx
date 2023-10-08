@@ -34,7 +34,7 @@ const Header = () => {
             <div className="hidden md:block">
               <Tooltip title="Trở nhà chủ nhà và kinh doanh" arrow>
                 <Button variant="contained" size="medium" endIcon={<GiteIcon />}>
-                  Become a host
+                  <Link to="/become-host">Become a host</Link>
                 </Button>
               </Tooltip>
             </div>
