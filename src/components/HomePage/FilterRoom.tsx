@@ -10,7 +10,7 @@ const FilterRoom = () => {
       <PropertyType />
       <CityCategory />
       <TimeTravel />
-      <MenuQuantityCustomer width={180} />
+      <MenuQuantityCustomer  />
       <PriceRange /> 
     </div>
   )
