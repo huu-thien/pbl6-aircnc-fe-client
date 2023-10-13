@@ -5,11 +5,10 @@ import ProfileHost from "@/components/HostInfo/ProfileHost"
 import { Divider } from "@mui/material"
 
 const HostInfo = () => {
-  
   return (
-    <div className="ml-10 mr-10 flex justify-between gap-32">
+    <div className="max-w-7xl mx-auto w-full px-4 py-8 flex gap-12">
       <ProfileHost/>
-      <div className="grid ">
+      <div className="grid">
         <IntroduceOfHost/>
         <Divider/>
         <CustomerReview/>

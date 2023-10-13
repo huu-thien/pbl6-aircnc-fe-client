@@ -6,7 +6,7 @@ import { Button, IconButton, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { initialValues, RegisterSchema } from '@/helpers/validate/RegisterValidate';
+import { initialValues, RegisterSchema } from '@/helpers/AuthenticateValidate/RegisterValidate';
 
 type PropsType = {
   toggleLoginRegister: () => void;
@@ -20,8 +20,8 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
   const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
   const handleFormSubmit = (values: RegisterData) => {
-    if(values.confirmPassword) {
-      delete values.confirmPassword
+    if (values.confirmPassword) {
+      delete values.confirmPassword;
     }
     console.log(values);
   };

@@ -1,42 +1,41 @@
-import { Box, Divider } from "@mui/material"
+import { Box, Divider } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 const informationHost = {
-    src:'https://astral.vn/wp-content/uploads/2023/05/anh-gai-xinh-lo-clip-169.jpg',
-    alt:'image of host',
-    name:'Ngọc',
-    numberOfReivews:'7',
-    joiningDate:'02/02/2022'
-}
+  src: 'https://astral.vn/wp-content/uploads/2023/05/anh-gai-xinh-lo-clip-169.jpg',
+  alt: 'image of host',
+  name: 'Kim Ngọc',
+  numberOfReivews: '7',
+  joiningDate: '02/02/2022',
+};
 const ProfileHost = () => {
   return (
     <Box
       sx={{
-        minWidth: 300,
-        height: 300,
-        backgroundColor: '#F8F8FF',
+        minWidth: 350,
+        height: `100%`,
         borderRadius: 3,
-        boxShadow: 13,
+        boxShadow: 4,
+        p: 2,
       }}
     >
-      <div className='grid grid-cols-2 m-2 gap-5'>
-        <div className=''>
-          <img
-            src={informationHost.src}
-            alt={informationHost.alt}
-            style={{ width: '150px', height: '150px' , margin:'5px',borderRadius:'50%'}}
-          />
-          <p className='ml-10 text-2xl'>{informationHost.name}</p>
+      <div className="flex gap-5">
+        <div className="">
+          <img src={informationHost.src} alt={informationHost.alt} className="w-[120px] h-[120px] rounded-full" />
+          <p className="text-center pt-4 text-xl text-cyan-700">{informationHost.name}</p>
         </div>
-        <div className='grid grid-cols-1'>
-
-          <p className='text-2xl'>{informationHost.numberOfReivews}</p>
-          <p className='font-thin -mt-3'>Đánh giá</p>
-          <Divider/>
-          <p className='text-2xl'>{informationHost.joiningDate}</p>
-          <p className='font-thin -mt-3'>Bắt đầu tham gia</p>
+        <div className="flex flex-col justify-between">
+          <p className="text-md text-gray-600">Đánh giá: {informationHost.numberOfReivews}</p>
+          <Divider />
+          <p className="text-md text-gray-600">
+            <span>Rating: 4.93 </span>
+            <StarIcon sx={{color: '#feb207'}}/>
+          </p>
+          <Divider />
+          <p className="text-gray-600">Bắt đầu tham gia: {informationHost.joiningDate}</p>
         </div>
       </div>
     </Box>
-  )
-}
+  );
+};
 
-export default ProfileHost
+export default ProfileHost;

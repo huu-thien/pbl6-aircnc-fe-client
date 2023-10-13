@@ -4,14 +4,12 @@ import { LoginData } from '@/shared/types';
 
 import { Button, Divider, IconButton, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import { Link, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ButtonLoginGoogle from '@/components/Authenticate/ButtonLoginGoogle';
-import { initialValues, LoginSchema } from '@/helpers/validate/LoginValidate';
+import { initialValues, LoginSchema } from '@/helpers/AuthenticateValidate/LoginValidate';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -144,17 +142,6 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
             </Snackbar>
             <Divider sx={{ mt: '8px', color: '#ff385c' }} />
             <ButtonLoginGoogle />
-            <Button
-              variant="outlined"
-              sx={{
-                width: '100%',
-                height: '50px',
-                mt: '20px ',
-              }}
-              startIcon={<FacebookIcon />}
-            >
-              Đăng nhập với Facebook
-            </Button>
           </div>
         </div>
       </div>
