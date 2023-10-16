@@ -7,11 +7,11 @@ import {
   Button,
   Checkbox,
   Chip,
+  FormHelperText,
   ImageListItem,
   MenuItem,
   OutlinedInput,
   Select,
-  SelectChangeEvent,
   TextField,
   useTheme,
 } from '@mui/material';
@@ -22,56 +22,46 @@ import ImageListMUI from '@mui/material/ImageList';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 import { GeneralSchema, generalInformation } from '@/helpers/BecomeHostValidate/GeneralInformValidate';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/BecomeHost';
 
 const InformationRoomAndPolicy: React.FC = () => {
-  const [utilities, setUtilities] = React.useState<string[]>([]);
+  const [utilities, ] = React.useState<string[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<FileObject[]>([]);
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
   const theme = useTheme();
-  const handleChangeUtilities = (event: SelectChangeEvent<typeof utilities>) => {
-    const {
-      target: { value },
-    } = event;
-    setUtilities(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-  const handleChangeAccordion = (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+  const handleChangeAccordion = (panel: string) => (_event: React.SyntheticEvent, newExpanded: boolean) => {
     setExpanded(newExpanded ? panel : false);
   };
   // Hàm kiểm tra xem một tệp đã tồn tại trong danh sách chưa
   const fileExists = (fileName: string): boolean => {
     return selectedFiles.some((file) => file.name === fileName);
   };
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      const selectedFileList = Array.from(files);
-      // Lọc ra các tệp mới không trùng tên
-      const newFiles: FileObject[] = selectedFileList.filter((file) => !fileExists(file.name));
-      if (newFiles.length > 0) {
-        // Thêm các tệp mới vào danh sách
-        setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...newFiles]);
-      }
-    }
-  };
-  const handleReset = () => {
-    setSelectedFiles([]);
-  };
+  
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const files = event.target.files;
+  //   if (files) {
+  //     const selectedFileList = Array.from(files);
+  //     // Lọc ra các tệp mới không trùng tên
+  //     const newFiles: FileObject[] = selectedFileList.filter((file) => !fileExists(file.name));
+  //     if (newFiles.length > 0) {
+  //       // Thêm các tệp mới vào danh sách
+  //       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...newFiles]);
+  //     }
+  //   }
+  // };
 
-  const handleSubmitbecomHost = (values) => {
+  const handleSubmitBecomeHost = (values: any) => {
     console.log(values);
   };
+
 
   return (
     <div className="py-8">
       <h2 className="text-center text-2xl text-cyan-700 pb-4">NHẬP CÁC THÔNG TIN VỀ PHÒNG, ĐIỀU KHOẢN VÀ CHÍNH SÁCH</h2>
       <div className="max-w-4xl mx-auto">
-        <Formik initialValues={generalInformation} onSubmit={handleSubmitbecomHost} validationSchema={GeneralSchema}>
-          {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => {
+        <Formik initialValues={generalInformation} onSubmit={handleSubmitBecomeHost} validationSchema={GeneralSchema}>
+          {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue }) => {
             return (
               <form onSubmit={handleSubmit} name="become-host" method="get">
                 <p className="text-xl py-3 text-cyan-700 uppercase">Thông tin tổng quan</p>
@@ -245,10 +235,12 @@ const InformationRoomAndPolicy: React.FC = () => {
                   <label htmlFor="utilities">Thêm tiện ích</label>
                   <Select
                     labelId="utilities"
-                    id="utilities"
+                    name="utilities"
                     multiple
-                    value={utilities}
-                    onChange={handleChangeUtilities}
+                    value={values.utilities}
+                    onChange={handleChange}
+                    error={!!touched.utilities && !!errors.utilities}
+                    onBlur={handleBlur}
                     input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                     renderValue={(selected) => (
                       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -265,11 +257,14 @@ const InformationRoomAndPolicy: React.FC = () => {
                   >
                     {listUtilities.map((utility) => (
                       <MenuItem key={utility} value={utility} style={getStyles(utility, utilities, theme)}>
-                        <Checkbox checked={utilities.indexOf(utility) > -1} />
+                        <Checkbox checked={values.utilities.includes(utility)} />
                         {utility}
                       </MenuItem>
                     ))}
                   </Select>
+                  {touched.utilities && errors.utilities && (
+                    <FormHelperText style={{color:'#D32F2F', marginLeft:'10px'}}>{errors.utilities}</FormHelperText>
+                  )}
                 </div>
                 <div className="mb-2">
                   <label htmlFor="pricePerNight" className="">
@@ -296,10 +291,11 @@ const InformationRoomAndPolicy: React.FC = () => {
                 <div>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="radio-buttons-group"
+                    defaultValue="flexible"
+                    name="policy"
+                    onChange={handleChange}
                   >
-                    <FormControlLabel value="female" control={<Radio />} label="Flexible" />
+                    <FormControlLabel value="flexible" control={<Radio />} label="Flexible" />
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChangeAccordion('panel1')}>
                       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                         <p className="text-cyan-700">Chính sách linh hoạt</p>
@@ -332,7 +328,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                         </div>
                       </AccordionDetails>
                     </Accordion>
-                    <FormControlLabel value="male" control={<Radio />} label="Strict" />
+                    <FormControlLabel value="strict" control={<Radio />} label="Strict" />
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChangeAccordion('panel2')}>
                       <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                         <p className="text-cyan-700">Chính sách nghiêm ngặt</p>
@@ -368,49 +364,73 @@ const InformationRoomAndPolicy: React.FC = () => {
                 </div>
                 <div className="py-8">
                   <p className="text-xl py-3 text-cyan-700 uppercase">THÊM ẢNH ĐỂ QUẢNG BÁ PHÒNG CỦA BẠN</p>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    multiple
-                    id="contained-button-file"
-                    style={{ display: 'none' }}
-                  />
-                  {/* <button onClick={handleUpload}>Upload Images</button> */}
-                  <label htmlFor="contained-button-file">
+                  <Form>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>{
+                        const files = e.target.files;
+                        if (files) {
+                          const selectedFileList = Array.from(files);
+                          // Lọc ra các tệp mới không trùng tên
+                          const newFiles: FileObject[] = selectedFileList.filter((file) => !fileExists(file.name));
+                          
+                          if (newFiles.length > 0) {
+                            // Thêm các tệp mới vào danh sách
+                            setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...newFiles]);
+                            // console.log(selectedFiles);
+                            setFieldValue('listImage',[...selectedFiles,...newFiles]);
+                          }  
+                        }
+                      }}
+                      
+                      multiple
+                      id="listImage"
+                      style={{ display: 'none' }}
+                    />
+                    {/* <button onClick={handleUpload}>Upload Images</button> */}
+                    <label htmlFor="listImage">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        component="span"
+                        startIcon={<CloudUploadIcon />}
+                        size="small"
+                      >
+                        Upload Images
+                      </Button>
+                    </label>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       color="primary"
-                      component="span"
-                      startIcon={<CloudUploadIcon />}
+                      onClick={()=>{
+                        setSelectedFiles([]);
+                        setFieldValue('listImage',[]);
+                      }}
+                      style={{ marginLeft: '10px' }}
                       size="small"
                     >
-                      Upload Images
+                      Reset
                     </Button>
-                  </label>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={handleReset}
-                    style={{ marginLeft: '10px' }}
-                    size="small"
-                  >
-                    Reset
-                  </Button>
-                  <div>
-                    {selectedFiles.length > 0 && (
-                      <div>
-                        <h3>Selected Images:</h3>
-                        <ImageListMUI sx={{ height: 700 }} variant="quilted" cols={2} rowHeight={800}>
-                          {selectedFiles.map((file, index) => (
-                            <ImageListItem key={index}>
-                              <img src={URL.createObjectURL(file)} alt={`Image ${index}`} loading="lazy" />
-                            </ImageListItem>
-                          ))}
-                        </ImageListMUI>
-                      </div>
+                    {errors.listImage && touched.listImage && (
+                      <FormHelperText style={{color:'#D32F2F', marginLeft:'10px'}}>Ít nhất 4 ảnh</FormHelperText>
                     )}
-                  </div>
+                    <div>
+                      {selectedFiles.length > 0 && (
+                        <div>
+                          <h3>Selected Images:</h3>
+                          <ImageListMUI sx={{ height: 700 }} variant="quilted" cols={2} rowHeight={800}>
+                            {selectedFiles.map((file, index) => (
+                              <ImageListItem key={index}>
+                                <img src={URL.createObjectURL(file)} alt={`Image ${index}`} loading="lazy" />
+                              </ImageListItem>
+                            ))}
+                          </ImageListMUI>
+                        </div>
+                      )}
+                    </div>
+                    
+                  </Form>
                 </div>
                 <Button type="submit" variant="contained" color="primary">
                   Bắt đầu cho thuê

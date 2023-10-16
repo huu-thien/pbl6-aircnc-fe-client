@@ -9,9 +9,16 @@ const generalInformation = {
   quantityBedRooms: '',
   quantityBed: '',
   quantityBathRooms: '',
-  utilities: '',
+  utilities: [] as string[],
   pricePerNight: '',
-  policy: ''
+  policy: 'flexible',
+  listImage: [
+    {
+      name:'',
+      type:'',
+      size:'',
+    }
+  ]
 };
 const GeneralSchema = yup.object().shape({
   roomName: yup.string().required('Tên phòng là bắt buộc'),
@@ -28,9 +35,10 @@ const GeneralSchema = yup.object().shape({
     .number()
     .min(0, 'Số lượng phòng phải lớn hơn hoặc bằng 0')
     .required('Số lượng phòng tắm là bắt buộc'),
-  // utilities: yup.array().min(0, 'Tiện ích phải nhiều hơn 2').required('Tiện ích là bắt buộc'),
+  utilities: yup.array().min(2, 'Tiện ích phải nhiều hơn 2').required('Tiện ích là bắt buộc'),
   pricePerNight: yup.number().min(0, 'Giá tiền phải lớn hơn hoặc bằng 0').required('Giá tiền là bắt buộc'),
-  // policy: yup.string().required('')
+  listImage: yup.array().min(4, 'Ảnh phải nhiều hơn 4').required('Ảnh là bắt buộc'),
+  // policy: yup.string().required('Vui lòng chọn chính sách')
 });
 
 export { generalInformation, GeneralSchema };
