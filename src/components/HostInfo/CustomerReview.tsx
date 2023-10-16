@@ -1,5 +1,5 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
+import { useState } from 'react';
 
 const customersReview = [
   {
@@ -63,65 +63,57 @@ const CustomerReview = () => {
   };
   const firstThreeCustomersReiew = customersReview.slice(0, 3);
   return (
-    <div className="py-4">
-      <h2 className="font-semibold text-2xl text-cyan-700">Đánh giá về Ngọc</h2>
+    <div className='py-4'>
+      <h2 className='font-semibold text-2xl text-cyan-700'>Đánh giá về Ngọc</h2>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className='grid grid-cols-3 gap-4'>
         {firstThreeCustomersReiew.map((customerReview, index) => (
-          <div
-            className="shadow-md p-4 rounded-lg"
-            key={index}
-          >
-            <div className="m-2">
-              <div className="flex gap-4 items-center">
-                <img
-                  src={customerReview.src}
-                  alt={customerReview.alt}
-                  className='w-[70px] h-[70px] rounded-full'
-                />
-                <div className="">
-                  <p className="font-semibold">{customerReview.name}</p>
-                  <p className="font-thin text-gray-400 text-xs">{customerReview.dateReivew}</p>
+          <div className='shadow-md p-4 rounded-lg' key={index}>
+            <div className='m-2'>
+              <div className='flex gap-4 items-center'>
+                <img src={customerReview.src} alt={customerReview.alt} className='w-[70px] h-[70px] rounded-full' />
+                <div className=''>
+                  <p className='font-semibold'>{customerReview.name}</p>
+                  <p className='font-thin text-gray-400 text-xs'>{customerReview.dateReivew}</p>
                 </div>
               </div>
-              <p className="font-light text-justify text-sm text-gray-500 pt-4">"{customerReview.contentReview}"</p>
+              <p className='font-light text-justify text-sm text-gray-500 pt-4'>"{customerReview.contentReview}"</p>
             </div>
           </div>
         ))}
       </div>
-      <div className="py-4">
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <div className='py-4'>
+        <Button variant='outlined' color='primary' onClick={handleClickOpen}>
           Hiển thị thêm đánh giá
         </Button>
-        <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
-          <DialogActions className="">
-            <Button onClick={handleClose} color="primary">
+        <Dialog open={open} onClose={handleClose} maxWidth='xs' fullWidth>
+          <DialogActions className=''>
+            <Button onClick={handleClose} color='primary'>
               Đóng
             </Button>
           </DialogActions>
-          <h2 className="text-center font-medium text-xl">Tất cả đánh giá</h2>
+          <h2 className='text-center font-medium text-xl'>Tất cả đánh giá</h2>
           <DialogContent>
-            <div className="">
+            <div className=''>
               {customersReview.map((customerReview, index) => (
-                <div
-                className="shadow-md p-4 rounded-lg"
-                key={index}
-              >
-                <div className="m-2">
-                  <div className="flex gap-4 items-center">
-                    <img
-                      src={customerReview.src}
-                      alt={customerReview.alt}
-                      className='w-[70px] h-[70px] rounded-full'
-                    />
-                    <div className="">
-                      <p className="font-semibold">{customerReview.name}</p>
-                      <p className="font-thin text-gray-400 text-xs">{customerReview.dateReivew}</p>
+                <div className='shadow-md p-4 rounded-lg' key={index}>
+                  <div className='m-2'>
+                    <div className='flex gap-4 items-center'>
+                      <img
+                        src={customerReview.src}
+                        alt={customerReview.alt}
+                        className='w-[70px] h-[70px] rounded-full'
+                      />
+                      <div className=''>
+                        <p className='font-semibold'>{customerReview.name}</p>
+                        <p className='font-thin text-gray-400 text-xs'>{customerReview.dateReivew}</p>
+                      </div>
                     </div>
+                    <p className='font-light text-justify text-sm text-gray-500 pt-4'>
+                      "{customerReview.contentReview}"
+                    </p>
                   </div>
-                  <p className="font-light text-justify text-sm text-gray-500 pt-4">"{customerReview.contentReview}"</p>
                 </div>
-              </div>
               ))}
             </div>
           </DialogContent>

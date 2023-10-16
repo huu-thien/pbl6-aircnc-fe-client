@@ -19,20 +19,20 @@ function App() {
     },
   });
   return (
-    <div className="">
+    <div className=''>
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="" element={<GuestRoute />}>
-            <Route path="/authenticate" element={<Authenticate />} />
+          <Route path='' element={<GuestRoute />}>
+            <Route path='/authenticate' element={<Authenticate />} />
           </Route>
-          <Route path="" element={<AuthenticationRoute />}>
+          <Route path='' element={<AuthenticationRoute />}>
             <Route index element={<MainLayout page={<Home />} />} />
-            <Route path="/wishlist" element={<MainLayout page={<Wishlist />} />} />
-            <Route path="/detail-room" element={<MainLayout page={<DetailRoom />} />} />
-            <Route path="/host" element={<MainLayout page={<HostInfo />} />} />
-            <Route path="/become-host" element={<MainLayout page={<BecomeHost />} />} />
+            <Route path='/wishlist' element={<MainLayout page={<Wishlist />} />} />
+            <Route path='/detail-room' element={<MainLayout page={<DetailRoom />} />} />
+            <Route path='/host' element={<MainLayout page={<HostInfo />} />} />
+            <Route path='/become-host' element={<MainLayout page={<BecomeHost />} />} />
           </Route>
-          <Route path="*" element={<PageNotFound />}></Route>
+          <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
       </ThemeProvider>
     </div>

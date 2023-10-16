@@ -30,21 +30,21 @@ const PriceRange = () => {
   console.log(value);
 
   return (
-    <div className="">
+    <div className=''>
       <Button
         sx={{ height: 60, minWidth: 300 }}
         fullWidth
-        variant="outlined"
+        variant='outlined'
         aria-controls={open ? 'account-menu' : undefined}
-        aria-haspopup="true"
+        aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClickMenu}
       >
         Mức giá: từ {value[0]} đến {value[1]} triệu
       </Button>
       <Menu
-        className="rouned-lg"
-        id="account-menu"
+        className='rouned-lg'
+        id='account-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleCloseMenu}
@@ -57,20 +57,20 @@ const PriceRange = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem className="flex gap-4 pb-12">
+        <MenuItem className='flex gap-4 pb-12'>
           <TextField
             disabled
-            id="standard-basic"
-            label="Từ"
-            variant="standard"
+            id='standard-basic'
+            label='Từ'
+            variant='standard'
             sx={{ width: 120, pb: 2 }}
             value={`${value[0]} triệu`}
           />
           <TextField
             disabled
-            id="standard-basic"
-            label="Đến"
-            variant="standard"
+            id='standard-basic'
+            label='Đến'
+            variant='standard'
             sx={{ width: 120, pb: 2 }}
             value={`${value[1]} triệu`}
           />
@@ -82,13 +82,13 @@ const PriceRange = () => {
               value={value}
               onChange={handleChangeRange}
               step={0.5}
-              valueLabelDisplay="auto"
+              valueLabelDisplay='auto'
               // getAriaValueText={valuetext}
             />
           </Box>
         </MenuItem>
         <MenuItem onClick={handleChangePrice}>
-          <p className="text-cyan-700">Lớn hơn 100 triệu</p>
+          <p className='text-cyan-700'>Lớn hơn 100 triệu</p>
         </MenuItem>
       </Menu>
     </div>

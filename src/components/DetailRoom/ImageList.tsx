@@ -64,33 +64,21 @@ const itemData = [
 function srcset(image: string, size: number, rows = 1, cols = 1) {
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
+    srcSet: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`,
   };
 }
 
 const ImageList = () => {
   return (
     <div className='rounded-md pb-6'>
-      <ImageListMUI
-        sx={{ height: 500 }}
-        variant="quilted"
-        cols={4}
-        rowHeight={300}
-      >
+      <ImageListMUI sx={{ height: 500 }} variant='quilted' cols={4} rowHeight={300}>
         {itemData.map((item) => (
           <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
-            <img
-              {...srcset(item.img, 121, item.rows, item.cols)}
-              alt={item.title}
-              loading="lazy"
-            />
+            <img {...srcset(item.img, 121, item.rows, item.cols)} alt={item.title} loading='lazy' />
           </ImageListItem>
         ))}
       </ImageListMUI>
     </div>
-    
   );
-}
-export default ImageList
+};
+export default ImageList;

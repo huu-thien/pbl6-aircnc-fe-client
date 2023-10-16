@@ -18,20 +18,20 @@ const ProfileHost = () => {
         p: 2,
       }}
     >
-      <div className="flex gap-5">
-        <div className="">
-          <img src={informationHost.src} alt={informationHost.alt} className="w-[120px] h-[120px] rounded-full" />
-          <p className="text-center pt-4 text-xl text-cyan-700">{informationHost.name}</p>
+      <div className='flex gap-5'>
+        <div className=''>
+          <img src={informationHost.src} alt={informationHost.alt} className='w-[120px] h-[120px] rounded-full' />
+          <p className='text-center pt-4 text-xl text-cyan-700'>{informationHost.name}</p>
         </div>
-        <div className="flex flex-col justify-between">
-          <p className="text-md text-gray-600">Đánh giá: {informationHost.numberOfReivews}</p>
+        <div className='flex flex-col justify-between'>
+          <p className='text-md text-gray-600'>Đánh giá: {informationHost.numberOfReivews}</p>
           <Divider />
-          <p className="text-md text-gray-600">
+          <p className='text-md text-gray-600'>
             <span>Rating: 4.93 </span>
-            <StarIcon sx={{color: '#feb207'}}/>
+            <StarIcon sx={{ color: '#feb207' }} />
           </p>
           <Divider />
-          <p className="text-gray-600">Bắt đầu tham gia: {informationHost.joiningDate}</p>
+          <p className='text-gray-600'>Bắt đầu tham gia: {informationHost.joiningDate}</p>
         </div>
       </div>
     </Box>

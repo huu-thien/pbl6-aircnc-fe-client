@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { useState } from 'react';
+import { Button, Dialog, DialogContent, DialogActions } from '@mui/material';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -14,28 +14,18 @@ function App() {
 
   return (
     <div>
-      
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
         Xem tất cả
       </Button>
-      <Dialog 
-        open={open} 
-        onClose={handleClose}
-        maxWidth="md"
-        fullWidth
-        >
+      <Dialog open={open} onClose={handleClose} maxWidth='md' fullWidth>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color='primary'>
             Đóng
           </Button>
         </DialogActions>
         <DialogContent>
-          <div className=''>
-
-          </div>
-
+          <div className=''></div>
         </DialogContent>
-        
       </Dialog>
     </div>
   );

@@ -40,13 +40,13 @@ const BookingTime = () => {
   if (yearStart != 0) console.log(StartTime);
   if (yearEnd != 0) console.log(EndTime);
   return (
-    <div className="flex gap-2">
+    <div className='flex gap-2'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
-          <DatePicker label="Ngày đi" onChange={handleDateStartChange} />
+          <DatePicker label='Ngày đi' onChange={handleDateStartChange} />
         </DemoContainer>
         <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
-          <DatePicker label="Ngày về" onChange={handleDateEndChange} />
+          <DatePicker label='Ngày về' onChange={handleDateEndChange} />
         </DemoContainer>
       </LocalizationProvider>
     </div>

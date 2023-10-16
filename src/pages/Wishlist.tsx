@@ -4,7 +4,7 @@ const WishList = () => {
   const user = false;
   return (
     <div>
-      <div>{user ? <p>This is wishlist page</p> : <Navigate to="/authenticate" />}</div>
+      <div>{user ? <p>This is wishlist page</p> : <Navigate to='/authenticate' />}</div>
     </div>
   );
 };

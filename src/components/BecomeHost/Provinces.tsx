@@ -86,13 +86,13 @@ function Provinces() {
   console.log('city: ', city);
 
   return (
-    <FormControl sx={{ width:410, height:30, ml:1 }}>
-      <InputLabel id="demo-simple-select-label" >Tỉnh/ thành phố</InputLabel>
+    <FormControl sx={{ width: 410, height: 30, ml: 1 }}>
+      <InputLabel id='demo-simple-select-label'>Tỉnh/ thành phố</InputLabel>
       <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+        labelId='demo-simple-select-label'
+        id='demo-simple-select'
         value={city}
-        label="Tỉnh/thành phố"
+        label='Tỉnh/thành phố'
         onChange={handleChange}
         MenuProps={MenuProps}
       >

@@ -63,10 +63,10 @@ const InformationRoomAndPolicy: React.FC = () => {
         <Formik initialValues={generalInformation} onSubmit={handleSubmitBecomeHost} validationSchema={GeneralSchema}>
           {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue }) => {
             return (
-              <form onSubmit={handleSubmit} name="become-host" method="get">
-                <p className="text-xl py-3 text-cyan-700 uppercase">Thông tin tổng quan</p>
-                <div className="mb-2">
-                  <label htmlFor="roomName" className="">
+              <form onSubmit={handleSubmit} name='become-host' method='get'>
+                <p className='text-xl py-3 text-cyan-700 uppercase'>Thông tin tổng quan</p>
+                <div className='mb-2'>
+                  <label htmlFor='roomName' className=''>
                     Tên phòng
                   </label>
                   <TextField
@@ -75,9 +75,9 @@ const InformationRoomAndPolicy: React.FC = () => {
                       marginTop: '10px',
                     }}
                     fullWidth
-                    id="roomName"
-                    label="Nhập tên phòng"
-                    variant="outlined"
+                    id='roomName'
+                    label='Nhập tên phòng'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.roomName}
@@ -85,8 +85,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.roomName && errors.roomName}
                   />
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="description" className="">
+                <div className='mb-2'>
+                  <label htmlFor='description' className=''>
                     Mô tả phòng
                   </label>
                   <TextField
@@ -95,9 +95,9 @@ const InformationRoomAndPolicy: React.FC = () => {
                       marginTop: '10px',
                     }}
                     fullWidth
-                    id="description"
-                    label="Nhập mô tả phòng"
-                    variant="outlined"
+                    id='description'
+                    label='Nhập mô tả phòng'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.description}
@@ -105,8 +105,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.description && errors.description}
                   />
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="address" className="">
+                <div className='mb-2'>
+                  <label htmlFor='address' className=''>
                     Địa chỉ
                   </label>
                   <TextField
@@ -115,9 +115,9 @@ const InformationRoomAndPolicy: React.FC = () => {
                       marginTop: '10px',
                     }}
                     fullWidth
-                    id="address"
-                    label="Nhập địa chỉ phòng"
-                    variant="outlined"
+                    id='address'
+                    label='Nhập địa chỉ phòng'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.address}
@@ -125,9 +125,9 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.address && errors.address}
                   />
                 </div>
-                <p className="text-xl py-3 text-cyan-700 uppercase">Thông tin chi tiết</p>
-                <div className="mb-2">
-                  <label htmlFor="quantityOld" className="">
+                <p className='text-xl py-3 text-cyan-700 uppercase'>Thông tin chi tiết</p>
+                <div className='mb-2'>
+                  <label htmlFor='quantityOld' className=''>
                     Số lượng người lớn tối đa
                   </label>
                   <TextField
@@ -135,11 +135,11 @@ const InformationRoomAndPolicy: React.FC = () => {
                       fontFamily: 'Lexend',
                       marginTop: '10px',
                     }}
-                    type="number"
+                    type='number'
                     fullWidth
-                    id="quantityOld"
-                    label="Nhập số lượng người lớn tối đa"
-                    variant="outlined"
+                    id='quantityOld'
+                    label='Nhập số lượng người lớn tối đa'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.quantityOld}
@@ -147,8 +147,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.quantityOld && errors.quantityOld}
                   />
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="quantityChild" className="">
+                <div className='mb-2'>
+                  <label htmlFor='quantityChild' className=''>
                     Số lượng trẻ em tối đa
                   </label>
                   <TextField
@@ -156,11 +156,11 @@ const InformationRoomAndPolicy: React.FC = () => {
                       fontFamily: 'Lexend',
                       marginTop: '10px',
                     }}
-                    type="number"
+                    type='number'
                     fullWidth
-                    id="quantityChild"
-                    label="Nhập số lượng người lớn tối đa"
-                    variant="outlined"
+                    id='quantityChild'
+                    label='Nhập số lượng người lớn tối đa'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.quantityChild}
@@ -168,8 +168,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.quantityChild && errors.quantityChild}
                   />
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="quantityBedRooms" className="">
+                <div className='mb-2'>
+                  <label htmlFor='quantityBedRooms' className=''>
                     Số lượng phòng ngủ
                   </label>
                   <TextField
@@ -177,11 +177,11 @@ const InformationRoomAndPolicy: React.FC = () => {
                       fontFamily: 'Lexend',
                       marginTop: '10px',
                     }}
-                    type="number"
+                    type='number'
                     fullWidth
-                    id="quantityBedRooms"
-                    label="Nhập số lượng phòng ngủ"
-                    variant="outlined"
+                    id='quantityBedRooms'
+                    label='Nhập số lượng phòng ngủ'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.quantityBedRooms}
@@ -189,8 +189,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.quantityBedRooms && errors.quantityBedRooms}
                   />
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="quantityBed" className="">
+                <div className='mb-2'>
+                  <label htmlFor='quantityBed' className=''>
                     Số lượng giường
                   </label>
                   <TextField
@@ -198,11 +198,11 @@ const InformationRoomAndPolicy: React.FC = () => {
                       fontFamily: 'Lexend',
                       marginTop: '10px',
                     }}
-                    type="number"
+                    type='number'
                     fullWidth
-                    id="quantityBed"
-                    label="Nhập số lượng giường"
-                    variant="outlined"
+                    id='quantityBed'
+                    label='Nhập số lượng giường'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.quantityBed}
@@ -210,8 +210,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.quantityBed && errors.quantityBed}
                   />
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="quantityBathRooms" className="">
+                <div className='mb-2'>
+                  <label htmlFor='quantityBathRooms' className=''>
                     Số lượng phòng tắm
                   </label>
                   <TextField
@@ -219,11 +219,11 @@ const InformationRoomAndPolicy: React.FC = () => {
                       fontFamily: 'Lexend',
                       marginTop: '10px',
                     }}
-                    type="number"
+                    type='number'
                     fullWidth
-                    id="quantityBathRooms"
-                    label="Nhập số lượng phòng tắm"
-                    variant="outlined"
+                    id='quantityBathRooms'
+                    label='Nhập số lượng phòng tắm'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.quantityBathRooms}
@@ -231,8 +231,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.quantityBathRooms && errors.quantityBathRooms}
                   />
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="utilities">Thêm tiện ích</label>
+                <div className='mb-2'>
+                  <label htmlFor='utilities'>Thêm tiện ích</label>
                   <Select
                     labelId="utilities"
                     name="utilities"
@@ -266,8 +266,8 @@ const InformationRoomAndPolicy: React.FC = () => {
                     <FormHelperText style={{color:'#D32F2F', marginLeft:'10px'}}>{errors.utilities}</FormHelperText>
                   )}
                 </div>
-                <div className="mb-2">
-                  <label htmlFor="pricePerNight" className="">
+                <div className='mb-2'>
+                  <label htmlFor='pricePerNight' className=''>
                     Giá phòng 1 đêm
                   </label>
                   <TextField
@@ -275,11 +275,11 @@ const InformationRoomAndPolicy: React.FC = () => {
                       fontFamily: 'Lexend',
                       marginTop: '10px',
                     }}
-                    type="number"
+                    type='number'
                     fullWidth
-                    id="pricePerNight"
-                    label="Nhập giá tiền / đêm"
-                    variant="outlined"
+                    id='pricePerNight'
+                    label='Nhập giá tiền / đêm'
+                    variant='outlined'
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.pricePerNight}
@@ -287,7 +287,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.pricePerNight && errors.pricePerNight}
                   />
                 </div>
-                <p className="text-xl py-3 text-cyan-700 uppercase">Chính sách & Điều khoản</p>
+                <p className='text-xl py-3 text-cyan-700 uppercase'>Chính sách & Điều khoản</p>
                 <div>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
@@ -297,32 +297,32 @@ const InformationRoomAndPolicy: React.FC = () => {
                   >
                     <FormControlLabel value="flexible" control={<Radio />} label="Flexible" />
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChangeAccordion('panel1')}>
-                      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <p className="text-cyan-700">Chính sách linh hoạt</p>
+                      <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
+                        <p className='text-cyan-700'>Chính sách linh hoạt</p>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <p className="text-gray-600 font-thin text-sm">
+                        <p className='text-gray-600 font-thin text-sm'>
                           Người thuê có thể hủy phòng trong 48h trước khi checkin và được hoàn trả 100% tiền đặt phòng.
                           Nếu sau thời gian đó thì bên cho thuê được trả tiền cho mỗi đêm đã ở và đêm tiếp theo. Cụ thể
                           như sau:
                         </p>
-                        <p className="text-gray-600 font-thin text-sm">
+                        <p className='text-gray-600 font-thin text-sm'>
                           - Nếu người thuê chưa ở đêm nào thì tính tiền 1 đêm (không tính chi phí dọn dẹp)
                         </p>
-                        <p className="text-gray-600 font-thin text-sm">
+                        <p className='text-gray-600 font-thin text-sm'>
                           - Đã ở ⅗ đêm thì tính ⅘ đêm (có tính chi phsi dọn dẹp)
                         </p>
-                        <div className="pt-4">
-                          <p className="text-sm text-cyan-700 font-medium">
+                        <div className='pt-4'>
+                          <p className='text-sm text-cyan-700 font-medium'>
                             Dành cho người cho thuê, áp dụng cho toàn hệ thống
                           </p>
-                          <p className="text-gray-600 font-thin text-sm">
+                          <p className='text-gray-600 font-thin text-sm'>
                             - Nếu hủy phòng trong vòng 48h, thì bị phạt 50% tổng tiền của các đêm (ko tính tiền hoa hồng
                             của hệ thống và tiền vệ sinh)
                           </p>
-                          <p className="text-gray-600 font-thin text-sm">- Nếu từ 48h đến 14 ngày, bị phạt 25%</p>
-                          <p className="text-gray-600 font-thin text-sm">- Trên 14 ngày, phạt 10%</p>
-                          <p className="text-gray-600 font-thin text-sm">
+                          <p className='text-gray-600 font-thin text-sm'>- Nếu từ 48h đến 14 ngày, bị phạt 25%</p>
+                          <p className='text-gray-600 font-thin text-sm'>- Trên 14 ngày, phạt 10%</p>
+                          <p className='text-gray-600 font-thin text-sm'>
                             - Nếu có lý do chính đáng: thiên tai, dịch bệnh thì không bị phạt
                           </p>
                         </div>
@@ -330,31 +330,31 @@ const InformationRoomAndPolicy: React.FC = () => {
                     </Accordion>
                     <FormControlLabel value="strict" control={<Radio />} label="Strict" />
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChangeAccordion('panel2')}>
-                      <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                        <p className="text-cyan-700">Chính sách nghiêm ngặt</p>
+                      <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
+                        <p className='text-cyan-700'>Chính sách nghiêm ngặt</p>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <p className="text-gray-600 font-thin text-sm">
+                        <p className='text-gray-600 font-thin text-sm'>
                           Người thuê có thể hủy phòng trước 5 ngày và được hoàn trả 100% tiền đặt phòng. Nếu sau thời
                           gian đó thì bên cho thuê được trả tiền cho mỗi đêm đã ở + 50% các đêm chưa ở. Ví dụ:
                         </p>
-                        <p className="text-gray-600 font-thin text-sm">
+                        <p className='text-gray-600 font-thin text-sm'>
                           - Nếu chưa ở đêm nào thì được tính tiền 2.5 đêm
                         </p>
-                        <p className="text-gray-600 font-thin text-sm">
+                        <p className='text-gray-600 font-thin text-sm'>
                           - Nếu đã ở 2 đêm thì được tính: 2 + 50% * 3 = 3.5 đêm
                         </p>
-                        <div className="pt-4">
-                          <p className="text-sm text-cyan-700 font-medium">
+                        <div className='pt-4'>
+                          <p className='text-sm text-cyan-700 font-medium'>
                             Dành cho người cho thuê, áp dụng cho toàn hệ thống
                           </p>
-                          <p className="text-gray-600 font-thin text-sm">
+                          <p className='text-gray-600 font-thin text-sm'>
                             - Nếu hủy phòng trong vòng 48h, thì bị phạt 50% tổng tiền của các đêm (không tính tiền hoa
                             hồng của hệ thống và tiền vệ sinh)
                           </p>
-                          <p className="text-gray-600 font-thin text-sm">- Nếu từ 48h đến 14 ngày, bị phạt 25%</p>
-                          <p className="text-gray-600 font-thin text-sm">- Trên 14 ngày, phạt 10%</p>
-                          <p className="text-gray-600 font-thin text-sm">
+                          <p className='text-gray-600 font-thin text-sm'>- Nếu từ 48h đến 14 ngày, bị phạt 25%</p>
+                          <p className='text-gray-600 font-thin text-sm'>- Trên 14 ngày, phạt 10%</p>
+                          <p className='text-gray-600 font-thin text-sm'>
                             - Nếu có lý do chính đáng: thiên tai, dịch bệnh thì không bị phạt
                           </p>
                         </div>
@@ -409,6 +409,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                       }}
                       style={{ marginLeft: '10px' }}
                       size="small"
+
                     >
                       Reset
                     </Button>
@@ -432,7 +433,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                     
                   </Form>
                 </div>
-                <Button type="submit" variant="contained" color="primary">
+                <Button type='submit' variant='contained' color='primary'>
                   Bắt đầu cho thuê
                 </Button>
               </form>

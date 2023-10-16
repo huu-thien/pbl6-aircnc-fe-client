@@ -18,30 +18,30 @@ const Header = () => {
     setAnchorEl(null);
   };
   return (
-    <header className="block h-[70px] sm:h-[80px] shadow-md fixed top-0 left-0 right-0 bg-white z-10">
-      <div className="px-5 md:px-10">
-        <div className="py-4 mx-auto w-full max-w-7xl flex items-center justify-between sm:h-full sm:py-0">
-          <Link to="/">
-            <img src={Logo} alt="logo" className="h-[80px] hidden sm:block" />
+    <header className='block h-[70px] sm:h-[80px] shadow-md fixed top-0 left-0 right-0 bg-white z-10'>
+      <div className='px-5 md:px-10'>
+        <div className='py-4 mx-auto w-full max-w-7xl flex items-center justify-between sm:h-full sm:py-0'>
+          <Link to='/'>
+            <img src={Logo} alt='logo' className='h-[80px] hidden sm:block' />
           </Link>
-          <div className="relative w-full xs:w-[50%] md:max-w-[400px] ">
-            <TextField id="search-input" label="Search" variant="outlined" size="small" fullWidth />
+          <div className='relative w-full xs:w-[50%] md:max-w-[400px] '>
+            <TextField id='search-input' label='Search' variant='outlined' size='small' fullWidth />
             <IconButton sx={{ position: 'absolute', right: '5px' }}>
               <SearchIcon />
             </IconButton>
           </div>
-          <div className="flex items-center gap-8">
-            <div className="hidden md:block">
-              <Tooltip title="Trở nhà chủ nhà và kinh doanh" arrow>
-                <Button variant="contained" size="medium" endIcon={<GiteIcon />}>
-                  <Link to="/become-host">Become a host</Link>
+          <div className='flex items-center gap-8'>
+            <div className='hidden md:block'>
+              <Tooltip title='Trở nhà chủ nhà và kinh doanh' arrow>
+                <Button variant='contained' size='medium' endIcon={<GiteIcon />}>
+                  <Link to='/become-host'>Become a host</Link>
                 </Button>
               </Tooltip>
             </div>
             <span
-              className="hidden xs:flex items-center gap-2 border px-2 py-1 rounded-full cursor-pointer"
+              className='hidden xs:flex items-center gap-2 border px-2 py-1 rounded-full cursor-pointer'
               aria-controls={open ? 'account-menu' : undefined}
-              aria-haspopup="true"
+              aria-haspopup='true'
               aria-expanded={open ? 'true' : undefined}
               onClick={handleClick}
             >
@@ -49,8 +49,8 @@ const Header = () => {
               <Avatar sx={{ width: 30, height: 30 }}></Avatar>
             </span>
             <Menu
-              className="rouned-lg"
-              id="account-menu"
+              className='rouned-lg'
+              id='account-menu'
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
@@ -64,18 +64,18 @@ const Header = () => {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               <MenuItem onClick={handleClose}>
-                <Link className="w-full text-cyan-800" to="/authenticate">
+                <Link className='w-full text-cyan-800' to='/authenticate'>
                   Đăng nhập
                 </Link>
               </MenuItem>
               <Divider light />
               <MenuItem onClick={handleClose}>
-                <Link className="w-full text-cyan-800" to="/wishlist">
+                <Link className='w-full text-cyan-800' to='/wishlist'>
                   Danh sách yêu thích
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className="w-full text-cyan-800" to="/authenticate">
+                <Link className='w-full text-cyan-800' to='/authenticate'>
                   Trung tâm trợ giúp
                 </Link>
               </MenuItem>

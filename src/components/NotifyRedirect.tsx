@@ -12,7 +12,7 @@ const NotifyRedirect = () => {
       clearInterval(secondInterval);
     };
   }, [second]);
-  return <p className="text-lg text-center text-cyan-700 pt-6">Bạn sẽ quay lại trang chủ trong {second} giây nữa</p>;
+  return <p className='text-lg text-center text-cyan-700 pt-6'>Bạn sẽ quay lại trang chủ trong {second} giây nữa</p>;
 };
 
 export default NotifyRedirect;

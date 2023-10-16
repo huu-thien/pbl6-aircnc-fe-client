@@ -8,12 +8,12 @@ const BecomeHost = () => {
     <div>
       <div>
         {user ? (
-          <div className="max-w-7xl mx-auto w-full p-4">
+          <div className='max-w-7xl mx-auto w-full p-4'>
             <Introduce />
             <InformationRoomAndPolicy />
           </div>
         ) : (
-          <Navigate to="/authenticate" />
+          <Navigate to='/authenticate' />
         )}
       </div>
     </div>
