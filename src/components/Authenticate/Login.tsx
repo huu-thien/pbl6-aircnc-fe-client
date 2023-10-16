@@ -12,7 +12,7 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
 type PropsType = {
@@ -48,37 +48,37 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
     event.preventDefault();
   };
   return (
-    <div className="p-6 max-[991px]:w-full rounded-2xl shadow-2xl">
-      <div className="text-center">
-        <Button variant="outlined" size="small" startIcon={<ArrowBackIcon />}>
-          <Link to="/" className=" text-blue-700">
+    <div className='p-6 max-[991px]:w-full rounded-2xl shadow-2xl'>
+      <div className='text-center'>
+        <Button variant='outlined' size='small' startIcon={<ArrowBackIcon />}>
+          <Link to='/' className=' text-blue-700'>
             Về trang chủ
           </Link>
         </Button>
-        <h3 className="mt-6 text-blue-800 font-bold text-2xl md:text-3xl">Đăng nhập với AirCnC 💕</h3>
-        <div className="mx-auto mt-4 max-w-[480px] mb-5 md:mb-6 lg:mb-8 ">
-          <div className="text-sm  text-cyan-700">
+        <h3 className='mt-6 text-blue-800 font-bold text-2xl md:text-3xl'>Đăng nhập với AirCnC 💕</h3>
+        <div className='mx-auto mt-4 max-w-[480px] mb-5 md:mb-6 lg:mb-8 '>
+          <div className='text-sm  text-cyan-700'>
             Bạn chưa có tài khoản ? &nbsp;
-            <span className="underline text-blue-700 cursor-pointer" onClick={() => toggleLoginRegister()}>
+            <span className='underline text-blue-700 cursor-pointer' onClick={() => toggleLoginRegister()}>
               Đăng kí ngay
             </span>
           </div>
         </div>
-        <div className="mx-auto w-full max-w-[400px]">
-          <div className="mx-auto max-w-[400px] text-left mb-4">
+        <div className='mx-auto w-full max-w-[400px]'>
+          <div className='mx-auto max-w-[400px] text-left mb-4'>
             <Formik initialValues={initialValues} onSubmit={handleFormSubmit} validationSchema={LoginSchema}>
               {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit} name="wf-form-password" method="get">
-                  <div className="relative">
+                <form onSubmit={handleSubmit} name='wf-form-password' method='get'>
+                  <div className='relative'>
                     <TextField
                       sx={{
                         fontFamily: 'Lexend',
                         width: `100%`,
                         marginBottom: '20px',
                       }}
-                      id="username"
-                      label="Username or Email"
-                      variant="standard"
+                      id='username'
+                      label='Username or Email'
+                      variant='standard'
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.username}
@@ -86,17 +86,17 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
                       helperText={touched.username && errors.username}
                     />
                   </div>
-                  <div className="relative mb-2">
+                  <div className='relative mb-2'>
                     <TextField
                       sx={{
                         fontFamily: 'Lexend',
                         width: `100%`,
                         marginBottom: '20px',
                       }}
-                      id="password"
+                      id='password'
                       type={showPassword ? 'text' : 'password'}
-                      label="Password"
-                      variant="standard"
+                      label='Password'
+                      variant='standard'
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.password}
@@ -109,7 +109,7 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
                         right: '0',
                         top: '10px',
                       }}
-                      aria-label="toggle password visibility"
+                      aria-label='toggle password visibility'
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                     >
@@ -121,9 +121,9 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
                       width: '100%',
                       height: '50px',
                     }}
-                    variant="contained"
-                    size="large"
-                    type="submit"
+                    variant='contained'
+                    size='large'
+                    type='submit'
                   >
                     Login
                   </Button>
@@ -136,7 +136,7 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
               autoHideDuration={2000}
               onClose={handleAlertClose}
             >
-              <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
+              <Alert onClose={handleAlertClose} severity='info' sx={{ width: '100%' }}>
                 Đăng nhập thành công
               </Alert>
             </Snackbar>

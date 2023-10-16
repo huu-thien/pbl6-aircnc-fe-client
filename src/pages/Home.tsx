@@ -4,10 +4,10 @@ import { Button, Divider } from '@mui/material';
 
 const Home = () => {
   return (
-    <div className="py-10">
+    <div className='py-10'>
       <FilterRoom />
-      <div className="flex justify-center pb-4">
-        <Button sx={{ m: 'auto' }} variant="contained" size="large">
+      <div className='flex justify-center pb-4'>
+        <Button sx={{ m: 'auto' }} variant='contained' size='large'>
           Search
         </Button>
       </div>

@@ -32,21 +32,21 @@ const MenuQuantityCustomer = () => {
   console.log('Quantity young: ', quantityYoung);
   const numberOfGuest = quantityOld + quantityYoung;
   return (
-    <div className="">
+    <div className=''>
       <Button
         sx={{ height: 60 }}
         fullWidth
-        variant="outlined"
+        variant='outlined'
         aria-controls={open ? 'account-menu' : undefined}
-        aria-haspopup="true"
+        aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
         Số khách: {numberOfGuest} người
       </Button>
       <Menu
-        className="rouned-lg"
-        id="account-menu"
+        className='rouned-lg'
+        id='account-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}

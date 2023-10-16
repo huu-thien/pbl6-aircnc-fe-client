@@ -8,10 +8,10 @@ const clientID = '486089736533-02ujmkoe4o2qfa8e5fdne829bjrmt5n1.apps.googleuserc
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
-    <GoogleOAuthProvider clientId={clientID}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </GoogleOAuthProvider>
+  <GoogleOAuthProvider clientId={clientID}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </GoogleOAuthProvider>,
   // </React.StrictMode>,
 );

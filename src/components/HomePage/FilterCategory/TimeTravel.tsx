@@ -4,8 +4,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState } from 'react';
 
-
-
 const TimeTravel = () => {
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
@@ -19,8 +17,8 @@ const TimeTravel = () => {
 
   const handleDateStartChange = (date) => {
     if (dateEnd && date > dateEnd) {
-        return;
-      }
+      return;
+    }
     setDateStart(date);
     setDayStart(new Date(String(date)).getDate());
     setMonthStart(new Date(String(date)).getMonth() + 1);
@@ -28,8 +26,8 @@ const TimeTravel = () => {
   };
   const handleDateEndChange = (date) => {
     if (dateStart && date < dateStart) {
-        return;
-      }
+      return;
+    }
     setDateEnd(date);
     setDayEnd(new Date(String(date)).getDate());
     setMonthEnd(new Date(String(date)).getMonth() + 1);
@@ -39,18 +37,17 @@ const TimeTravel = () => {
   const StartTime = `${dayStart}/${monthStart}/${yearStart}`;
   const EndTime = `${dayEnd}/${monthEnd}/${yearEnd}`;
 
-  if (yearStart !=0) console.log(StartTime);
-  if (yearEnd !=0) console.log(EndTime);
+  if (yearStart != 0) console.log(StartTime);
+  if (yearEnd != 0) console.log(EndTime);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker']} sx={{ mt: -1, minWidth: 200, mr: 0 }}>
-        <DatePicker label="Ngày đi" onChange={handleDateStartChange} />
+        <DatePicker label='Ngày đi' onChange={handleDateStartChange} />
       </DemoContainer>
       <DemoContainer components={['DatePicker']} sx={{ mt: -1, minWidth: 200, mr: 0 }}>
-        <DatePicker label="Ngày về" onChange={handleDateEndChange} />
+        <DatePicker label='Ngày về' onChange={handleDateEndChange} />
       </DemoContainer>
     </LocalizationProvider>
-    
   );
 };
 

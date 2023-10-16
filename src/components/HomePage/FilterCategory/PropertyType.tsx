@@ -36,14 +36,14 @@ export default function MultipleSelectCheckmarks() {
   return (
     <div>
       <FormControl sx={{ minWidth: 200, maxWidth: 200, minHeight: 12 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Loại phòng</InputLabel>
+        <InputLabel id='demo-multiple-checkbox-label'>Loại phòng</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId='demo-multiple-checkbox-label'
+          id='demo-multiple-checkbox'
           multiple
           value={propertyType}
           onChange={handleChange}
-          input={<OutlinedInput label="Loại phòng" />}
+          input={<OutlinedInput label='Loại phòng' />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >

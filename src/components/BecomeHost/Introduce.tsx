@@ -1,4 +1,4 @@
-import BecomeHostBanner from "@/assets/images/become-host-banner.webp"
+import BecomeHostBanner from '@/assets/images/become-host-banner.webp';
 const introduce = [
   {
     title: 'Nhận sự hướng dẫn riêng từ một Chủ nhà siêu cấp - VIP PRO HOST',
@@ -18,18 +18,15 @@ const introduce = [
 ];
 const Introduce = () => {
   return (
-    <div className="pt-4">
-      <div className="flex justify-center mb-5">
-        <img
-          src={BecomeHostBanner}
-          alt="Become Host banner"
-        />
+    <div className='pt-4'>
+      <div className='flex justify-center mb-5'>
+        <img src={BecomeHostBanner} alt='Become Host banner' />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
+      <div className='grid grid-cols-1 sm:grid-cols-3 gap-12'>
         {introduce.map((prop, propIndex) => (
-          <div key={propIndex} className="py-4">
-            <h2 className="font-semibold text-cyan-700 pb-4">{prop.title}</h2>
-            <p className="font-thin text-gray-600">{prop.describe}</p>
+          <div key={propIndex} className='py-4'>
+            <h2 className='font-semibold text-cyan-700 pb-4'>{prop.title}</h2>
+            <p className='font-thin text-gray-600'>{prop.describe}</p>
           </div>
         ))}
       </div>

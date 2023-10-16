@@ -87,12 +87,12 @@ export default function BasicSelect() {
 
   return (
     <FormControl fullWidth sx={{ minWidth: 200, width: 200 }}>
-      <InputLabel id="demo-simple-select-label">Tỉnh/Thành</InputLabel>
+      <InputLabel id='demo-simple-select-label'>Tỉnh/Thành</InputLabel>
       <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+        labelId='demo-simple-select-label'
+        id='demo-simple-select'
         value={city}
-        label="Tỉnh/Thành"
+        label='Tỉnh/Thành'
         onChange={handleChange}
         MenuProps={MenuProps}
       >

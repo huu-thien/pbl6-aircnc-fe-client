@@ -18,32 +18,32 @@ const MenuProps = {
 };
 
 const listUtilities = [
-    'Wifi',
-    'TV',
-    'Kitchen',
-    'AirConditioning',
-    'LaptopFriendlyWorkspace',
-    'HotWater',
-    'Breakfast',
-    'RoomService',
-    'Bar',
-    'SwimmingPool',
-    'Gym',
-    'Spa',
-    'BeachFront',
-    'MountainView',
-    'LakeView',
-    'SeaView',
-    'LandmarkView',
-    'WheelchairAccessible',
-    'Elevator',
-    'SecurityCamera',
-    'CamperFriendly'
-]
+  'Wifi',
+  'TV',
+  'Kitchen',
+  'AirConditioning',
+  'LaptopFriendlyWorkspace',
+  'HotWater',
+  'Breakfast',
+  'RoomService',
+  'Bar',
+  'SwimmingPool',
+  'Gym',
+  'Spa',
+  'BeachFront',
+  'MountainView',
+  'LakeView',
+  'SeaView',
+  'LandmarkView',
+  'WheelchairAccessible',
+  'Elevator',
+  'SecurityCamera',
+  'CamperFriendly',
+];
 interface Props {
-    onSelectedValuesChange:(value: string[]) => void;
+  onSelectedValuesChange: (value: string[]) => void;
 }
-const Utilities: React.FC<Props> = ({onSelectedValuesChange}) => {
+const Utilities: React.FC<Props> = ({ onSelectedValuesChange }) => {
   const [propertyType, setPropertyType] = React.useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent<typeof propertyType>) => {
@@ -62,20 +62,20 @@ const Utilities: React.FC<Props> = ({onSelectedValuesChange}) => {
   console.log(propertyType);
   return (
     <div>
-      <FormControl >
+      <FormControl>
         {/* <InputLabel id="demo-multiple-checkbox-label">Loại phòng</InputLabel> */}
         <Select
-        //   labelId="demo-multiple-checkbox-label"
-        //   id="demo-multiple-checkbox"
+          //   labelId="demo-multiple-checkbox-label"
+          //   id="demo-multiple-checkbox"
           multiple
           value={propertyType}
           onChange={handleChange}
-        //   input={<OutlinedInput label="Loại phòng" />}
+          //   input={<OutlinedInput label="Loại phòng" />}
           renderValue={(selected) => selected.join(', ')}
           displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
           MenuProps={MenuProps}
-          style={{width:'350px',height:'30px',border:'1px solid #000000'}}
+          style={{ width: '350px', height: '30px', border: '1px solid #000000' }}
         >
           {listUtilities.map((listUtilities) => (
             <MenuItem key={listUtilities} value={listUtilities}>
@@ -87,5 +87,5 @@ const Utilities: React.FC<Props> = ({onSelectedValuesChange}) => {
       </FormControl>
     </div>
   );
-}
+};
 export default Utilities;

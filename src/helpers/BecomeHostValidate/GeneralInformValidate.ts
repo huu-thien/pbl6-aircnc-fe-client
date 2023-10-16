@@ -11,7 +11,7 @@ const generalInformation = {
   quantityBathRooms: '',
   utilities: '',
   pricePerNight: '',
-  policy: ''
+  policy: '',
 };
 const GeneralSchema = yup.object().shape({
   roomName: yup.string().required('Tên phòng là bắt buộc'),
