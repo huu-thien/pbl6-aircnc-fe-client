@@ -14,11 +14,11 @@ const generalInformation = {
   policy: 'flexible',
   listImage: [
     {
-      name:'',
-      type:'',
-      size:'',
-    }
-  ]
+      name: '',
+      type: '',
+      size: '',
+    },
+  ],
 };
 const GeneralSchema = yup.object().shape({
   roomName: yup.string().required('Tên phòng là bắt buộc'),
