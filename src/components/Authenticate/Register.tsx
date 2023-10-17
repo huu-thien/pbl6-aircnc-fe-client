@@ -6,7 +6,7 @@ import { Button, IconButton, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { initialValues, RegisterSchema } from '@/helpers/validate/RegisterValidate';
+import { initialValues, RegisterSchema } from '@/helpers/AuthenticateValidate/RegisterValidate';
 
 type PropsType = {
   toggleLoginRegister: () => void;
@@ -20,8 +20,8 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
   const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
   const handleFormSubmit = (values: RegisterData) => {
-    if(values.confirmPassword) {
-      delete values.confirmPassword
+    if (values.confirmPassword) {
+      delete values.confirmPassword;
     }
     console.log(values);
   };
@@ -30,37 +30,37 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
     event.preventDefault();
   };
   return (
-    <div className="p-6 max-[991px]:w-full rounded-2xl shadow-2xl">
-      <div className="text-center">
-        <Button variant="outlined" size="small" startIcon={<ArrowBackIcon />}>
-          <Link to="/" className=" text-blue-700">
+    <div className='p-6 max-[991px]:w-full rounded-2xl shadow-2xl'>
+      <div className='text-center'>
+        <Button variant='outlined' size='small' startIcon={<ArrowBackIcon />}>
+          <Link to='/' className=' text-blue-700'>
             Về trang chủ
           </Link>
         </Button>
-        <h3 className="mt-6 text-blue-800  font-bold text-3xl md:text-3xl">Đăng kí với AirCnC 💕</h3>
-        <div className="mx-auto mt-4 max-w-[480px] mb-5 md:mb-6 lg:mb-8">
-          <div className="text-sm  text-cyan-700">
+        <h3 className='mt-6 text-blue-800  font-bold text-3xl md:text-3xl'>Đăng kí với AirCnC 💕</h3>
+        <div className='mx-auto mt-4 max-w-[480px] mb-5 md:mb-6 lg:mb-8'>
+          <div className='text-sm  text-cyan-700'>
             Bạn đã có tài khoản ? &nbsp;
-            <span className="underline text-blue-700 cursor-pointer" onClick={() => toggleLoginRegister()}>
+            <span className='underline text-blue-700 cursor-pointer' onClick={() => toggleLoginRegister()}>
               Đăng nhập ngay
             </span>
           </div>
         </div>
-        <div className="mx-auto w-full max-w-[400px]">
-          <div className="mx-auto max-w-[400px] text-left mb-4">
+        <div className='mx-auto w-full max-w-[400px]'>
+          <div className='mx-auto max-w-[400px] text-left mb-4'>
             <Formik initialValues={initialValues} onSubmit={handleFormSubmit} validationSchema={RegisterSchema}>
               {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit} name="wf-form-password" method="get">
-                  <div className="relative">
+                <form onSubmit={handleSubmit} name='wf-form-password' method='get'>
+                  <div className='relative'>
                     <TextField
                       sx={{
                         fontFamily: 'Lexend',
                         width: `100%`,
                         marginBottom: '20px',
                       }}
-                      id="fullName"
-                      label="Full Name"
-                      variant="standard"
+                      id='fullName'
+                      label='Full Name'
+                      variant='standard'
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.fullName}
@@ -68,16 +68,16 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
                       helperText={touched.fullName && errors.fullName}
                     />
                   </div>
-                  <div className="relative">
+                  <div className='relative'>
                     <TextField
                       sx={{
                         fontFamily: 'Lexend',
                         width: `100%`,
                         marginBottom: '20px',
                       }}
-                      id="email"
-                      label="Email"
-                      variant="standard"
+                      id='email'
+                      label='Email'
+                      variant='standard'
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.email}
@@ -85,16 +85,16 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
                       helperText={touched.email && errors.email}
                     />
                   </div>
-                  <div className="relative">
+                  <div className='relative'>
                     <TextField
                       sx={{
                         fontFamily: 'Lexend',
                         width: `100%`,
                         marginBottom: '20px',
                       }}
-                      id="username"
-                      label="Username"
-                      variant="standard"
+                      id='username'
+                      label='Username'
+                      variant='standard'
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.username}
@@ -102,17 +102,17 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
                       helperText={touched.username && errors.username}
                     />
                   </div>
-                  <div className="relative mb-2">
+                  <div className='relative mb-2'>
                     <TextField
                       sx={{
                         fontFamily: 'Lexend',
                         width: `100%`,
                         marginBottom: '20px',
                       }}
-                      id="password"
+                      id='password'
                       type={showPassword ? 'text' : 'password'}
-                      label="Password"
-                      variant="standard"
+                      label='Password'
+                      variant='standard'
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.password}
@@ -125,24 +125,24 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
                         right: '0',
                         top: '10px',
                       }}
-                      aria-label="toggle password visibility"
+                      aria-label='toggle password visibility'
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </div>
-                  <div className="relative mb-2">
+                  <div className='relative mb-2'>
                     <TextField
                       sx={{
                         fontFamily: 'Lexend',
                         width: `100%`,
                         marginBottom: '20px',
                       }}
-                      id="confirmPassword"
+                      id='confirmPassword'
                       type={showConfirmPassword ? 'text' : 'password'}
-                      label="Confirm Password"
-                      variant="standard"
+                      label='Confirm Password'
+                      variant='standard'
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.confirmPassword}
@@ -155,7 +155,7 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
                         right: '0',
                         top: '10px',
                       }}
-                      aria-label="toggle password visibility"
+                      aria-label='toggle password visibility'
                       onClick={handleClickShowConfirmPassword}
                       onMouseDown={handleMouseDownPassword}
                     >
@@ -167,10 +167,10 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
                     sx={{
                       height: '50px',
                     }}
-                    className="w-full"
-                    variant="contained"
-                    size="large"
-                    type="submit"
+                    className='w-full'
+                    variant='contained'
+                    size='large'
+                    type='submit'
                   >
                     Register
                   </Button>
