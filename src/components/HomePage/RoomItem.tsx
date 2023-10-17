@@ -9,6 +9,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import { Link } from 'react-router-dom';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -48,14 +49,14 @@ const RoomItem = () => {
   };
 
   return (
-    <div className="shadow-md p-2 rounded-lg mx-auto">
+    <div className='shadow-md p-2 rounded-lg mx-auto'>
       <Box sx={{ maxWidth: 350 }}>
         <AutoPlaySwipeableViews index={activeStep} onChangeIndex={handleStepChange} enableMouseEvents>
           {images.map((step, index) => (
             <div key={`image-${index}`}>
               {Math.abs(activeStep - index) <= 2 ? (
                 <Box
-                  component="img"
+                  component='img'
                   sx={{
                     height: 255,
                     display: 'block',
@@ -72,34 +73,39 @@ const RoomItem = () => {
         </AutoPlaySwipeableViews>
         <MobileStepper
           steps={maxSteps}
-          position="static"
+          position='static'
           activeStep={activeStep}
           nextButton={
-            <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+            <Button size='small' onClick={handleNext} disabled={activeStep === maxSteps - 1}>
               <KeyboardArrowRight />
             </Button>
           }
           backButton={
-            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            <Button size='small' onClick={handleBack} disabled={activeStep === 0}>
               <KeyboardArrowLeft />
             </Button>
           }
         />
-        <div className="p-4">
-          <div className="flex justify-between">
-            <h2 className="text-lg font-semibold">Hà Nội, Việt Nam</h2>
+        <div className='p-4'>
+          <div className='flex justify-between'>
+            <Link to='/detail-room'>
+              <h2 className='text-lg font-semibold hover:text-cyan-800'>Hà Nội, Việt Nam</h2>
+            </Link>
             <span>
               <StarIcon sx={{ mr: 1, color: '#feb207' }} />
               4.93
             </span>
           </div>
-          <div className="flex justify-between py-3">
-            <p className="text-gray-600">$200 / đêm</p>
+          <div className='flex justify-between py-3'>
+            <p className='text-gray-600'>$200 / đêm</p>
             <p>
-              <Link to="/review" className="text-cyan-700">
+              <Link to='/review' className='text-cyan-700'>
                 Review (123)
               </Link>
             </p>
+          </div>
+          <div className='cursor-pointer'>
+            <FavoriteBorderIcon sx={{ color: '#257b9a' }} />
           </div>
         </div>
       </Box>

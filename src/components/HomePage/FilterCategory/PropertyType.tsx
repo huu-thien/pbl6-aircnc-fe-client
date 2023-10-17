@@ -18,17 +18,7 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Room',
-  'House',
-  'Apartment',
-  'Ralph Hubbard',
-  'Villa',
-  'HomeStay',
-  'Miriam Wagner',
-  'Hotel',
-  'Cabin',
-];
+const names = ['Room', 'House', 'Apartment', 'Ralph Hubbard', 'Villa', 'HomeStay', 'Miriam Wagner', 'Hotel', 'Cabin'];
 
 export default function MultipleSelectCheckmarks() {
   const [propertyType, setPropertyType] = React.useState<string[]>([]);
@@ -45,15 +35,15 @@ export default function MultipleSelectCheckmarks() {
   console.log(propertyType);
   return (
     <div>
-      <FormControl sx={{ minWidth: 200, minHeight:10 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Loại phòng</InputLabel>
+      <FormControl sx={{ minWidth: 200, maxWidth: 200, minHeight: 12 }}>
+        <InputLabel id='demo-multiple-checkbox-label'>Loại phòng</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId='demo-multiple-checkbox-label'
+          id='demo-multiple-checkbox'
           multiple
           value={propertyType}
           onChange={handleChange}
-          input={<OutlinedInput label="Loại phòng" />}
+          input={<OutlinedInput label='Loại phòng' />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >

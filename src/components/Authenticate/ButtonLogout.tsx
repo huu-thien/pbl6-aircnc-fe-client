@@ -1,4 +1,3 @@
-
 import { googleLogout } from '@react-oauth/google';
 import { Button } from '@mui/material';
 
@@ -10,7 +9,7 @@ const ButtonLogout = () => {
           console.log('Logout success');
           googleLogout();
         }}
-        variant="outlined"
+        variant='outlined'
         sx={{
           width: '100%',
           height: '50px',

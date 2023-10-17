@@ -5,12 +5,12 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_PADDING_TOP = 1;
 const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 200,
+      width: 410,
     },
   },
 };
@@ -77,7 +77,7 @@ const provinces = [
   'Yên Bái',
 ];
 
-export default function BasicSelect() {
+function Provinces() {
   const [city, setCity] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -86,13 +86,13 @@ export default function BasicSelect() {
   console.log('city: ', city);
 
   return (
-    <FormControl fullWidth sx={{ minWidth: 200, width: 200 }}>
-      <InputLabel id='demo-simple-select-label'>Tỉnh/Thành</InputLabel>
+    <FormControl sx={{ width: 410, height: 30, ml: 1 }}>
+      <InputLabel id='demo-simple-select-label'>Tỉnh/ thành phố</InputLabel>
       <Select
         labelId='demo-simple-select-label'
         id='demo-simple-select'
         value={city}
-        label='Tỉnh/Thành'
+        label='Tỉnh/thành phố'
         onChange={handleChange}
         MenuProps={MenuProps}
       >
@@ -105,3 +105,4 @@ export default function BasicSelect() {
     </FormControl>
   );
 }
+export default Provinces;

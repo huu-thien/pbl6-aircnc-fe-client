@@ -30,21 +30,23 @@ const MenuQuantityCustomer = () => {
   };
   console.log('Quantity old: ', quantityOld);
   console.log('Quantity young: ', quantityYoung);
+  const numberOfGuest = quantityOld + quantityYoung;
   return (
-    <div className="">
+    <div className=''>
       <Button
-        variant="outlined"
+        sx={{ height: 60 }}
+        fullWidth
+        variant='outlined'
         aria-controls={open ? 'account-menu' : undefined}
-        aria-haspopup="true"
+        aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{ height: 56 }}
       >
-        Số khách
+        Số khách: {numberOfGuest} người
       </Button>
       <Menu
-        className="rouned-lg"
-        id="account-menu"
+        className='rouned-lg'
+        id='account-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -60,21 +62,21 @@ const MenuQuantityCustomer = () => {
         <MenuItem>
           Số người lớn:
           <Button onClick={handleDecreaseOld}>
-            <RemoveCircleOutlineIcon sx={{ color: 'black', mr: 1 }} />
+            <RemoveCircleOutlineIcon sx={{ color: '#257b9a', mr: 1 }} />
           </Button>
           <p>{quantityOld}</p>
           <Button onClick={handleIncreaseOld}>
-            <AddCircleOutlineIcon sx={{ color: 'black', ml: 1 }} />
+            <AddCircleOutlineIcon sx={{ color: '#257b9a', ml: 1 }} />
           </Button>
         </MenuItem>
         <MenuItem>
           Số trẻ em:
           <Button onClick={handleDecreaseYoung}>
-            <RemoveCircleOutlineIcon sx={{ color: 'black', ml: 3.8, mr: 2 }} />
+            <RemoveCircleOutlineIcon sx={{ color: '#257b9a', ml: 3.8, mr: 2 }} />
           </Button>
           <p>{quantityYoung}</p>
           <Button onClick={handleIncreaseYoung}>
-            <AddCircleOutlineIcon sx={{ color: 'black', ml: 1 }} />
+            <AddCircleOutlineIcon sx={{ color: '#257b9a', ml: 1 }} />
           </Button>
         </MenuItem>
       </Menu>

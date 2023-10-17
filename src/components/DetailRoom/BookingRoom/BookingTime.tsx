@@ -4,7 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState } from 'react';
 
-const TimeTravel = () => {
+const BookingTime = () => {
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
 
@@ -40,15 +40,17 @@ const TimeTravel = () => {
   if (yearStart != 0) console.log(StartTime);
   if (yearEnd != 0) console.log(EndTime);
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DatePicker']} sx={{ mt: -1, minWidth: 200, mr: 0 }}>
-        <DatePicker label='Ngày đi' onChange={handleDateStartChange} />
-      </DemoContainer>
-      <DemoContainer components={['DatePicker']} sx={{ mt: -1, minWidth: 200, mr: 0 }}>
-        <DatePicker label='Ngày về' onChange={handleDateEndChange} />
-      </DemoContainer>
-    </LocalizationProvider>
+    <div className='flex gap-2'>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
+          <DatePicker label='Ngày đi' onChange={handleDateStartChange} />
+        </DemoContainer>
+        <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
+          <DatePicker label='Ngày về' onChange={handleDateEndChange} />
+        </DemoContainer>
+      </LocalizationProvider>
+    </div>
   );
 };
 
-export default TimeTravel;
+export default BookingTime;
