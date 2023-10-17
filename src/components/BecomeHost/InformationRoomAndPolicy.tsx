@@ -22,7 +22,7 @@ import ImageListMUI from '@mui/material/ImageList';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 import { GeneralSchema, generalInformation } from '@/helpers/BecomeHostValidate/GeneralInformValidate';
-import { Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/BecomeHost';
 
 const InformationRoomAndPolicy: React.FC = () => {
@@ -236,6 +236,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                   <Select
                     labelId="utilities"
                     name="utilities"
+                    id="utilities"
                     multiple
                     value={values.utilities}
                     onChange={handleChange}
@@ -364,7 +365,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                 </div>
                 <div className="py-8">
                   <p className="text-xl py-3 text-cyan-700 uppercase">THÊM ẢNH ĐỂ QUẢNG BÁ PHÒNG CỦA BẠN</p>
-                  <Form>
+                  <div>
                     <input
                       type="file"
                       accept="image/*"
@@ -431,7 +432,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                       )}
                     </div>
                     
-                  </Form>
+                  </div>
                 </div>
                 <Button type='submit' variant='contained' color='primary'>
                   Bắt đầu cho thuê
