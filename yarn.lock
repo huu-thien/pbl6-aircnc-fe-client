@@ -12,6 +12,18 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
+"@azure/msal-browser@^2.32.1":
+  version "2.38.2"
+  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-2.38.2.tgz#707725c892258fe6b3af4dd410e1daff608521b5"
+  integrity sha512-71BeIn2we6LIgMplwCSaMq5zAwmalyJR3jFcVOZxNVfQ1saBRwOD+P77nLs5vrRCedVKTq8RMFhIOdpMLNno0A==
+  dependencies:
+    "@azure/msal-common" "13.3.0"
+
+"@azure/msal-common@13.3.0":
+  version "13.3.0"
+  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-13.3.0.tgz#dfa39810e0fbce6e07ca85a2cf305da58d30b7c9"
+  integrity sha512-/VFWTicjcJbrGp3yQP7A24xU95NiDMe23vxIU1U6qdRPFsprMDNUohMudclnd+WSHE4/McqkZs/nUU3sAKkVjg==
+
 "@babel/code-frame@^7.0.0":
   version "7.22.13"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.22.13.tgz#e3c1c099402598483b7a8c46a721d1038803755e"
@@ -947,6 +959,14 @@ autoprefixer@^10.4.16:
     normalize-range "^0.1.2"
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
+
+azure-maps-control@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/azure-maps-control/-/azure-maps-control-3.0.1.tgz#bd700e567f837e09ae0cb752eb9b4bb51b125176"
+  integrity sha512-24DesOHXV4g4+iCjutnbf+STkyJCjyUgl60JUyadTyhCFYZaqsgNL+B+z9fvzNIGGM4PXx4X6WWg/31SEIUELQ==
+  dependencies:
+    "@azure/msal-browser" "^2.32.1"
+    "@mapbox/mapbox-gl-supported" "^2.0.1"
 
 babel-plugin-macros@^3.1.0:
   version "3.1.0"
