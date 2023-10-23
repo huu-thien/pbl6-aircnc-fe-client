@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Formik } from 'formik';
 import { RegisterData } from '@/shared/types';
 
@@ -7,6 +8,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { initialValues, RegisterSchema } from '@/helpers/AuthenticateValidate/RegisterValidate';
+
+import { postRegister } from '@/services/AuthService/authService';
 
 type PropsType = {
   toggleLoginRegister: () => void;
@@ -19,11 +22,36 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
-  const handleFormSubmit = (values: RegisterData) => {
-    if (values.confirmPassword) {
-      delete values.confirmPassword;
+  const handleFormSubmit = async (values: RegisterData) => {
+    const dataRegister: Omit<RegisterData, 'confirmPassword'> = {
+      fullName: values.fullName,
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+    try {
+      const response = await postRegister(dataRegister);
+      console.log(response);
+
+      if (response.status === 200) {
+        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 2000));
+        toast
+          .promise(resolveAfter2Sec, {
+            pending: 'Đang xử lý đăng kí tài khoản ⌛',
+            success: 'Tài khoản đã đã đăng kí thành công',
+          })
+          .then(() => {
+            toggleLoginRegister();
+          });
+      }
+    } catch (error) {
+      const rejectAfter2Sec = new Promise((_, reject) => setTimeout(reject, 2000));
+      toast.promise(rejectAfter2Sec, {
+        pending: 'Đang xử lý đăng kí tài khoản ⌛',
+        error: 'Tên đăng nhập hoặc email đã tồn tại !',
+      });
+      throw error;
     }
-    console.log(values);
   };
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,7 +78,7 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
           <div className='mx-auto max-w-[400px] text-left mb-4'>
             <Formik initialValues={initialValues} onSubmit={handleFormSubmit} validationSchema={RegisterSchema}>
               {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit} name='wf-form-password' method='get'>
+                <form onSubmit={handleSubmit} name='form-register' method='post'>
                   <div className='relative'>
                     <TextField
                       sx={{
@@ -155,7 +183,7 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
                         right: '0',
                         top: '10px',
                       }}
-                      aria-label='toggle password visibility'
+                      aria-label='toggle confirm password visibility'
                       onClick={handleClickShowConfirmPassword}
                       onMouseDown={handleMouseDownPassword}
                     >

@@ -26,7 +26,7 @@ import { Formik } from 'formik';
 import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/BecomeHost';
 
 const InformationRoomAndPolicy: React.FC = () => {
-  const [utilities, ] = React.useState<string[]>([]);
+  const [utilities] = React.useState<string[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<FileObject[]>([]);
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
   const theme = useTheme();
@@ -37,7 +37,7 @@ const InformationRoomAndPolicy: React.FC = () => {
   const fileExists = (fileName: string): boolean => {
     return selectedFiles.some((file) => file.name === fileName);
   };
-  
+
   // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const files = event.target.files;
   //   if (files) {
@@ -55,11 +55,10 @@ const InformationRoomAndPolicy: React.FC = () => {
     console.log(values);
   };
 
-
   return (
-    <div className="py-8">
-      <h2 className="text-center text-2xl text-cyan-700 pb-4">NHẬP CÁC THÔNG TIN VỀ PHÒNG, ĐIỀU KHOẢN VÀ CHÍNH SÁCH</h2>
-      <div className="max-w-4xl mx-auto">
+    <div className='py-8'>
+      <h2 className='text-center text-2xl text-cyan-700 pb-4'>NHẬP CÁC THÔNG TIN VỀ PHÒNG, ĐIỀU KHOẢN VÀ CHÍNH SÁCH</h2>
+      <div className='max-w-4xl mx-auto'>
         <Formik initialValues={generalInformation} onSubmit={handleSubmitBecomeHost} validationSchema={GeneralSchema}>
           {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue }) => {
             return (
@@ -85,6 +84,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.roomName && errors.roomName}
                   />
                 </div>
+
                 <div className='mb-2'>
                   <label htmlFor='description' className=''>
                     Mô tả phòng
@@ -234,15 +234,15 @@ const InformationRoomAndPolicy: React.FC = () => {
                 <div className='mb-2'>
                   <label htmlFor='utilities'>Thêm tiện ích</label>
                   <Select
-                    labelId="utilities"
-                    name="utilities"
-                    id="utilities"
+                    labelId='utilities'
+                    name='utilities'
+                    id='utilities'
                     multiple
                     value={values.utilities}
                     onChange={handleChange}
                     error={!!touched.utilities && !!errors.utilities}
                     onBlur={handleBlur}
-                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                    input={<OutlinedInput id='select-multiple-chip' label='Chip' />}
                     renderValue={(selected) => (
                       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                         {selected.map((value) => (
@@ -264,7 +264,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                     ))}
                   </Select>
                   {touched.utilities && errors.utilities && (
-                    <FormHelperText style={{color:'#D32F2F', marginLeft:'10px'}}>{errors.utilities}</FormHelperText>
+                    <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>{errors.utilities}</FormHelperText>
                   )}
                 </div>
                 <div className='mb-2'>
@@ -291,12 +291,12 @@ const InformationRoomAndPolicy: React.FC = () => {
                 <p className='text-xl py-3 text-cyan-700 uppercase'>Chính sách & Điều khoản</p>
                 <div>
                   <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="flexible"
-                    name="policy"
+                    aria-labelledby='demo-radio-buttons-group-label'
+                    defaultValue='flexible'
+                    name='policy'
                     onChange={handleChange}
                   >
-                    <FormControlLabel value="flexible" control={<Radio />} label="Flexible" />
+                    <FormControlLabel value='flexible' control={<Radio />} label='Flexible' />
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChangeAccordion('panel1')}>
                       <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
                         <p className='text-cyan-700'>Chính sách linh hoạt</p>
@@ -329,7 +329,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                         </div>
                       </AccordionDetails>
                     </Accordion>
-                    <FormControlLabel value="strict" control={<Radio />} label="Strict" />
+                    <FormControlLabel value='strict' control={<Radio />} label='Strict' />
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChangeAccordion('panel2')}>
                       <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
                         <p className='text-cyan-700'>Chính sách nghiêm ngặt</p>
@@ -363,75 +363,72 @@ const InformationRoomAndPolicy: React.FC = () => {
                     </Accordion>
                   </RadioGroup>
                 </div>
-                <div className="py-8">
-                  <p className="text-xl py-3 text-cyan-700 uppercase">THÊM ẢNH ĐỂ QUẢNG BÁ PHÒNG CỦA BẠN</p>
+                <div className='py-8'>
+                  <p className='text-xl py-3 text-cyan-700 uppercase'>THÊM ẢNH ĐỂ QUẢNG BÁ PHÒNG CỦA BẠN</p>
                   <div>
                     <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) =>{
+                      type='file'
+                      accept='image/*'
+                      onChange={(e) => {
                         const files = e.target.files;
                         if (files) {
                           const selectedFileList = Array.from(files);
                           // Lọc ra các tệp mới không trùng tên
                           const newFiles: FileObject[] = selectedFileList.filter((file) => !fileExists(file.name));
-                          
+
                           if (newFiles.length > 0) {
                             // Thêm các tệp mới vào danh sách
                             setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...newFiles]);
                             // console.log(selectedFiles);
-                            setFieldValue('listImage',[...selectedFiles,...newFiles]);
-                          }  
+                            setFieldValue('listImage', [...selectedFiles, ...newFiles]);
+                          }
                         }
                       }}
-                      
                       multiple
-                      id="listImage"
+                      id='listImage'
                       style={{ display: 'none' }}
                     />
                     {/* <button onClick={handleUpload}>Upload Images</button> */}
-                    <label htmlFor="listImage">
+                    <label htmlFor='listImage'>
                       <Button
-                        variant="contained"
-                        color="primary"
-                        component="span"
+                        variant='contained'
+                        color='primary'
+                        component='span'
                         startIcon={<CloudUploadIcon />}
-                        size="small"
+                        size='small'
                       >
                         Upload Images
                       </Button>
                     </label>
                     <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={()=>{
+                      variant='outlined'
+                      color='primary'
+                      onClick={() => {
                         setSelectedFiles([]);
-                        setFieldValue('listImage',[]);
+                        setFieldValue('listImage', []);
                       }}
                       style={{ marginLeft: '10px' }}
-                      size="small"
-
+                      size='small'
                     >
                       Reset
                     </Button>
                     {errors.listImage && touched.listImage && (
-                      <FormHelperText style={{color:'#D32F2F', marginLeft:'10px'}}>Ít nhất 4 ảnh</FormHelperText>
+                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>Ít nhất 4 ảnh</FormHelperText>
                     )}
                     <div>
                       {selectedFiles.length > 0 && (
                         <div>
                           <h3>Selected Images:</h3>
-                          <ImageListMUI sx={{ height: 700 }} variant="quilted" cols={2} rowHeight={800}>
+                          <ImageListMUI sx={{ height: 700 }} variant='quilted' cols={2} rowHeight={800}>
                             {selectedFiles.map((file, index) => (
                               <ImageListItem key={index}>
-                                <img src={URL.createObjectURL(file)} alt={`Image ${index}`} loading="lazy" />
+                                <img src={URL.createObjectURL(file)} alt={`Image ${index}`} loading='lazy' />
                               </ImageListItem>
                             ))}
                           </ImageListMUI>
                         </div>
                       )}
                     </div>
-                    
                   </div>
                 </div>
                 <Button type='submit' variant='contained' color='primary'>

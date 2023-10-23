@@ -1,3 +1,4 @@
+import { PropertyImage } from '@/@types/property';
 import ImageListMUI from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 const itemData = [
@@ -67,14 +68,18 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
     srcSet: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`,
   };
 }
+interface PropsType {
+  propertyImages: PropertyImage[]
+}
 
-const ImageList = () => {
+const ImageList = ({propertyImages} : PropsType) => {
   return (
     <div className='rounded-md pb-6'>
       <ImageListMUI sx={{ height: 500 }} variant='quilted' cols={4} rowHeight={300}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
-            <img {...srcset(item.img, 121, item.rows, item.cols)} alt={item.title} loading='lazy' />
+        {propertyImages.map((item, index) => (
+          <ImageListItem key={`${item.url}_${index}`} >
+             {/* {...srcset(item.url, 121)} */}
+            <img src={item.url}  alt={item.propertyId.toString()} loading='lazy' />
           </ImageListItem>
         ))}
       </ImageListMUI>

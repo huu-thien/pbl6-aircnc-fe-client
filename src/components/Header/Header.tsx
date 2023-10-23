@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '@/assets/images/logo-aircnc.png';
 import { Avatar, Button, Divider, IconButton, TextField, Tooltip } from '@mui/material';
 import Menu from '@mui/material/Menu';
@@ -7,8 +7,17 @@ import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import GiteIcon from '@mui/icons-material/Gite';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { postLogout } from '@/services/AuthService/authService';
+import { saveLogout } from '@/redux-toolkit/auth.slice';
+import { toast } from 'react-toastify';
 
 const Header = () => {
+  const userLogin = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -17,6 +26,32 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = async () => {
+    const tokenLocal = localStorage.getItem('refreshToken');
+    if (tokenLocal !== null) {
+      const refreshToken = JSON.parse(tokenLocal);
+      try {
+        await postLogout({ refreshToken });
+        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 2000));
+        toast
+          .promise(resolveAfter2Sec, {
+            pending: 'Đang đăng xuất ⌛',
+            success: 'Đăng xuất thành công !',
+          })
+          .then(() => {
+            localStorage.removeItem('user');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            dispatch(saveLogout());
+            navigate('/authenticate');
+          });
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    }
+  };
+
   return (
     <header className='block h-[70px] sm:h-[80px] shadow-md fixed top-0 left-0 right-0 bg-white z-10'>
       <div className='px-5 md:px-10'>
@@ -46,40 +81,92 @@ const Header = () => {
               onClick={handleClick}
             >
               <MenuIcon sx={{ color: '#9a9a9a' }} />
-              <Avatar sx={{ width: 30, height: 30 }}></Avatar>
+              <Avatar
+                alt={userLogin?.fullName}
+                sx={userLogin ? { width: 30, height: 30, bgcolor: '#1976d2' } : { width: 30, height: 30 }}
+                src={userLogin && userLogin.avatarUrl ? `${userLogin?.avatarUrl}` : ``}
+              >
+                {userLogin && userLogin.avatarUrl ? `` : userLogin?.fullName[0]}
+              </Avatar>
             </span>
-            <Menu
-              className='rouned-lg'
-              id='account-menu'
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              PaperProps={{
-                sx: {
-                  borderRadius: 3,
-                  mt: 1,
-                },
-              }}
-              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            >
-              <MenuItem onClick={handleClose}>
-                <Link className='w-full text-cyan-800' to='/authenticate'>
-                  Đăng nhập
-                </Link>
-              </MenuItem>
-              <Divider light />
-              <MenuItem onClick={handleClose}>
-                <Link className='w-full text-cyan-800' to='/wishlist'>
-                  Danh sách yêu thích
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Link className='w-full text-cyan-800' to='/authenticate'>
-                  Trung tâm trợ giúp
-                </Link>
-              </MenuItem>
-            </Menu>
+            {userLogin && (
+              <Menu
+                className='rouned-lg'
+                id='account-menu'
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                  sx: {
+                    borderRadius: 3,
+                    mt: 1,
+                  },
+                }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              >
+                <MenuItem onClick={handleClose}>
+                  <Link className='w-full text-cyan-800' to='/wishlist'>
+                    Danh sách yêu thích
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link className='w-full text-cyan-800' to='/bookings'>
+                    Quản lý đặt phòng
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link className='w-full text-cyan-800' to='/'>
+                    Tài khoản
+                  </Link>
+                </MenuItem>
+                <Divider light />
+                <MenuItem onClick={handleClose}>
+                  <Link className='w-full text-cyan-800' to='/help'>
+                    Trung tâm trợ giúp
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <p className='w-full text-red-600' onClick={handleLogout}>
+                    Đăng xuất
+                  </p>
+                </MenuItem>
+              </Menu>
+            )}
+            {!userLogin && (
+              <Menu
+                className='rouned-lg'
+                id='account-menu'
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                  sx: {
+                    borderRadius: 3,
+                    mt: 1,
+                  },
+                }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              >
+                <MenuItem onClick={handleClose}>
+                  <Link className='w-full text-cyan-800' to='/authenticate'>
+                    Đăng nhập
+                  </Link>
+                </MenuItem>
+                <Divider light />
+                <MenuItem onClick={handleClose}>
+                  <Link className='w-full text-cyan-800' to='/become-host'>
+                    Cho thuê chỗ ở qua AirCnc
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link className='w-full text-cyan-800' to='/help'>
+                    Trung tâm trợ giúp
+                  </Link>
+                </MenuItem>
+              </Menu>
+            )}
           </div>
         </div>
       </div>
