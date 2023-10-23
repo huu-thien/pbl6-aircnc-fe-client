@@ -8,12 +8,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ButtonLoginGoogle from '@/components/Authenticate/ButtonLoginGoogle';
 import { initialValues, LoginSchema } from '@/helpers/AuthenticateValidate/LoginValidate';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
-});
+import { postLogin } from '@/services/AuthService/authService';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { saveUserLogin } from '@/redux-toolkit/auth.slice';
 
 type PropsType = {
   toggleLoginRegister: () => void;
@@ -21,32 +19,50 @@ type PropsType = {
 
 const Login = ({ toggleLoginRegister }: PropsType) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
   // set show password
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  // set show alert
-  const [alertOpen, setAlertOpen] = useState(false);
-  const handleAlertClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setAlertOpen(false);
-  };
-
-  const handleFormSubmit = (values: LoginData) => {
-    if (values) {
-      console.log(values);
-      setTimeout(() => {
-        navigate('/');
-      }, 1000);
-      setAlertOpen(true);
-    }
-  };
-
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
+  const handleFormSubmit = async (values: LoginData) => {
+    const dataLogin = {
+      identifier: values.username,
+      password: values.password,
+    };
+    try {
+      // thiendeptrai/thiendeptrai@gmail.com Thien@123
+      const response = await postLogin(dataLogin);
+      console.log(response);
+
+      if (response.status === 200) {
+        const { user, accessToken, refreshToken } = response.data;
+        dispatch(saveUserLogin({ user, accessToken, refreshToken }));
+        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 2000));
+        toast
+          .promise(resolveAfter2Sec, {
+            pending: 'Đang tiến hành đăng nhập ⌛',
+            success: 'Đăng nhập thành công !',
+          })
+          .then(() => {
+            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('accessToken', JSON.stringify(accessToken));
+            localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+            navigate('/');
+          });
+      }
+    } catch (error) {
+      const rejectAfter2Sec = new Promise((_, reject) => setTimeout(reject, 2000));
+      toast.promise(rejectAfter2Sec, {
+        pending: 'Đang tiến hành đăng nhập ⌛',
+        error: 'Tài khoản hoặc mật khẩu không chính xác !',
+      });
+      throw error;
+    }
+  };
+
   return (
     <div className='p-6 max-[991px]:w-full rounded-2xl shadow-2xl'>
       <div className='text-center'>
@@ -68,7 +84,7 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
           <div className='mx-auto max-w-[400px] text-left mb-4'>
             <Formik initialValues={initialValues} onSubmit={handleFormSubmit} validationSchema={LoginSchema}>
               {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit} name='wf-form-password' method='get'>
+                <form onSubmit={handleSubmit} name='form-login' method='post'>
                   <div className='relative'>
                     <TextField
                       sx={{
@@ -130,16 +146,6 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
                 </form>
               )}
             </Formik>
-            <Snackbar
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              open={alertOpen}
-              autoHideDuration={2000}
-              onClose={handleAlertClose}
-            >
-              <Alert onClose={handleAlertClose} severity='info' sx={{ width: '100%' }}>
-                Đăng nhập thành công
-              </Alert>
-            </Snackbar>
             <Divider sx={{ mt: '8px', color: '#ff385c' }} />
             <ButtonLoginGoogle />
           </div>

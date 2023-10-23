@@ -1,4 +1,3 @@
-import * as React from 'react';
 // import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -10,26 +9,34 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { PropertyImage } from '@/@types/property';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useState } from 'react';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-interface Propstype {
-  id: number;
-  title: string;
-  propertyImage: PropertyImage[];
-  pricePerNight: number;
-  numberOfReviews: number;
-  rating: number;
-}
-const formatNumber = (number: number) => {
-  return Math.floor(number)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-};
 
-const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, rating }: Propstype) => {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = propertyImage.length;
+const images = [
+  {
+    // label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath: 'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    // label: 'Bird',
+    imgPath: 'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+  {
+    // label: 'Bali, Indonesia',
+    imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+  },
+  {
+    // label: 'Goč, Serbia',
+    imgPath: 'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+  },
+];
+
+const FavoriteRoomItem = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const maxSteps = images.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -42,12 +49,14 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
   const handleStepChange = (step: number) => {
     setActiveStep(step);
   };
-
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
   return (
     <div className='shadow-md p-2 rounded-lg mx-auto'>
       <Box sx={{ maxWidth: 350 }}>
         <AutoPlaySwipeableViews index={activeStep} onChangeIndex={handleStepChange} enableMouseEvents>
-          {propertyImage.map((step, index) => (
+          {images.map((step, index) => (
             <div key={`image-${index}`}>
               {Math.abs(activeStep - index) <= 2 ? (
                 <Box
@@ -59,7 +68,7 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
                     overflow: 'hidden',
                     width: '100%',
                   }}
-                  src={step.url}
+                  src={step.imgPath}
                   // alt={step.label}
                 />
               ) : null}
@@ -83,24 +92,28 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
         />
         <div className='p-4'>
           <div className='flex justify-between'>
-            <Link to={`/detail-room/${id}`}>
-              <h2 className='text-md text-[#3c3834] font-semibold hover:text-cyan-800 line-clamp-2 pr-6'>{title}</h2>
+            <Link to='/detail-room'>
+              <h2 className='text-lg font-semibold hover:text-cyan-800'>Hà Nội, Việt Nam</h2>
             </Link>
-            <span className='flex'>
+            <span>
               <StarIcon sx={{ mr: 1, color: '#feb207' }} />
-              {rating.toFixed(2)}
+              4.93
             </span>
           </div>
           <div className='flex justify-between py-3'>
-            <p className='text-gray-600'>{formatNumber(pricePerNight * 100000)} vnd/đêm</p>
+            <p className='text-gray-600'>$200 / đêm</p>
             <p>
               <Link to='/review' className='text-cyan-700'>
-                Review ({numberOfReviews})
+                Review (123)
               </Link>
             </p>
           </div>
           <div className='cursor-pointer'>
-            <FavoriteBorderIcon sx={{ color: '#257b9a' }} />
+            {isFavorite ? (
+              <FavoriteBorderIcon sx={{ color: '#257b9a' }} onClick={toggleFavorite} />
+            ):(
+              <FavoriteIcon sx={{color:'#EE0000	'}} onClick={toggleFavorite} />
+            )}
           </div>
         </div>
       </Box>
@@ -108,4 +121,4 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
   );
 };
 
-export default RoomItem;
+export default FavoriteRoomItem;

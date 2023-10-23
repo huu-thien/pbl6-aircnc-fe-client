@@ -84,6 +84,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.roomName && errors.roomName}
                   />
                 </div>
+
                 <div className='mb-2'>
                   <label htmlFor='description' className=''>
                     Mô tả phòng
