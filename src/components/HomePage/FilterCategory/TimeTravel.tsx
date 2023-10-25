@@ -2,43 +2,27 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from 'react';
 
-const TimeTravel = () => {
-  const [dateStart, setDateStart] = useState(null);
-  const [dateEnd, setDateEnd] = useState(null);
+interface PropsType {
+  setTimeStart: React.Dispatch<React.SetStateAction<string>>;
+  setTimeEnd: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const [dayStart, setDayStart] = useState(0);
-  const [monthStart, setMonthStart] = useState(0);
-  const [yearStart, setYearStart] = useState(0);
-  const [dayEnd, setDayEnd] = useState(0);
-  const [monthEnd, setMonthEnd] = useState(0);
-  const [yearEnd, setYearEnd] = useState(0);
-
+const TimeTravel = ({ setTimeStart, setTimeEnd }: PropsType) => {
   const handleDateStartChange = (date) => {
-    if (dateEnd && date > dateEnd) {
-      return;
-    }
-    setDateStart(date);
-    setDayStart(new Date(String(date)).getDate());
-    setMonthStart(new Date(String(date)).getMonth() + 1);
-    setYearStart(new Date(String(date)).getFullYear());
+    setTimeStart(
+      `${new Date(String(date)).getDate()}/${new Date(String(date)).getMonth() + 1}/${new Date(
+        String(date),
+      ).getFullYear()}`,
+    );
   };
   const handleDateEndChange = (date) => {
-    if (dateStart && date < dateStart) {
-      return;
-    }
-    setDateEnd(date);
-    setDayEnd(new Date(String(date)).getDate());
-    setMonthEnd(new Date(String(date)).getMonth() + 1);
-    setYearEnd(new Date(String(date)).getFullYear());
+    setTimeEnd(
+      `${new Date(String(date)).getDate()}/${new Date(String(date)).getMonth() + 1}/${new Date(
+        String(date),
+      ).getFullYear()}`,
+    );
   };
-
-  const StartTime = `${dayStart}/${monthStart}/${yearStart}`;
-  const EndTime = `${dayEnd}/${monthEnd}/${yearEnd}`;
-
-  if (yearStart != 0) console.log(StartTime);
-  if (yearEnd != 0) console.log(EndTime);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker']} sx={{ mt: -1, minWidth: 200, mr: 0 }}>

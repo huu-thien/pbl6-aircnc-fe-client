@@ -10,7 +10,7 @@ const MainLayout = ({ page }: propTypes) => {
   return (
     <div>
       <Header />
-      <div className='mx-auto w-full max-w-[1440px] min-h-[1000px] mt-[80px]'>{page}</div>
+      <div className='mx-auto w-full max-w-[1440px] mt-[80px]'>{page}</div>
       <Footer />
     </div>
   );

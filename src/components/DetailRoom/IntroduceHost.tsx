@@ -22,7 +22,6 @@ const IntroduceHost = ({ hostId }: Propstype) => {
     if (response && response.status === 200) {
       setHostInfo(response.data);
     }
-    console.log(response);
   };
   return (
     <div className=''>
@@ -32,7 +31,7 @@ const IntroduceHost = ({ hostId }: Propstype) => {
           <p className='pt-2'>Host {hostInfo?.name}</p>
         </div>
         <Button variant='contained' sx={{ height: 50 }}>
-          <Link to='/host'>Liên hệ với chủ nhà</Link>
+          <Link to={`/host/${hostId}`}>Liên hệ với chủ nhà</Link>
         </Button>
       </div>
       <p className='font-thin text-gray-500 pt-2 italic'>{hostInfo?.introduction}</p>

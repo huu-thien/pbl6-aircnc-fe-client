@@ -1,4 +1,4 @@
-import { PropertyImage, PropertyType } from '@/@types/property';
+import { PropertyType } from '@/@types/property';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import BookingRoom from '@/components/DetailRoom/BookingRoom';
 import Evaluate from '@/components/DetailRoom/Evaluate';
@@ -11,9 +11,10 @@ import { getPropertyDetail } from '@/services/PropertyService/propertyService';
 import { Divider } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const DetailRoom = () => {
+  const navigate = useNavigate();
   const [propertyDetail, setPropertyDetail] = useState<PropertyType | null>(null);
   const { id } = useParams();
   useEffect(() => {
@@ -24,15 +25,14 @@ const DetailRoom = () => {
     const response = await getPropertyDetail(Number(propertyId));
     setPropertyDetail(response.data);
   };
-  // console.log(propertyDetail);
 
   return (
     <div className='max-w-7xl mx-auto w-full py-8'>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link to="/" className="hover:underline hover:text-cyan-600">
+      <Breadcrumbs aria-label='breadcrumb'>
+        <p className='hover:underline hover:text-cyan-600' onClick={() => navigate(-1)}>
           Trang chủ
-        </Link>
-        <p color="text.primary">Chi tiết phòng</p>
+        </p>
+        <p color='text.primary'>Chi tiết phòng</p>
       </Breadcrumbs>
       <TitleRoom title={propertyDetail?.title as string} />
       {propertyDetail && <ImageList propertyImages={propertyDetail.propertyImages} />}
@@ -50,15 +50,16 @@ const DetailRoom = () => {
               maxChildCount={propertyDetail.maxChildCount}
               numberOfReviews={propertyDetail.numberOfReviews}
               rating={propertyDetail.rating}
+              propertyUtilities={propertyDetail.propertyUtilities}
             />
           </div>
         )}
-        <BookingRoom pricePerNight={propertyDetail?.pricePerNight} />
+        {propertyDetail && <BookingRoom pricePerNight={propertyDetail.pricePerNight} />}
       </div>
       <Divider />
       <LocationOnMap />
       <Divider />
-      <Evaluate />
+      {propertyDetail && <Evaluate propertyId={propertyDetail.id} />}
     </div>
   );
 };

@@ -20,19 +20,13 @@ const MenuProps = {
 
 const names = ['Room', 'House', 'Apartment', 'Ralph Hubbard', 'Villa', 'HomeStay', 'Miriam Wagner', 'Hotel', 'Cabin'];
 
-export default function MultipleSelectCheckmarks() {
-  const [propertyType, setPropertyType] = React.useState<string[]>([]);
+interface PropsType {
+  propertyType: string[];
+  handleChangePropertyType: (event: SelectChangeEvent<string[]>) => void;
+  // setPropertyType: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-  const handleChange = (event: SelectChangeEvent<typeof propertyType>) => {
-    const {
-      target: { value },
-    } = event;
-    setPropertyType(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-  console.log(propertyType);
+const PropertyType = ({ propertyType, handleChangePropertyType }: PropsType) => {
   return (
     <div>
       <FormControl sx={{ minWidth: 200, maxWidth: 200, minHeight: 12 }}>
@@ -42,7 +36,7 @@ export default function MultipleSelectCheckmarks() {
           id='demo-multiple-checkbox'
           multiple
           value={propertyType}
-          onChange={handleChange}
+          onChange={handleChangePropertyType}
           input={<OutlinedInput label='Loại phòng' />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
@@ -57,4 +51,5 @@ export default function MultipleSelectCheckmarks() {
       </FormControl>
     </div>
   );
-}
+};
+export default PropertyType;
