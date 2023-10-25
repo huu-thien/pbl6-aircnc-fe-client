@@ -86,7 +86,7 @@ const Header = () => {
                 sx={userLogin ? { width: 30, height: 30, bgcolor: '#1976d2' } : { width: 30, height: 30 }}
                 src={userLogin && userLogin.avatarUrl ? `${userLogin?.avatarUrl}` : ``}
               >
-                {userLogin && userLogin.avatarUrl ? `` : userLogin?.fullName[0]}
+                {userLogin && userLogin.avatarUrl ? `` : userLogin?.fullName[0].toUpperCase()}
               </Avatar>
             </span>
             {userLogin && (

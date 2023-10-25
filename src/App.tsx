@@ -51,7 +51,7 @@ function App() {
             <Route index element={<MainLayout page={<Home />} />} />
             <Route path='/wishlist' element={<MainLayout page={<Wishlist />} />} />
             <Route path='/detail-room/:id' element={<MainLayout page={<DetailRoom />} />} />
-            <Route path='/host' element={<MainLayout page={<HostInfo />} />} />
+            <Route path='/host/:id' element={<MainLayout page={<HostInfo />} />} />
             <Route path='/become-host' element={<MainLayout page={<BecomeHost />} />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>

@@ -76,15 +76,12 @@ const provinces = [
   'Vĩnh Phúc',
   'Yên Bái',
 ];
+interface PropsType {
+  city: string;
+  handleChangeCity: (event: SelectChangeEvent) => void;
+}
 
-export default function BasicSelect() {
-  const [city, setCity] = React.useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setCity(event.target.value as string);
-  };
-  console.log('city: ', city);
-
+const CityCategory = ({ city, handleChangeCity }: PropsType) => {
   return (
     <FormControl fullWidth sx={{ minWidth: 200, width: 200 }}>
       <InputLabel id='demo-simple-select-label'>Tỉnh/Thành</InputLabel>
@@ -93,7 +90,7 @@ export default function BasicSelect() {
         id='demo-simple-select'
         value={city}
         label='Tỉnh/Thành'
-        onChange={handleChange}
+        onChange={handleChangeCity}
         MenuProps={MenuProps}
       >
         {provinces.map((city, index) => (
@@ -104,4 +101,5 @@ export default function BasicSelect() {
       </Select>
     </FormControl>
   );
-}
+};
+export default CityCategory;

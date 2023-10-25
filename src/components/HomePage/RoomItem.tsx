@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
@@ -11,6 +10,7 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { PropertyImage } from '@/@types/property';
+import { formatMoney } from '@/helpers/FormatMoney/formatMoney';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 interface Propstype {
@@ -21,11 +21,7 @@ interface Propstype {
   numberOfReviews: number;
   rating: number;
 }
-const formatNumber = (number: number) => {
-  return Math.floor(number)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-};
+
 
 const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, rating }: Propstype) => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -92,7 +88,7 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
             </span>
           </div>
           <div className='flex justify-between py-3'>
-            <p className='text-gray-600'>{formatNumber(pricePerNight * 100000)} vnd/đêm</p>
+            <p className='text-gray-600'>{formatMoney(pricePerNight)} vnd/đêm</p>
             <p>
               <Link to='/review' className='text-cyan-700'>
                 Review ({numberOfReviews})
