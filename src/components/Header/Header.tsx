@@ -27,6 +27,8 @@ const Header = () => {
     setAnchorEl(null);
   };
   const handleLogout = async () => {
+    console.log(123);
+    
     const tokenLocal = localStorage.getItem('refreshToken');
     if (tokenLocal !== null) {
       const refreshToken = JSON.parse(tokenLocal);
@@ -44,6 +46,7 @@ const Header = () => {
             localStorage.removeItem('refreshToken');
             dispatch(saveLogout());
             navigate('/authenticate');
+            
           });
       } catch (error) {
         console.log(error);
