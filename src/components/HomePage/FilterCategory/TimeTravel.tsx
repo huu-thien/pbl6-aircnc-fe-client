@@ -4,21 +4,21 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 interface PropsType {
-  setTimeStart: React.Dispatch<React.SetStateAction<string>>;
-  setTimeEnd: React.Dispatch<React.SetStateAction<string>>;
+  setTimeStart: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setTimeEnd: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const TimeTravel = ({ setTimeStart, setTimeEnd }: PropsType) => {
   const handleDateStartChange = (date) => {
     setTimeStart(
-      `${new Date(String(date)).getDate()}/${new Date(String(date)).getMonth() + 1}/${new Date(
+      `${new Date(String(date)).getMonth() + 1}/${new Date(String(date)).getDate()}/${new Date(
         String(date),
       ).getFullYear()}`,
     );
   };
   const handleDateEndChange = (date) => {
     setTimeEnd(
-      `${new Date(String(date)).getDate()}/${new Date(String(date)).getMonth() + 1}/${new Date(
+      `${new Date(String(date)).getMonth() + 1}/${new Date(String(date)).getDate()}/${new Date(
         String(date),
       ).getFullYear()}`,
     );

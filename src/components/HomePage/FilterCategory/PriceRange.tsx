@@ -78,7 +78,7 @@ const PriceRange = ({minPrice, maxPrice, setMinPrice, setMaxPrice} : PropsType) 
             label='Đến'
             variant='standard'
             sx={{ width: 120, pb: 2 }}
-            value={`${maxPrice} triệu`}
+            value={`${maxPrice} triệu `}
           />
         </MenuItem>
         <MenuItem>

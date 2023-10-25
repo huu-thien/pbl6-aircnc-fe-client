@@ -5,7 +5,6 @@ import PriceRange from './FilterCategory/PriceRange';
 import TimeTravel from './FilterCategory/TimeTravel';
 import { Button, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
-import { PropertyFilterParams } from '@/@types/property';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { setFilterParams } from '@/redux-toolkit/property.slice';
@@ -14,8 +13,18 @@ import { toast } from 'react-toastify';
 const FilterRoom = () => {
   const filterParams = useSelector((state: RootState) => state.property.filterParams);
   const dispatch = useDispatch();
+
+  const filterParamsType = useSelector((state: RootState) => state.property.filterParams.Type);
+  const filterParamsCity = useSelector((state: RootState) => state.property.filterParams.City);
+  const filterParamsCheckInDate = useSelector((state: RootState) => state.property.filterParams.CheckInDate);
+  const filterParamsCheckOutDate = useSelector((state: RootState) => state.property.filterParams.CheckOutDate);
+  const filterParamsAdultCount = useSelector((state: RootState) => state.property.filterParams.AdultCount);
+  const filterParamsChildCount = useSelector((state: RootState) => state.property.filterParams.ChildCount);
+  const filterParamsMinPrice = useSelector((state: RootState) => state.property.filterParams.MinPrice);
+  const filterParamsMaxPrice = useSelector((state: RootState) => state.property.filterParams.MaxPrice);
+
   // PropertyType
-  const [propertyType, setPropertyType] = useState<string[]>([]);
+  const [propertyType, setPropertyType] = useState<string[]>(filterParamsType || []);
   const handleChangePropertyType = (event: SelectChangeEvent<typeof propertyType>) => {
     const {
       target: { value },
@@ -23,21 +32,25 @@ const FilterRoom = () => {
     setPropertyType(typeof value === 'string' ? value.split(',') : value);
   };
   // CityCategory
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState(filterParamsCity);
   const handleChangeCity = (event: SelectChangeEvent) => {
     setCity(event.target.value as string);
   };
   // TimeTravel
-  const [timeStart, setTimeStart] = useState('');
-  const [timeEnd, setTimeEnd] = useState('');
-  console.log(timeStart);
-  console.log(timeEnd);
+  const [timeStart, setTimeStart] = useState(filterParamsCheckInDate);
+  const [timeEnd, setTimeEnd] = useState(filterParamsCheckOutDate);
   // MenuQuantityCustomer
-  const [quantityOld, setQuantityOld] = useState(0);
-  const [quantityYoung, setQuantityYoung] = useState(0);
+  const [quantityOld, setQuantityOld] = useState<number>(filterParamsAdultCount || 0);
+  const [quantityYoung, setQuantityYoung] = useState<number>(filterParamsChildCount || 0);
   // Price Range
-  const [minPrice, setMinPrice] = useState<number>(1);
-  const [maxPrice, setMaxPrice] = useState<number>(100);
+  const [minPrice, setMinPrice] = useState<number>(() => {
+    if (filterParamsMinPrice === undefined) return 1;
+    return filterParamsMinPrice / 1000000;
+  });
+  const [maxPrice, setMaxPrice] = useState<number>(() => {
+    if (filterParamsMaxPrice === undefined) return 100;
+    return filterParamsMaxPrice / 1000000;
+  });
 
   // Filter
   const handlerFilterProperty = () => {
@@ -59,7 +72,7 @@ const FilterRoom = () => {
             ChildCount: quantityYoung,
             MinPrice: minPrice * 1000000,
             MaxPrice: maxPrice * 1000000,
-            PageIndex: 1
+            PageIndex: 1,
           }),
         );
       });
@@ -89,14 +102,14 @@ const FilterRoom = () => {
           }),
         );
       });
-      setCity('')
-      setPropertyType([])
-      setTimeStart('')
-      setTimeEnd('')
-      setQuantityOld(0)
-      setQuantityYoung(0)
-      setMinPrice(0)
-      setMaxPrice(100)
+    setCity('');
+    setPropertyType([]);
+    setTimeStart('');
+    setTimeEnd('');
+    setQuantityOld(0);
+    setQuantityYoung(0);
+    setMinPrice(0);
+    setMaxPrice(100);
   };
 
   return (
@@ -107,7 +120,7 @@ const FilterRoom = () => {
           handleChangePropertyType={handleChangePropertyType}
           // setPropertyType={setPropertyType}
         />
-        <CityCategory city={city} handleChangeCity={handleChangeCity} />
+        <CityCategory city={city as string} handleChangeCity={handleChangeCity} />
         <TimeTravel setTimeStart={setTimeStart} setTimeEnd={setTimeEnd} />
         <MenuQuantityCustomer
           quantityOld={quantityOld}

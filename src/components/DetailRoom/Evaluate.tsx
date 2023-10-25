@@ -43,7 +43,7 @@ const Evaluate = ({ propertyId }: PropsType) => {
           listReview.length > 0 &&
           listReview.map((review, index) => (
             <div key={`${review.guestName}_${index}`} className='flex flex-col p-2 shadow-md rounded-md'>
-              <div className='w-1/2'>
+              <div className=''>
                 <div className='flex items-center gap-4 p-3'>
                   <Avatar src={review.guestAvatarUrl} />
                   <div>
