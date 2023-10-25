@@ -1,3 +1,4 @@
+
 interface Propstype {
   name: string;
   introduction: string;
