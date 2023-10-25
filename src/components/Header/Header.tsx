@@ -111,7 +111,7 @@ const Header = () => {
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <Link className='w-full text-cyan-800' to='/bookings'>
+                  <Link className='w-full text-cyan-800' to='/list-booking-guest'>
                     Quản lý đặt phòng
                   </Link>
                 </MenuItem>
