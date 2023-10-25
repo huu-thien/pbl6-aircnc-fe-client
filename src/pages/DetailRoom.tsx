@@ -32,7 +32,7 @@ const DetailRoom = () => {
         <p className='hover:underline hover:text-cyan-600' onClick={() => navigate(-1)}>
           Trang chủ
         </p>
-        <p color='text.primary'>Chi tiết phòng</p>
+        <p color=''>Chi tiết phòng</p>
       </Breadcrumbs>
       <TitleRoom title={propertyDetail?.title as string} />
       {propertyDetail && <ImageList propertyImages={propertyDetail.propertyImages} />}
