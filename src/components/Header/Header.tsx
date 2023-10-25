@@ -86,7 +86,7 @@ const Header = () => {
                 sx={userLogin ? { width: 30, height: 30, bgcolor: '#1976d2' } : { width: 30, height: 30 }}
                 src={userLogin && userLogin.avatarUrl ? `${userLogin?.avatarUrl}` : ``}
               >
-                {userLogin && userLogin.avatarUrl ? `` : userLogin?.fullName[0]}
+                {userLogin && userLogin.avatarUrl ? `` : userLogin?.fullName[0].toUpperCase()}
               </Avatar>
             </span>
             {userLogin && (
@@ -111,7 +111,7 @@ const Header = () => {
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <Link className='w-full text-cyan-800' to='/bookings'>
+                  <Link className='w-full text-cyan-800' to='/list-booking-guest'>
                     Quản lý đặt phòng
                   </Link>
                 </MenuItem>

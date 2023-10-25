@@ -5,11 +5,14 @@ import MenuItem from '@mui/material/MenuItem';
 import Slider from '@mui/material/Slider';
 import { Box, TextField } from '@mui/material';
 
-// function valuetext(value: number) {
-//   return `${value}°C`;
-// }
+interface PropsType {
+  minPrice: number;
+  maxPrice: number;
+  setMinPrice: React.Dispatch<React.SetStateAction<number>>;
+  setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
+}
 
-const PriceRange = () => {
+const PriceRange = ({minPrice, maxPrice, setMinPrice, setMaxPrice} : PropsType) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,17 +21,19 @@ const PriceRange = () => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-  const [value, setValue] = React.useState<number[]>([0, 100]);
+  // const [value, setValue] = React.useState<number[]>([0, 100]);
 
   const handleChangeRange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+    if(Array.isArray(newValue)) {
+      setMinPrice(newValue[0]);
+      setMaxPrice(newValue[1])
+      // console.log(newValue[0], newValue[1]);
+    }
   };
-  console.log(value);
   const handleChangePrice = () => {
-    setValue([100, 999] as number[]);
+    setMinPrice(100);
+    setMaxPrice(900)
   };
-  console.log(value);
-
   return (
     <div className=''>
       <Button
@@ -40,7 +45,8 @@ const PriceRange = () => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClickMenu}
       >
-        Mức giá: từ {value[0]} đến {value[1]} triệu
+        {maxPrice > 100 ? `Mức giá: lớn hơn 100 triệu` : `Giá: từ ${minPrice} triệu đến ${maxPrice} triệu`}
+        {/* Giá: từ {minPrice} triệu đến {maxPrice} triệu */}
       </Button>
       <Menu
         className='rouned-lg'
@@ -64,7 +70,7 @@ const PriceRange = () => {
             label='Từ'
             variant='standard'
             sx={{ width: 120, pb: 2 }}
-            value={`${value[0]} triệu`}
+            value={`${minPrice} triệu`}
           />
           <TextField
             disabled
@@ -72,16 +78,16 @@ const PriceRange = () => {
             label='Đến'
             variant='standard'
             sx={{ width: 120, pb: 2 }}
-            value={`${value[1]} triệu`}
+            value={`${maxPrice} triệu `}
           />
         </MenuItem>
         <MenuItem>
           <Box sx={{ width: '100%' }}>
             <Slider
               getAriaLabel={() => 'Price range'}
-              value={value}
+              value={[minPrice, maxPrice]}
               onChange={handleChangeRange}
-              step={0.5}
+              step={1}
               valueLabelDisplay='auto'
               // getAriaValueText={valuetext}
             />

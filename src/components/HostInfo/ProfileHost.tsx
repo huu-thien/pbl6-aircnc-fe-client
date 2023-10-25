@@ -1,13 +1,18 @@
 import { Box, Divider } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-const informationHost = {
-  src: 'https://astral.vn/wp-content/uploads/2023/05/anh-gai-xinh-lo-clip-169.jpg',
-  alt: 'image of host',
-  name: 'Kim Ngọc',
-  numberOfReivews: '7',
-  joiningDate: '02/02/2022',
-};
-const ProfileHost = () => {
+
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import { formatDateTime } from '@/helpers/FormatDateTime/formatDateTime';
+
+interface Propstype {
+  avatarUrl: string;
+  joinedAt: string;
+  name: string;
+  numberOfReviews: number;
+  rating: number;
+}
+const ProfileHost = ({ avatarUrl, joinedAt, name, numberOfReviews, rating }: Propstype) => {
+  // const date = new Date(joinedAt);
   return (
     <Box
       sx={{
@@ -19,19 +24,22 @@ const ProfileHost = () => {
       }}
     >
       <div className='flex gap-5'>
-        <div className=''>
-          <img src={informationHost.src} alt={informationHost.alt} className='w-[120px] h-[120px] rounded-full' />
-          <p className='text-center pt-4 text-xl text-cyan-700'>{informationHost.name}</p>
+        <div className='min-w-[150px] flex flex-col items-center'>
+          <img src={avatarUrl} alt={name} className='w-[120px] h-[120px] rounded-full' />
+          <p className='text-center pt-4 text-xl text-cyan-700'>{name}</p>
         </div>
         <div className='flex flex-col justify-between'>
-          <p className='text-md text-gray-600'>Đánh giá: {informationHost.numberOfReivews}</p>
-          <Divider />
           <p className='text-md text-gray-600'>
-            <span>Rating: 4.93 </span>
-            <StarIcon sx={{ color: '#feb207' }} />
+            <RateReviewIcon sx={{ color: '#743de3', mr: 1 }} />
+            Đánh giá: {numberOfReviews}
           </p>
           <Divider />
-          <p className='text-gray-600'>Bắt đầu tham gia: {informationHost.joiningDate}</p>
+          <p className='text-md text-gray-600'>
+            <StarIcon sx={{ color: '#feb207', mr: 1 }} />
+            <span>Điểm: {rating.toFixed(2)} </span>
+          </p>
+          <Divider />
+          <p className='text-gray-600'>Ngày tham gia: {formatDateTime(joinedAt)}</p>
         </div>
       </div>
     </Box>

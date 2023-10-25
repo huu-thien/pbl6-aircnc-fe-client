@@ -5,9 +5,14 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const MenuQuantityCustomer = () => {
-  const [quantityOld, setQuantityOld] = React.useState(0);
-  const [quantityYoung, setQuantityYoung] = React.useState(0);
+interface PropsType {
+  quantityOld: number;
+  setQuantityOld: React.Dispatch<React.SetStateAction<number>>;
+  quantityYoung: number;
+  setQuantityYoung: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const MenuQuantityCustomer = ({quantityOld,setQuantityOld, quantityYoung, setQuantityYoung }: PropsType) => {
   const handleIncreaseOld = () => {
     setQuantityOld(quantityOld + 1);
   };
@@ -28,8 +33,6 @@ const MenuQuantityCustomer = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log('Quantity old: ', quantityOld);
-  console.log('Quantity young: ', quantityYoung);
   const numberOfGuest = quantityOld + quantityYoung;
   return (
     <div className=''>

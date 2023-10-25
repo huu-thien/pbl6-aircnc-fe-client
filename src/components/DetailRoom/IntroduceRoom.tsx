@@ -7,6 +7,8 @@ import StarIcon from '@mui/icons-material/Star';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import BedroomParentIcon from '@mui/icons-material/BedroomParent';
 import PersonIcon from '@mui/icons-material/Person';
+import PropertyUtilities from './PropertyUtilities';
+import { PropertyUtilitiesType } from '@/@types/property';
 
 interface PropsType {
   bathroomCount: number;
@@ -16,6 +18,7 @@ interface PropsType {
   maxChildCount: number;
   numberOfReviews: number;
   rating: number;
+  propertyUtilities: PropertyUtilitiesType[]
 }
 
 const IntroduceRoom = ({
@@ -26,6 +29,7 @@ const IntroduceRoom = ({
   maxChildCount,
   numberOfReviews,
   rating,
+  propertyUtilities
 }: PropsType) => {
   return (
     <>
@@ -42,7 +46,7 @@ const IntroduceRoom = ({
           </div>
           <div className='flex gap-3 py-2'>
             <PersonIcon sx={{ color: '#257b9a' }} />
-            <p className='font-thin'>Số khách tối đa: {maxAdultCount + maxChildCount} </p>
+            <p className='font-thin'>Số khách tối đa: {maxAdultCount + maxChildCount} người</p>
           </div>
           <div className='flex gap-3 py-2'>
             <RateReviewIcon sx={{ color: '#743de3' }} />
@@ -73,6 +77,7 @@ const IntroduceRoom = ({
           </div>
         </div>
       </div>
+      <PropertyUtilities propertyUtilities={propertyUtilities}/>
       <div>
         <h4 className='text-xl text-cyan-800 font-bold pb-2'>Mô tả phòng</h4>
         <p className='font-thin text-gray-500'>{description}</p>
