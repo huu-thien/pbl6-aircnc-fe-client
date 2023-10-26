@@ -45,7 +45,7 @@ const LocationOnMap=() => {
 
   return (
     <div>
-      <h1 className='text-xl text-cyan-800 font-bold'>Nơi bạn cần đến</h1>
+      <h1 className='text-xl text-cyan-800 font-bold pb-2 pt-5'>Nơi bạn cần đến</h1>
       {/* <div className="sidebar" style={{backgroundColor: 'rgba(35, 55, 75, 0.3)', color:'#fff',position:'absolute'}}>
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div> */}

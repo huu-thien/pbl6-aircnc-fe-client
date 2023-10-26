@@ -56,9 +56,9 @@ const DetailRoom = () => {
         )}
         {propertyDetail && <BookingRoom pricePerNight={propertyDetail.pricePerNight} />}
       </div>
-      <Divider />
+      {/* <Divider /> */}
       <LocationOnMap />
-      <Divider />
+      {/* <Divider /> */}
       {propertyDetail && <Evaluate propertyId={propertyDetail.id} />}
     </div>
   );
