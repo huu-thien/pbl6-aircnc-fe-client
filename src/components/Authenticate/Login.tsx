@@ -40,10 +40,10 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
       if (response.status === 200) {
         const { user, accessToken, refreshToken } = response.data;
         dispatch(saveUserLogin({ user, accessToken, refreshToken }));
-        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 2000));
+        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
         toast
           .promise(resolveAfter2Sec, {
-            pending: 'Đang tiến hành đăng nhập ⌛',
+            pending: 'Đang tiến hành đăng nhập !',
             success: 'Đăng nhập thành công !',
           })
           .then(() => {
@@ -54,9 +54,9 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
           });
       }
     } catch (error) {
-      const rejectAfter2Sec = new Promise((_, reject) => setTimeout(reject, 2000));
+      const rejectAfter2Sec = new Promise((_, reject) => setTimeout(reject, 1400));
       toast.promise(rejectAfter2Sec, {
-        pending: 'Đang tiến hành đăng nhập ⌛',
+        pending: 'Đang tiến hành đăng nhập !',
         error: 'Tài khoản hoặc mật khẩu không chính xác !',
       });
       throw error;

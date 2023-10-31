@@ -13,3 +13,7 @@ export const getPropertyDetail = (propertyId: number) => {
 export const getPropertyReview = (propertyId: number, page: number) => {
   return http.get(`api/reviews/property/${propertyId}?PageIndex=${page}&PageSize=4`, { signal: controller.signal });
 };
+
+export const postImagePropertyUrl = (body: FormData) => {
+  return http.post(`api/attachments/property`, body, { signal: controller.signal });
+};

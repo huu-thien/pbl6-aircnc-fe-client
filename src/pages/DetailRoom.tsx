@@ -23,7 +23,11 @@ const DetailRoom = () => {
 
   const getPropertyDetailApi = async (propertyId: string) => {
     const response = await getPropertyDetail(Number(propertyId));
-    setPropertyDetail(response.data);
+    if (response && response.status === 200) {
+      setPropertyDetail(response.data);
+      console.log(response);
+      
+    }
   };
 
   return (
@@ -34,7 +38,9 @@ const DetailRoom = () => {
         </p>
         <p color=''>Chi tiết phòng</p>
       </Breadcrumbs>
-      <TitleRoom title={propertyDetail?.title as string} />
+      {propertyDetail && (
+        <TitleRoom title={propertyDetail.title} address={propertyDetail.address} city={propertyDetail.city} />
+      )}
       {propertyDetail && <ImageList propertyImages={propertyDetail.propertyImages} />}
 
       <div className='flex items-start justify-between mb-5'>
@@ -56,9 +62,9 @@ const DetailRoom = () => {
         )}
         {propertyDetail && <BookingRoom pricePerNight={propertyDetail.pricePerNight} />}
       </div>
-      {/* <Divider /> */}
-      <LocationOnMap />
-      {/* <Divider /> */}
+      <Divider />
+      {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude}/>}
+      <Divider />
       {propertyDetail && <Evaluate propertyId={propertyDetail.id} />}
     </div>
   );

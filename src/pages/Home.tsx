@@ -4,7 +4,7 @@ import { Divider } from '@mui/material';
 
 const Home = () => {
   return (
-    <div className='py-10'>
+    <div className='py-10 min-h-[600px]'>
       <FilterRoom />
       <Divider />
       <RoomList />
