@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import autoRefreshToken from './autoRefreshToken';
+import { redirect } from 'react-router-dom';
+
 
 let refreshTokenRequest: any = null;
 
@@ -21,23 +23,36 @@ class Http {
       },
       (error) => Promise.reject(error),
     );
+
     this.instance.interceptors.response.use(
       (config) => config,
       (error) => {
-        console.log('Loi api', error);
-        if (error.response.status === 401 && error.response.data.name === 'EXPIRED_ACCESS_TOKEN') {
+        if (error.response.status === 401) {
+          console.log('Acesstolen het han', refreshTokenRequest);
+          localStorage.clear();
+          redirect('/authenticate');
           refreshTokenRequest = refreshTokenRequest
             ? refreshTokenRequest
             : autoRefreshToken().finally(() => {
+                // if (refreshTokenRequest !== null) {
+                //   console.log('hehe');
+                //   localStorage.clear();
+                //   redirect('/authenticate');
+                // }
                 refreshTokenRequest = null;
               });
+          // console.log(refreshTokenRequest);
           return refreshTokenRequest
             .then((accessToken: string) => {
+              console.log('hehehehe');
               error.response.config.Authorization = `Bearer ${JSON.parse(accessToken)}`;
+              console.log('accessToken', accessToken);
               return this.instance(error.response.config);
             })
-            .catch((error) => {
-              throw error;
+            .catch((errorRefreshToken) => {
+              console.log('Refresh token het han ! or Chua dang nhap');
+              localStorage.clear();
+              throw errorRefreshToken;
             });
         }
         return Promise.reject(error);

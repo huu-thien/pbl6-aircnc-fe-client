@@ -13,6 +13,7 @@ import { postLogout } from '@/services/AuthService/authService';
 import { saveLogout } from '@/redux-toolkit/auth.slice';
 import { toast } from 'react-toastify';
 
+
 const Header = () => {
   const userLogin = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
@@ -27,8 +28,6 @@ const Header = () => {
     setAnchorEl(null);
   };
   const handleLogout = async () => {
-    console.log(123);
-    
     const tokenLocal = localStorage.getItem('refreshToken');
     if (tokenLocal !== null) {
       const refreshToken = JSON.parse(tokenLocal);

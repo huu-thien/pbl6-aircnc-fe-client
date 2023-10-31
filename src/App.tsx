@@ -12,7 +12,7 @@ import DetailRoom from './pages/DetailRoom';
 import HostInfo from './pages/HostInfo';
 import BecomeHost from './pages/BecomeHost';
 import { ToastContainer } from 'react-toastify';
-import { Flip } from 'react-toastify';
+// import { Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { saveUserLogin } from './redux-toolkit/auth.slice';
@@ -59,10 +59,10 @@ function App() {
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
         <ToastContainer
-          style={{ fontFamily: 'Lexend', fontSize: '13px' }}
-          transition={Flip}
+          style={{ fontFamily: 'Lexend', fontSize: '13px', width: `255px` }}
+          // transition={Flip}
           position='top-center'
-          autoClose={2000}
+          autoClose={1200}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

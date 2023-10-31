@@ -3,12 +3,13 @@ import MenuQuantityCustomer from './FilterCategory/MenuQuantityCustomer';
 import PropertyType from './FilterCategory/PropertyType';
 import PriceRange from './FilterCategory/PriceRange';
 import TimeTravel from './FilterCategory/TimeTravel';
-import { Button, SelectChangeEvent } from '@mui/material';
+import { Button, IconButton, SelectChangeEvent, Tooltip } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { setFilterParams } from '@/redux-toolkit/property.slice';
 import { toast } from 'react-toastify';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const FilterRoom = () => {
   const filterParams = useSelector((state: RootState) => state.property.filterParams);
@@ -32,7 +33,7 @@ const FilterRoom = () => {
     setPropertyType(typeof value === 'string' ? value.split(',') : value);
   };
   // CityCategory
-  const [city, setCity] = useState(filterParamsCity);
+  const [city, setCity] = useState(filterParamsCity || '');
   const handleChangeCity = (event: SelectChangeEvent) => {
     setCity(event.target.value as string);
   };
@@ -54,11 +55,11 @@ const FilterRoom = () => {
 
   // Filter
   const handlerFilterProperty = () => {
-    const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 2000));
+    const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1500));
     toast
       .promise(resolveAfter2Sec, {
-        pending: 'Đang Locj ⌛',
-        success: 'Loc thanh cong!',
+        pending: 'Đang lọc phòng ⌛',
+        success: 'Lọc thành công !',
       })
       .then(() => {
         dispatch(
@@ -79,11 +80,11 @@ const FilterRoom = () => {
     console.log(123);
   };
   const handlerClearFilter = () => {
-    const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 2000));
+    const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
     toast
       .promise(resolveAfter2Sec, {
-        pending: 'Đang Clear bo loc ⌛',
-        success: 'Clear thanh cong!',
+        pending: 'Đang xóa bộ lọc ⌛',
+        success: 'Xóa bộ lọc thành công !',
       })
       .then(() => {
         dispatch(
@@ -131,9 +132,14 @@ const FilterRoom = () => {
         <PriceRange minPrice={minPrice} maxPrice={maxPrice} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice} />
       </div>
       <div className='flex gap-6 justify-center pb-4'>
-        <Button variant='outlined' size='large' sx={{ color: 'red', borderColor: 'red' }} onClick={handlerClearFilter}>
+        {/* <Button variant='outlined' size='large' sx={{ color: 'red', borderColor: 'red' }} onClick={handlerClearFilter}>
           Clear filter
-        </Button>
+        </Button> */}
+        <Tooltip title='Xóa bộ lọc'>
+          <IconButton aria-label='clear-filter' onClick={handlerClearFilter}>
+            <DeleteForeverIcon sx={{ color: '#c92327', fontSize: 24 }} />
+          </IconButton>
+        </Tooltip>
         <Button variant='contained' size='large' onClick={handlerFilterProperty}>
           Filter
         </Button>

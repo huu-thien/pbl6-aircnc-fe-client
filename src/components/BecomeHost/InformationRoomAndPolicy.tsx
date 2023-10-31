@@ -24,9 +24,11 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { GeneralSchema, generalInformation } from '@/helpers/BecomeHostValidate/GeneralInformValidate';
 import { Formik } from 'formik';
 import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/BecomeHost';
+import { postImagePropertyUrl } from '@/services/PropertyService/propertyService';
 
-const InformationRoomAndPolicy: React.FC = () => {
-  const [utilities] = React.useState<string[]>([]);
+const InformationRoomAndPolicy = () => {
+  const [utilities] = useState<string[]>([]);
+
   const [selectedFiles, setSelectedFiles] = useState<FileObject[]>([]);
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
   const theme = useTheme();
@@ -38,21 +40,12 @@ const InformationRoomAndPolicy: React.FC = () => {
     return selectedFiles.some((file) => file.name === fileName);
   };
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-  //   if (files) {
-  //     const selectedFileList = Array.from(files);
-  //     // Lọc ra các tệp mới không trùng tên
-  //     const newFiles: FileObject[] = selectedFileList.filter((file) => !fileExists(file.name));
-  //     if (newFiles.length > 0) {
-  //       // Thêm các tệp mới vào danh sách
-  //       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...newFiles]);
-  //     }
-  //   }
-  // };
-
-  const handleSubmitBecomeHost = (values: any) => {
-    console.log(values);
+  const handleSubmitBecomeHost = async (values: any) => {
+    const formData = new FormData();
+    formData.append('file', values.listImage[0]);
+    console.log(values.listImage[0]);
+    const response = await postImagePropertyUrl(formData);
+    console.log(response);
   };
 
   return (
@@ -288,6 +281,28 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.pricePerNight && errors.pricePerNight}
                   />
                 </div>
+                <div className='mb-2'>
+                  <label htmlFor='feeCleaning' className=''>
+                    Phí vệ sinh
+                  </label>
+                  <TextField
+                    sx={{
+                      fontFamily: 'Lexend',
+                      marginTop: '10px',
+                    }}
+                    type='number'
+                    fullWidth
+                    id='feeCleaning'
+                    label='Nhập phí vệ sinh'
+                    variant='outlined'
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.feeCleaning}
+                    error={!!touched.feeCleaning && !!errors.feeCleaning}
+                    helperText={touched.feeCleaning && errors.feeCleaning}
+                  />
+                </div>
+
                 <p className='text-xl py-3 text-cyan-700 uppercase'>Chính sách & Điều khoản</p>
                 <div>
                   <RadioGroup

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
@@ -11,6 +10,14 @@ import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { PropertyImage } from '@/@types/property';
 import { formatMoney } from '@/helpers/FormatMoney/formatMoney';
+import { deleteWishlistProperty, postWishlistProperty } from '@/services/WishlistService/wishlistService';
+
+import { toast } from 'react-toastify';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useState } from 'react';
+import { IconButton } from '@mui/material';
+import { useAppDispatch } from '@/store';
+import { saveLogout } from '@/redux-toolkit/auth.slice';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 interface Propstype {
@@ -20,11 +27,14 @@ interface Propstype {
   pricePerNight: number;
   numberOfReviews: number;
   rating: number;
+  isFavorite: boolean;
 }
 
+const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, rating, isFavorite }: Propstype) => {
+  const dispatch = useAppDispatch();
+  const [activeStep, setActiveStep] = useState(0);
 
-const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, rating }: Propstype) => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [showFavorite, setShowFavorite] = useState<boolean>(isFavorite);
   const maxSteps = propertyImage.length;
 
   const handleNext = () => {
@@ -39,6 +49,39 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
     setActiveStep(step);
   };
 
+  // add wish list
+  const handleAddWishlistProperty = async (propertyId: number) => {
+    try {
+      const response = await postWishlistProperty(propertyId);
+      if (response && response.status === 200) {
+        toast.success('Thêm vào wishist thành công !');
+        setShowFavorite(!showFavorite);
+      }
+    } catch (err) {
+      if (err.response.status === 400) {
+        dispatch(saveLogout());
+        toast.error('Đăng nhập để thêm wishlist');
+      }
+      console.log(err);
+    }
+  };
+  // Remove wish list
+  const handleRemoveWishlistProperty = async (propertyId: number) => {
+    try {
+      const response = await deleteWishlistProperty(propertyId);
+      if (response && response.status === 200) {
+        toast.success('Xóa wishist thành công !');
+        setShowFavorite(!showFavorite);
+        console.log(response);
+      }
+    } catch (err) {
+      if (err.response.status === 400) {
+        dispatch(saveLogout());
+        toast.error('Đăng nhập để xóa wishlist');
+      }
+      console.log(err);
+    }
+  };
   return (
     <div className='shadow-md p-2 rounded-lg mx-auto'>
       <Box sx={{ maxWidth: 350 }}>
@@ -96,7 +139,15 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
             </p>
           </div>
           <div className='cursor-pointer'>
-            <FavoriteBorderIcon sx={{ color: '#257b9a' }} />
+            {showFavorite ? (
+              <IconButton aria-label='add-wishlist' onClick={() => handleRemoveWishlistProperty(id)}>
+                <FavoriteIcon sx={{ color: '#c92327' }} />
+              </IconButton>
+            ) : (
+              <IconButton aria-label='add-wishlist' onClick={() => handleAddWishlistProperty(id)}>
+                <FavoriteBorderIcon sx={{ color: '#257b9a' }} />
+              </IconButton>
+            )}
           </div>
         </div>
       </Box>

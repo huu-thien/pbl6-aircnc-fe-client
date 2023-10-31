@@ -19,6 +19,7 @@ const generalInformation = {
       size: '',
     },
   ],
+  feeCleaning: ''
 };
 const GeneralSchema = yup.object().shape({
   roomName: yup.string().required('Tên phòng là bắt buộc'),
@@ -38,6 +39,7 @@ const GeneralSchema = yup.object().shape({
   utilities: yup.array().min(2, 'Tiện ích phải nhiều hơn 2').required('Tiện ích là bắt buộc'),
   pricePerNight: yup.number().min(0, 'Giá tiền phải lớn hơn hoặc bằng 0').required('Giá tiền là bắt buộc'),
   listImage: yup.array().min(4, 'Ảnh phải nhiều hơn 4').required('Ảnh là bắt buộc'),
+  feeCleaning:yup.number().min(0, 'Giá tiền phải lớn hơn hoặc bằng 0').required('Giá tiền là bắt buộc'),
   // policy: yup.string().required('Vui lòng chọn chính sách')
 });
 
