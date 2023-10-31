@@ -3,8 +3,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState } from 'react';
-
-const BookingTime = () => {
+interface BookingTimeProps {
+  onDayDifferenceChange: (difference: number) => void;
+}
+const BookingTime: React.FC<BookingTimeProps>=({onDayDifferenceChange}) => {
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
 
@@ -15,7 +17,7 @@ const BookingTime = () => {
   const [monthEnd, setMonthEnd] = useState(0);
   const [yearEnd, setYearEnd] = useState(0);
 
-  const handleDateStartChange = (date) => {
+  const handleDateStartChange = (date:any) => {
     if (dateEnd && date > dateEnd) {
       return;
     }
@@ -24,8 +26,8 @@ const BookingTime = () => {
     setMonthStart(new Date(String(date)).getMonth() + 1);
     setYearStart(new Date(String(date)).getFullYear());
   };
-  const handleDateEndChange = (date) => {
-    if (dateStart && date < dateStart) {
+  const handleDateEndChange = (date:any) => {
+    if (dateStart && date <= dateStart) {
       return;
     }
     setDateEnd(date);
@@ -33,12 +35,21 @@ const BookingTime = () => {
     setMonthEnd(new Date(String(date)).getMonth() + 1);
     setYearEnd(new Date(String(date)).getFullYear());
   };
-
+  let timeDifference = 0;
+  if (dateEnd && dateStart != null)
+  {
+  timeDifference = dateEnd - dateStart;
+  }
+  const dayDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  if (onDayDifferenceChange) {
+    onDayDifferenceChange(dayDifference);
+  }
+  // console.log("khoang cach giua: " ,dayDifference);
   const StartTime = `${dayStart}/${monthStart}/${yearStart}`;
   const EndTime = `${dayEnd}/${monthEnd}/${yearEnd}`;
 
-  if (yearStart != 0) console.log(StartTime);
-  if (yearEnd != 0) console.log(EndTime);
+  if (yearStart != 0) console.log("Ngày đi: ",StartTime);
+  if (yearEnd != 0) console.log("Ngày về: ",EndTime);
   return (
     <div className='flex gap-2'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
