@@ -7,8 +7,10 @@ import {
   Button,
   Checkbox,
   Chip,
+  FormControl,
   FormHelperText,
   ImageListItem,
+  InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
@@ -25,7 +27,9 @@ import { GeneralSchema, generalInformation } from '@/helpers/BecomeHostValidate/
 import { Formik } from 'formik';
 import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/BecomeHost';
 import { postImagePropertyUrl } from '@/services/PropertyService/propertyService';
+import { log } from 'console';
 
+const listTypeRooms = ['Room', 'House', 'Apartment', 'Ralph Hubbard', 'Villa', 'HomeStay', 'Miriam Wagner', 'Hotel', 'Cabin'];
 const InformationRoomAndPolicy = () => {
   const [utilities] = useState<string[]>([]);
 
@@ -41,11 +45,13 @@ const InformationRoomAndPolicy = () => {
   };
 
   const handleSubmitBecomeHost = async (values: any) => {
-    const formData = new FormData();
-    formData.append('file', values.listImage[0]);
-    console.log(values.listImage[0]);
-    const response = await postImagePropertyUrl(formData);
-    console.log(response);
+    // const formData = new FormData();
+    // formData.append('file', values.listImage[0]);
+    // console.log(values.listImage[0]);
+    // const response = await postImagePropertyUrl(formData);
+    // console.log(response);
+    console.log(values);
+    
   };
 
   return (
@@ -97,6 +103,39 @@ const InformationRoomAndPolicy = () => {
                     error={!!touched.description && !!errors.description}
                     helperText={touched.description && errors.description}
                   />
+                </div>
+                
+                <div className='mb-2'>
+                  <label htmlFor='typeRoom' className=''>
+                    Loại phòng
+                  </label>
+                  <FormControl fullWidth sx={{marginTop:'10px'}}>
+                    <InputLabel id='typeRoom'>Chọn loại phòng</InputLabel>
+                    <Select
+                      labelId='type-room'
+                      id='type-room'
+                      name='typeRoom'
+                      value={values.typeRoom}
+                      label='Chọn loại phòng'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      MenuProps={MenuProps}
+                      error={!!touched.typeRoom && !!errors.typeRoom}
+                      fullWidth
+                      sx={{
+                        fontFamily: 'Lexend',
+                      }}
+                    >
+                      {listTypeRooms.map((typeRoom, index) => (
+                        <MenuItem key={`typeRoom-${index}`} value={typeRoom}>
+                          {typeRoom}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {touched.typeRoom && errors.typeRoom && (
+                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>{errors.typeRoom}</FormHelperText>
+                    )}
+                  </FormControl>
                 </div>
                 <div className='mb-2'>
                   <label htmlFor='address' className=''>
@@ -428,7 +467,7 @@ const InformationRoomAndPolicy = () => {
                       Reset
                     </Button>
                     {errors.listImage && touched.listImage && (
-                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>Ít nhất 4 ảnh</FormHelperText>
+                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>Ít nhất 8 ảnh</FormHelperText>
                     )}
                     <div>
                       {selectedFiles.length > 0 && (
