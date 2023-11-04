@@ -1,0 +1,32 @@
+name: Build and deploy container app
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to registry
+      uses: docker/login-action@v2
+      with:
+        registry: https://index.docker.io/v1/
+        username: ${{ secrets.ContainerUsername }}
+        password: ${{ secrets.ContainerPassword }}
+
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: true
+        tags: index.docker.io/pp311/pbl6-fe:latest
+        file: ./Dockerfile
