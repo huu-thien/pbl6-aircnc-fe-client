@@ -26,7 +26,7 @@ const HostInfo = () => {
       {hostInfo && (
         <ProfileHost
           avatarUrl={hostInfo.avatarUrl}
-          joinedAt={ hostInfo.joinedAt}
+          joinedAt={hostInfo.joinedAt}
           name={hostInfo.name}
           numberOfReviews={hostInfo.numberOfReviews}
           rating={hostInfo.rating}
@@ -43,7 +43,7 @@ const HostInfo = () => {
           <Divider />
           <CustomerReview hostId={Number(id) as number} />
           <Divider />
-          <ListOfRoomsForRent hostId={Number(id) as number}/>
+          <ListOfRoomsForRent hostId={Number(id) as number} />
         </div>
       )}
     </div>

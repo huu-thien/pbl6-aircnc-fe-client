@@ -1,6 +1,6 @@
 import BookingTime from './BookingRoom/BookingTime';
 import Button from '@mui/material/Button';
-import { Divider} from '@mui/material';
+import { Divider } from '@mui/material';
 import { formatMoney } from '@/helpers/FormatMoney/formatMoney';
 import { useCallback, useState } from 'react';
 import MenuQuantityCustomer from './BookingRoom/MenuQuantityCustomer';
@@ -13,7 +13,7 @@ interface Propstype {
 
 const BookingRoom = ({ pricePerNight }: Propstype) => {
   // const [numberOfNight, ] = useState<number>(5)
-  
+
   // const total = price - infoPriceRoom.disCount + infoPriceRoom.serviceCharge;
 
   const [dayDifference, setDayDifference] = useState(0);
@@ -21,23 +21,23 @@ const BookingRoom = ({ pricePerNight }: Propstype) => {
   // Callback function để nhận giá trị dayDifference từ BookingTime
   const handleDayDifferenceChange = (difference: number) => {
     setDayDifference(difference);
-  }
+  };
 
-  const price = dayDifference * (pricePerNight);
-  console.log("So dem: ",dayDifference);
+  const price = dayDifference * pricePerNight;
+  console.log('So dem: ', dayDifference);
 
   const navigate = useNavigate();
   const handleSubmit = useCallback(() => {
     // Xử lý gửi giá trị từ biểu mẫu ở đây
     // Sau khi xử lý, chuyển đến trang xác nhận và truyền dữ liệu
     navigate(`/booking-confirmed?dayDifference=${dayDifference}`);
-  }, [dayDifference,navigate]);
+  }, [dayDifference, navigate]);
   return (
     <div className='border shadow-xl rounded-xl'>
       <div className='grid p-5'>
         <p className='py-4 text-cyan-800 text-xl'>{formatMoney(pricePerNight)} vnd/đêm</p>
         <div className='flex flex-col gap-5'>
-          <BookingTime onDayDifferenceChange={handleDayDifferenceChange}/>
+          <BookingTime onDayDifferenceChange={handleDayDifferenceChange} />
           <MenuQuantityCustomer />
         </div>
         {/* <Button variant='contained' sx={{ height: 56, mt: 3 }}>

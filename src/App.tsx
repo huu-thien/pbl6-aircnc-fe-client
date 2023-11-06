@@ -19,6 +19,7 @@ import { saveUserLogin } from './redux-toolkit/auth.slice';
 import { UserType } from './@types/user';
 import ListBookingGuest from './pages/ListBookingGuest';
 import BookingConfirmed from './pages/BookingConfirmed';
+import InfoAccount from './pages/InfoAccount';
 
 function App() {
   const theme = createTheme({
@@ -57,6 +58,7 @@ function App() {
             <Route path='/become-host' element={<MainLayout page={<BecomeHost />} />} />
             <Route path='/list-booking-guest' element={<MainLayout page={<ListBookingGuest />} />} />
             <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
+            <Route path='/info-account' element={<MainLayout page={<InfoAccount />} />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>

@@ -2,7 +2,6 @@ import axios, { AxiosInstance } from 'axios';
 import autoRefreshToken from './autoRefreshToken';
 import { redirect } from 'react-router-dom';
 
-
 let refreshTokenRequest: any = null;
 
 class Http {

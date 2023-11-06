@@ -1,4 +1,4 @@
-import {  createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { LoginResponse, UserType } from '@/@types/user';
 
@@ -30,7 +30,7 @@ const authSlice = createSlice({
       state.user = null;
       state.accessToken = null;
       state.refreshToken = null;
-    }
+    },
   },
   // extraReducers: (builder) => {},
 });

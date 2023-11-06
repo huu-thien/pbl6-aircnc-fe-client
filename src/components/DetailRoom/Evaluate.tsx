@@ -33,7 +33,6 @@ const Evaluate = ({ propertyId }: PropsType) => {
     }
   };
   console.log(listReview);
-  
 
   return (
     <div className='pt-6'>

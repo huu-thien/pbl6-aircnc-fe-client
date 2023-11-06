@@ -3,7 +3,7 @@ export interface LoginType {
   password: string;
 }
 export interface LogoutType {
-  refreshToken : string;
+  refreshToken: string;
 }
 export interface LoginResponse {
   user: UserType | null;

@@ -111,8 +111,8 @@ const FavoriteRoomItem = () => {
           <div className='cursor-pointer'>
             {isFavorite ? (
               <FavoriteBorderIcon sx={{ color: '#257b9a' }} onClick={toggleFavorite} />
-            ):(
-              <FavoriteIcon sx={{color:'#EE0000	'}} onClick={toggleFavorite} />
+            ) : (
+              <FavoriteIcon sx={{ color: '#EE0000	' }} onClick={toggleFavorite} />
             )}
           </div>
         </div>

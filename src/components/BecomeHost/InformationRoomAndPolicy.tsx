@@ -29,7 +29,17 @@ import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/Become
 import { postImagePropertyUrl } from '@/services/PropertyService/propertyService';
 import { log } from 'console';
 
-const listTypeRooms = ['Room', 'House', 'Apartment', 'Ralph Hubbard', 'Villa', 'HomeStay', 'Miriam Wagner', 'Hotel', 'Cabin'];
+const listTypeRooms = [
+  'Room',
+  'House',
+  'Apartment',
+  'Ralph Hubbard',
+  'Villa',
+  'HomeStay',
+  'Miriam Wagner',
+  'Hotel',
+  'Cabin',
+];
 const InformationRoomAndPolicy = () => {
   const [utilities] = useState<string[]>([]);
 
@@ -51,7 +61,6 @@ const InformationRoomAndPolicy = () => {
     // const response = await postImagePropertyUrl(formData);
     // console.log(response);
     console.log(values);
-    
   };
 
   return (
@@ -104,12 +113,12 @@ const InformationRoomAndPolicy = () => {
                     helperText={touched.description && errors.description}
                   />
                 </div>
-                
+
                 <div className='mb-2'>
                   <label htmlFor='typeRoom' className=''>
                     Loại phòng
                   </label>
-                  <FormControl fullWidth sx={{marginTop:'10px'}}>
+                  <FormControl fullWidth sx={{ marginTop: '10px' }}>
                     <InputLabel id='typeRoom'>Chọn loại phòng</InputLabel>
                     <Select
                       labelId='type-room'
@@ -133,7 +142,9 @@ const InformationRoomAndPolicy = () => {
                       ))}
                     </Select>
                     {touched.typeRoom && errors.typeRoom && (
-                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>{errors.typeRoom}</FormHelperText>
+                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>
+                        {errors.typeRoom}
+                      </FormHelperText>
                     )}
                   </FormControl>
                 </div>

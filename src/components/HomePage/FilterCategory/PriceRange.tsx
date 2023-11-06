@@ -12,7 +12,7 @@ interface PropsType {
   setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const PriceRange = ({minPrice, maxPrice, setMinPrice, setMaxPrice} : PropsType) => {
+const PriceRange = ({ minPrice, maxPrice, setMinPrice, setMaxPrice }: PropsType) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -24,15 +24,15 @@ const PriceRange = ({minPrice, maxPrice, setMinPrice, setMaxPrice} : PropsType) 
   // const [value, setValue] = React.useState<number[]>([0, 100]);
 
   const handleChangeRange = (event: Event, newValue: number | number[]) => {
-    if(Array.isArray(newValue)) {
+    if (Array.isArray(newValue)) {
       setMinPrice(newValue[0]);
-      setMaxPrice(newValue[1])
+      setMaxPrice(newValue[1]);
       // console.log(newValue[0], newValue[1]);
     }
   };
   const handleChangePrice = () => {
     setMinPrice(100);
-    setMaxPrice(900)
+    setMaxPrice(900);
   };
   return (
     <div className=''>

@@ -13,7 +13,6 @@ import { postLogout } from '@/services/AuthService/authService';
 import { saveLogout } from '@/redux-toolkit/auth.slice';
 import { toast } from 'react-toastify';
 
-
 const Header = () => {
   const userLogin = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
@@ -45,7 +44,6 @@ const Header = () => {
             localStorage.removeItem('refreshToken');
             dispatch(saveLogout());
             navigate('/authenticate');
-            
           });
       } catch (error) {
         console.log(error);
@@ -118,7 +116,7 @@ const Header = () => {
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <Link className='w-full text-cyan-800' to='/'>
+                  <Link className='w-full text-cyan-800' to='/info-account'>
                     Tài khoản
                   </Link>
                 </MenuItem>

@@ -6,7 +6,7 @@ import { useState } from 'react';
 interface BookingTimeProps {
   onDayDifferenceChange: (difference: number) => void;
 }
-const BookingTime: React.FC<BookingTimeProps>=({onDayDifferenceChange}) => {
+const BookingTime: React.FC<BookingTimeProps> = ({ onDayDifferenceChange }) => {
   const [dateStart, setDateStart] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
 
@@ -17,7 +17,7 @@ const BookingTime: React.FC<BookingTimeProps>=({onDayDifferenceChange}) => {
   const [monthEnd, setMonthEnd] = useState(0);
   const [yearEnd, setYearEnd] = useState(0);
 
-  const handleDateStartChange = (date:any) => {
+  const handleDateStartChange = (date: any) => {
     if (dateEnd && date > dateEnd) {
       return;
     }
@@ -26,7 +26,7 @@ const BookingTime: React.FC<BookingTimeProps>=({onDayDifferenceChange}) => {
     setMonthStart(new Date(String(date)).getMonth() + 1);
     setYearStart(new Date(String(date)).getFullYear());
   };
-  const handleDateEndChange = (date:any) => {
+  const handleDateEndChange = (date: any) => {
     if (dateStart && date <= dateStart) {
       return;
     }
@@ -36,9 +36,8 @@ const BookingTime: React.FC<BookingTimeProps>=({onDayDifferenceChange}) => {
     setYearEnd(new Date(String(date)).getFullYear());
   };
   let timeDifference = 0;
-  if (dateEnd && dateStart != null)
-  {
-  timeDifference = dateEnd - dateStart;
+  if (dateEnd && dateStart != null) {
+    timeDifference = dateEnd - dateStart;
   }
   const dayDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   if (onDayDifferenceChange) {
@@ -48,8 +47,8 @@ const BookingTime: React.FC<BookingTimeProps>=({onDayDifferenceChange}) => {
   const StartTime = `${dayStart}/${monthStart}/${yearStart}`;
   const EndTime = `${dayEnd}/${monthEnd}/${yearEnd}`;
 
-  if (yearStart != 0) console.log("Ngày đi: ",StartTime);
-  if (yearEnd != 0) console.log("Ngày về: ",EndTime);
+  if (yearStart != 0) console.log('Ngày đi: ', StartTime);
+  if (yearEnd != 0) console.log('Ngày về: ', EndTime);
   return (
     <div className='flex gap-2'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

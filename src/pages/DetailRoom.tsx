@@ -26,7 +26,6 @@ const DetailRoom = () => {
     if (response && response.status === 200) {
       setPropertyDetail(response.data);
       console.log(response);
-      
     }
   };
 
@@ -63,7 +62,7 @@ const DetailRoom = () => {
         {propertyDetail && <BookingRoom pricePerNight={propertyDetail.pricePerNight} />}
       </div>
       <Divider />
-      {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude}/>}
+      {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude} />}
       <Divider />
       {propertyDetail && <Evaluate propertyId={propertyDetail.id} />}
     </div>
