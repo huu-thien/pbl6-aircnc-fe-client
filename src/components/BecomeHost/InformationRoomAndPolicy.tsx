@@ -101,6 +101,7 @@ const InformationRoomAndPolicy = () => {
     } catch (err) {
       console.log(err);
     }
+
   };
 
   return (

@@ -25,16 +25,15 @@ const ReviewItem = ({ content, reviewerAvatarUrl, reviewerName, reviewTime, rati
           </div>
         </div>
         <p className='font-light text-justify text-sm text-gray-500 pt-4 line-clamp-3 min-h-[76px]'>"{content}"</p>
-        
       </div>
       <div className='flex'>
-          {yellowStarArray.map((_, index) => (
-            <StarIcon key={`review_${index}`} sx={{ color: '#feb207' }} />
-          ))}
-          {grayStarArray.map((_, index) => (
-            <StarIcon key={`review_${index}`} sx={{ color: '#eaeaea' }} />
-          ))}
-        </div>
+        {yellowStarArray.map((_, index) => (
+          <StarIcon key={`review_${index}`} sx={{ color: '#feb207' }} />
+        ))}
+        {grayStarArray.map((_, index) => (
+          <StarIcon key={`review_${index}`} sx={{ color: '#eaeaea' }} />
+        ))}
+      </div>
     </div>
   );
 };
