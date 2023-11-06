@@ -22,10 +22,14 @@ const DetailRoom = () => {
   }, [id]);
 
   const getPropertyDetailApi = async (propertyId: string) => {
-    const response = await getPropertyDetail(Number(propertyId));
-    if (response && response.status === 200) {
-      setPropertyDetail(response.data);
-      console.log(response);
+    try {
+      const response = await getPropertyDetail(Number(propertyId));
+      if (response && response.status === 200) {
+        setPropertyDetail(response.data);
+        console.log(response.data);
+      }
+    } catch (err) { 
+      console.log(err);
     }
   };
 

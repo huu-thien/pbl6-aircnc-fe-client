@@ -20,7 +20,7 @@ function getStyles(name: string, utilities: readonly string[], theme: Theme) {
 }
 const listUtilities = [
   'Wifi',
-  'TV',
+  'Tv',
   'Kitchen',
   'AirConditioning',
   'LaptopFriendlyWorkspace',

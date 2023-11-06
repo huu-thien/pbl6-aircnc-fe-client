@@ -32,16 +32,16 @@ function App() {
   const accessTokenLocal = localStorage.getItem('accessToken');
   const refreshTokenLocal = localStorage.getItem('refreshToken');
 
-  let user: UserType | null = null;
-  let accessToken: string | null = null;
-  let refreshToken: string | null = null;
+    let user: UserType | null = null;
+    let accessToken: string | null = null;
+    let refreshToken: string | null = null;
 
-  if (userLocal !== null && accessTokenLocal !== null && refreshTokenLocal !== null) {
-    user = JSON.parse(userLocal);
-    accessToken = JSON.parse(accessTokenLocal);
-    refreshToken = JSON.parse(refreshTokenLocal);
-    dispatch(saveUserLogin({ user, accessToken, refreshToken }));
-  }
+    if (userLocal !== null && accessTokenLocal !== null && refreshTokenLocal !== null) {
+      user = JSON.parse(userLocal);
+      accessToken = JSON.parse(accessTokenLocal);
+      refreshToken = JSON.parse(refreshTokenLocal);
+      dispatch(saveUserLogin({ user, accessToken, refreshToken }));
+    }
 
   return (
     <div className=''>
