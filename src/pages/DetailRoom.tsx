@@ -22,11 +22,14 @@ const DetailRoom = () => {
   }, [id]);
 
   const getPropertyDetailApi = async (propertyId: string) => {
-    const response = await getPropertyDetail(Number(propertyId));
-    if (response && response.status === 200) {
-      setPropertyDetail(response.data);
-      console.log(response);
-      
+    try {
+      const response = await getPropertyDetail(Number(propertyId));
+      if (response && response.status === 200) {
+        setPropertyDetail(response.data);
+        console.log(response.data);
+      }
+    } catch (err) { 
+      console.log(err);
     }
   };
 
@@ -63,7 +66,7 @@ const DetailRoom = () => {
         {propertyDetail && <BookingRoom pricePerNight={propertyDetail.pricePerNight} />}
       </div>
       <Divider />
-      {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude}/>}
+      {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude} />}
       <Divider />
       {propertyDetail && <Evaluate propertyId={propertyDetail.id} />}
     </div>

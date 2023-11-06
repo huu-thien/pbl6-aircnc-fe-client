@@ -352,6 +352,21 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.6.tgz#22958c042e10b67463997bd6ea7115fe28cbcaf9"
   integrity sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==
 
+"@googlemaps/js-api-loader@1.16.2":
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.16.2.tgz#3fe748e21243f8e8322c677a5525c569ae9cdbe9"
+  integrity sha512-psGw5u0QM6humao48Hn4lrChOM2/rA43ZCm3tKK9qQsEj1/VzqkCqnvGfEOshDbBQflydfaRovbKwZMF4AyqbA==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+
+"@googlemaps/markerclusterer@2.3.2":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/markerclusterer/-/markerclusterer-2.3.2.tgz#b311c26a0c0e8bb6325759ea690aef68c7150d8a"
+  integrity sha512-zb9OQP8XscZp2Npt1uQUYnGKu1miuq4DPP28JyDuFd6HV17HCEcjV9MtBi4muG/iVRXXvuHW9bRCnHbao9ITfw==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+    supercluster "^8.0.1"
+
 "@humanwhocodes/config-array@^0.11.11":
   version "0.11.11"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.11.tgz#88a04c570dbbc7dd943e4712429c3df09bc32844"
@@ -668,6 +683,28 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
+"@react-google-maps/api@^2.19.2":
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/api/-/api-2.19.2.tgz#678dc1871fbab72cd46d338eed687a36bf556ab1"
+  integrity sha512-Vt57XWzCKfsUjKOmFUl2erVVfOePkPK5OigF/f+q7UuV/Nm9KDDy1PMFBx+wNahEqOd6a32BxfsykEhBnbU9wQ==
+  dependencies:
+    "@googlemaps/js-api-loader" "1.16.2"
+    "@googlemaps/markerclusterer" "2.3.2"
+    "@react-google-maps/infobox" "2.19.2"
+    "@react-google-maps/marker-clusterer" "2.19.2"
+    "@types/google.maps" "3.53.5"
+    invariant "2.2.4"
+
+"@react-google-maps/infobox@2.19.2":
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/infobox/-/infobox-2.19.2.tgz#b6bda962a4fa1074fdd3dfd63bc4c7d68b1dd745"
+  integrity sha512-6wvBqeJsQ/eFSvoxg+9VoncQvNoVCdmxzxRpLvmjPD+nNC6mHM0vJH1xSqaKijkMrfLJT0nfkTGpovrF896jwg==
+
+"@react-google-maps/marker-clusterer@2.19.2":
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.19.2.tgz#24d9fb9aa555bb063ba5fe82f80fcd7d48662184"
+  integrity sha512-x9ibmsP0ZVqzyCo1Pitbw+4b6iEXRw/r1TCy3vOUR3eKrzWLnHYZMR325BkZW2r8fnuWE/V3Fp4QZOP9qYORCw==
+
 "@react-leaflet/core@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-2.1.0.tgz#383acd31259d7c9ae8fb1b02d5e18fe613c2a13d"
@@ -776,6 +813,11 @@
   version "7946.0.11"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.11.tgz#012c17cb2256ad8de78560da851ab914a7b9b40e"
   integrity sha512-L7A0AINMXQpVwxHJ4jxD6/XjZ4NDufaRlUJHjNIFKYUFBH1SvOW+neaqb0VTRSLW5suSrSu19ObFEFnfNcr+qg==
+
+"@types/google.maps@3.53.5":
+  version "3.53.5"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.53.5.tgz#0f3010ab4eabe46721f3604462196975b640aab9"
+  integrity sha512-HoRq4Te8J6krH7hj+TfdYepqegoKZCj3kkaK5gf+ySFSHLvyqYkDvkrtbcVJXQ6QBphQ0h1TF7p4J6sOh4r/zg==
 
 "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.2"
@@ -1838,6 +1880,13 @@ inherits@2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==
 
+invariant@2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
+  integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
+  dependencies:
+    loose-envify "^1.0.0"
+
 is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
@@ -2792,7 +2841,7 @@ sucrase@^3.32.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supercluster@^8.0.0:
+supercluster@^8.0.0, supercluster@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-8.0.1.tgz#9946ba123538e9e9ab15de472531f604e7372df5"
   integrity sha512-IiOea5kJ9iqzD2t7QJq/cREyLHTtSmUT6gQsweojg9WH2sYJqZK9SswTu6jrscO6D1G5v5vYZ9ru/eq85lXeZQ==
