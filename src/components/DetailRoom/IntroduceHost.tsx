@@ -18,9 +18,16 @@ const IntroduceHost = ({ hostId }: Propstype) => {
   }, [hostId]);
 
   const getHostInfoApi = async (hostId: number) => {
-    const response = await getHostDetail(hostId);
+    try {
+      const response = await getHostDetail(hostId);
     if (response && response.status === 200) {
       setHostInfo(response.data);
+      console.log(response.data);
+      
+    }
+    } catch(err) {
+      console.log(err);
+      
     }
   };
   return (

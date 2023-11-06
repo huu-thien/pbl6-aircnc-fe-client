@@ -14,8 +14,6 @@ const BookingConfirmed = () => {
         </p>
         <h1 className="font-bold text-2xl  text-cyan-800 line-clamp-1">Yêu cầu đặt phòng/đặt chỗ</h1>
       </div>
-
-      
       <h2 className="text-xl text-cyan-800 font-bold pt-8 pb-3">Chuyến đi của bạn</h2>
       <div className="grid grid-cols-3 gap-1.5">
         <div className='inline-flex justify-between font-extralight'>

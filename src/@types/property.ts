@@ -86,6 +86,22 @@ export interface PropertyFilterParams {
   TotalPages: number;
 }
 
+export interface HostInput {
+  address: string;
+  description: string;
+  feeCleaning: number;
+  listImage: File[];
+  policy: 'flexible' | 'strict';
+  pricePerNight: number;
+  quantityBathRooms: number;
+  quantityBed: number;
+  quantityBedRooms: number;
+  quantityChild: number;
+  quantityOld: number;
+  roomName: string;
+  typeRoom: string;
+  utilities: string[];
+}
 export interface PropertyInfoPost {
   type: 'Room' | 'House' | 'Apartment' | 'Ralph Hubbard' | 'Villa' | 'HomeStay' | 'Miriam Wagner' | 'Hotel' | 'Cabin';
   bedCount: number;
@@ -102,10 +118,7 @@ export interface PropertyInfoPost {
   pricePerNight: number;
   cleaningFee: number;
   cancellationPolicyType: 'Flexible' | 'Strict';
-  propertyImages: {
-    url: 'string';
-  }[];
-
+  propertyImages: { url: string }[];
   propertyUtilities: [
     {
       isWifi: boolean;

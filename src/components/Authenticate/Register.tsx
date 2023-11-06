@@ -31,9 +31,7 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
     };
     try {
       const response = await postRegister(dataRegister);
-      console.log(response);
-
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
         toast
           .promise(resolveAfter2Sec, {
