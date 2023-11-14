@@ -18,7 +18,7 @@ interface PropsType {
   maxChildCount: number;
   numberOfReviews: number;
   rating: number;
-  propertyUtilities: PropertyUtilitiesType[]
+  propertyUtilities: PropertyUtilitiesType[];
 }
 
 const IntroduceRoom = ({
@@ -29,7 +29,7 @@ const IntroduceRoom = ({
   maxChildCount,
   numberOfReviews,
   rating,
-  propertyUtilities
+  propertyUtilities,
 }: PropsType) => {
   return (
     <>
@@ -77,7 +77,7 @@ const IntroduceRoom = ({
           </div>
         </div>
       </div>
-      <PropertyUtilities propertyUtilities={propertyUtilities}/>
+      <PropertyUtilities propertyUtilities={propertyUtilities} />
       <div>
         <h4 className='text-xl text-cyan-800 font-bold pb-2'>Mô tả phòng</h4>
         <p className='font-thin text-gray-500'>{description}</p>

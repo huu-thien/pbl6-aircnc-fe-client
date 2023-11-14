@@ -12,7 +12,7 @@ interface PropsType {
   setQuantityYoung: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const MenuQuantityCustomer = ({quantityOld,setQuantityOld, quantityYoung, setQuantityYoung }: PropsType) => {
+const MenuQuantityCustomer = ({ quantityOld, setQuantityOld, quantityYoung, setQuantityYoung }: PropsType) => {
   const handleIncreaseOld = () => {
     setQuantityOld(quantityOld + 1);
   };

@@ -1,13 +1,20 @@
 import axios, { AxiosInstance } from 'axios';
 import autoRefreshToken from './autoRefreshToken';
+import { redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-let refreshTokenRequest: any = null;
+// let this.refreshTokenRequest: any = null;
 
 class Http {
   instance: AxiosInstance;
+
+  private refreshTokenRequest: Promise<string> | null = null;
   constructor() {
     this.instance = axios.create({
-      baseURL: 'https://pbl6.whitemage.tech/',
+      // baseURL: import.meta.env.BACKEND_API_URL,
+      // import.meta.env.VITE_BACKEND_API_URL
+      // baseURL: 'https://pbl6.whitemage.tech/',
+      baseURL: import.meta.env.VITE_BACKEND_API_URL,
       timeout: 10000,
     });
 
@@ -21,24 +28,42 @@ class Http {
       },
       (error) => Promise.reject(error),
     );
+
     this.instance.interceptors.response.use(
       (config) => config,
       (error) => {
-        console.log('Loi api', error);
-        if (error.response.status === 401 && error.response.data.name === 'EXPIRED_ACCESS_TOKEN') {
-          refreshTokenRequest = refreshTokenRequest
-            ? refreshTokenRequest
+        if (error.response.status !== 401) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const data: any | undefined = error.response.data;
+          const message = data.message || error.message;
+          toast.error(message);
+        }
+
+        // Lỗi Unauthorized có rất nhiều trường hợp: token ko đúng, ko truyền token, token hết hạn
+        if (error.response.status === 401) {
+          console.log('Acesstolen het han', this.refreshTokenRequest);
+          localStorage.clear();
+          redirect('/authenticate');
+          this.refreshTokenRequest = this.refreshTokenRequest
+            ? this.refreshTokenRequest
             : autoRefreshToken().finally(() => {
-                refreshTokenRequest = null;
+                this.refreshTokenRequest = null;
               });
-          return refreshTokenRequest
-            .then((accessToken: string) => {
-              error.response.config.Authorization = `Bearer ${JSON.parse(accessToken)}`;
-              return this.instance(error.response.config);
-            })
-            .catch((error) => {
-              throw error;
-            });
+          return (
+            this.refreshTokenRequest
+              .then((accessToken: string) => {
+                console.log('hehehehe');
+                error.response.config.Authorization = `Bearer ${JSON.parse(accessToken)}`;
+                console.log('accessToken', accessToken);
+                return this.instance(error.response.config);
+              })
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              .catch((errorRefreshToken: any) => {
+                console.log('Refresh token het han ! or Chua dang nhap');
+                localStorage.clear();
+                throw errorRefreshToken;
+              })
+          );
         }
         return Promise.reject(error);
       },

@@ -1,10 +1,18 @@
 import { PropertyFilterParams, PropertyType } from '@/@types/property';
 import http from '@/utils/http';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AsyncThunk, PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
+
+type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
+type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
+type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
 
 interface PropertyState {
   propertyList: PropertyType[];
   filterParams: PropertyFilterParams;
+  loading: boolean;
+  currentRequestId: undefined | string;
 }
 
 const initialState: PropertyState = {
@@ -22,6 +30,8 @@ const initialState: PropertyState = {
     Search: undefined,
     TotalPages: 7,
   },
+  loading: false,
+  currentRequestId: undefined,
 };
 
 // create Thunk
@@ -63,10 +73,27 @@ const propertySlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getPropertyList.fulfilled, (state, action) => {
-      state.propertyList = action.payload[1];
-      state.filterParams.TotalPages = action.payload[0];
-    });
+    builder
+      .addCase(getPropertyList.fulfilled, (state, action) => {
+        state.propertyList = action.payload[1];
+        state.filterParams.TotalPages = action.payload[0];
+      })
+      .addMatcher<PendingAction>(
+        (action) => action.type.endsWith('/pending'),
+        (state, action) => {
+          state.loading = true;
+          state.currentRequestId = action.meta.requestId;
+        },
+      )
+      .addMatcher<RejectedAction | FulfilledAction>(
+        (action) => action.type.endsWith('/rejected') || action.type.endsWith('/fulfilled'),
+        (state, action) => {
+          if (state.loading && state.currentRequestId === action.meta.requestId) {
+            state.loading = false;
+            state.currentRequestId = undefined;
+          }
+        },
+      );
   },
 });
 export const { setFilterParams, setPageIndexParamsType } = propertySlice.actions;

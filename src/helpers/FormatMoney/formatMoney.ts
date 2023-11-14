@@ -1,6 +1,3 @@
-
-
-
 export const formatMoney = (number: number) => {
   return Math.floor(number)
     .toString()

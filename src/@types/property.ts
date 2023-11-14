@@ -16,6 +16,12 @@ export interface PropertyType {
   propertyUtilities: PropertyUtilitiesType[];
   rejectionReason: string | null;
   status: string;
+  isFavorite: boolean;
+  latitude: number;
+  longitude: number;
+  address: string;
+  city: string;
+  cleaningFee: number;
 }
 
 export interface PropertyImage {
@@ -77,6 +83,68 @@ export interface PropertyFilterParams {
   AdultCount: number | undefined;
   ChildCount: number | undefined;
   Search: string | undefined;
-  PageIndex: number;  
-  TotalPages: number ;
+  PageIndex: number;
+  TotalPages: number;
+}
+
+export interface HostInput {
+  address: string;
+  description: string;
+  feeCleaning: number;
+  listImage: File[];
+  policy: 'flexible' | 'strict';
+  pricePerNight: number;
+  quantityBathRooms: number;
+  quantityBed: number;
+  quantityBedRooms: number;
+  quantityChild: number;
+  quantityOld: number;
+  roomName: string;
+  typeRoom: string;
+  utilities: string[];
+}
+export interface PropertyInfoPost {
+  type: 'Room' | 'House' | 'Apartment' | 'Ralph Hubbard' | 'Villa' | 'HomeStay' | 'Miriam Wagner' | 'Hotel' | 'Cabin';
+  bedCount: number;
+  bedroomCount: number;
+  bathroomCount: number;
+  maxAdultCount: number;
+  maxChildCount: number;
+  title: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  city: string;
+  pricePerNight: number;
+  cleaningFee: number;
+  cancellationPolicyType: 'Flexible' | 'Strict';
+  propertyImages: { url: string }[];
+  propertyUtilities: [
+    {
+      isWifi: boolean;
+      isTv: boolean;
+      isKitchen: boolean;
+      isAirConditioning: boolean;
+      isLaptopFriendlyWorkspace: boolean;
+      isHotWater: boolean;
+      isBreakfast: boolean;
+      isRoomService: boolean;
+      isBar: boolean;
+      isSwimmingPool: boolean;
+      isGym: boolean;
+      isSpa: boolean;
+      isBeachFront: boolean;
+      isMountainView: boolean;
+      isLakeView: boolean;
+      isSeaView: boolean;
+      isLandmarkView: boolean;
+      isWheelchairAccessible: boolean;
+      isElevator: boolean;
+      isSecurityCamera: boolean;
+      isCamperFriendly: boolean;
+    },
+  ];
+  status: 'Pending';
+  rejectionReason: string;
 }

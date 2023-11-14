@@ -18,9 +18,15 @@ const IntroduceHost = ({ hostId }: Propstype) => {
   }, [hostId]);
 
   const getHostInfoApi = async (hostId: number) => {
-    const response = await getHostDetail(hostId);
+    try {
+      const response = await getHostDetail(hostId);
     if (response && response.status === 200) {
       setHostInfo(response.data);
+      // console.log(response.data);
+    }
+    } catch(err) {
+      console.log(err);
+      
     }
   };
   return (
@@ -40,7 +46,7 @@ const IntroduceHost = ({ hostId }: Propstype) => {
           <RateReviewIcon sx={{ color: '#743de3' }} />
           <span className='pl-2'>{hostInfo?.numberOfReviews} Đánh giá</span>
         </div>
-        <Divider orientation="vertical"/>
+        <Divider orientation='vertical' />
         <div className='pt-4'>
           <StarIcon sx={{ color: '#feb207' }} />
           <span className='pl-2'>{hostInfo?.rating.toFixed(2)} Điểm rating</span>

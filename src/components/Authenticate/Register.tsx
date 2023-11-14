@@ -31,13 +31,11 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
     };
     try {
       const response = await postRegister(dataRegister);
-      console.log(response);
-
-      if (response.status === 200) {
-        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 2000));
+      if (response && response.status === 200) {
+        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
         toast
           .promise(resolveAfter2Sec, {
-            pending: 'Đang xử lý đăng kí tài khoản ⌛',
+            pending: 'Đang xử lý đăng kí tài khoản !',
             success: 'Tài khoản đã đã đăng kí thành công',
           })
           .then(() => {
@@ -45,9 +43,9 @@ const Register = ({ toggleLoginRegister }: PropsType) => {
           });
       }
     } catch (error) {
-      const rejectAfter2Sec = new Promise((_, reject) => setTimeout(reject, 2000));
+      const rejectAfter2Sec = new Promise((_, reject) => setTimeout(reject, 1400));
       toast.promise(rejectAfter2Sec, {
-        pending: 'Đang xử lý đăng kí tài khoản ⌛',
+        pending: 'Đang xử lý đăng kí tài khoản !',
         error: 'Tên đăng nhập hoặc email đã tồn tại !',
       });
       throw error;

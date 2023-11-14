@@ -12,12 +12,15 @@ import DetailRoom from './pages/DetailRoom';
 import HostInfo from './pages/HostInfo';
 import BecomeHost from './pages/BecomeHost';
 import { ToastContainer } from 'react-toastify';
-import { Flip } from 'react-toastify';
+// import { Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { saveUserLogin } from './redux-toolkit/auth.slice';
 import { UserType } from './@types/user';
 import ListBookingGuest from './pages/ListBookingGuest';
+import BookingConfirmed from './pages/BookingConfirmed';
+import InfoAccount from './pages/InfoAccount';
+import BookingChecked from './pages/BookingChecked';
 
 function App() {
   const theme = createTheme({
@@ -55,14 +58,17 @@ function App() {
             <Route path='/host/:id' element={<MainLayout page={<HostInfo />} />} />
             <Route path='/become-host' element={<MainLayout page={<BecomeHost />} />} />
             <Route path='/list-booking-guest' element={<MainLayout page={<ListBookingGuest />} />} />
+            <Route path='/info-account' element={<MainLayout page={<InfoAccount />} />} />
+            <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
+            <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
         <ToastContainer
-          style={{ fontFamily: 'Lexend', fontSize: '13px' }}
-          transition={Flip}
+          style={{ fontFamily: 'Lexend', fontSize: '13px', width: `255px` }}
+          // transition={Flip}
           position='top-center'
-          autoClose={2000}
+          autoClose={1200}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

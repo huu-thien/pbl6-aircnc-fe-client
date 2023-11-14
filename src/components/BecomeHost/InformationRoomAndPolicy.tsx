@@ -7,8 +7,10 @@ import {
   Button,
   Checkbox,
   Chip,
+  FormControl,
   FormHelperText,
   ImageListItem,
+  InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
@@ -24,9 +26,28 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { GeneralSchema, generalInformation } from '@/helpers/BecomeHostValidate/GeneralInformValidate';
 import { Formik } from 'formik';
 import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/BecomeHost';
+import { postCreateProperty } from '@/services/PropertyService/propertyService';
+import { ChangFileImageToUrl } from '@/helpers/ChangFileImageToUrl/ChangFileImageToUrl';
+import MatchingUtilities from '@/helpers/MatchingUtilities/Matchingutilities';
+import { PropertyInfoPost, PropertyUtilitiesType } from '@/@types/property';
+import { useDispatch } from 'react-redux';
+import { saveLogout } from '@/redux-toolkit/auth.slice';
+import { toast } from 'react-toastify';
 
-const InformationRoomAndPolicy: React.FC = () => {
-  const [utilities] = React.useState<string[]>([]);
+const listTypeRooms = [
+  'Room',
+  'House',
+  'Apartment',
+  'Ralph Hubbard',
+  'Villa',
+  'HomeStay',
+  'Miriam Wagner',
+  'Hotel',
+  'Cabin',
+];
+const InformationRoomAndPolicy = () => {
+  const [utilities] = useState<string[]>([]);
+
   const [selectedFiles, setSelectedFiles] = useState<FileObject[]>([]);
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
   const theme = useTheme();
@@ -38,21 +59,49 @@ const InformationRoomAndPolicy: React.FC = () => {
     return selectedFiles.some((file) => file.name === fileName);
   };
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-  //   if (files) {
-  //     const selectedFileList = Array.from(files);
-  //     // Lọc ra các tệp mới không trùng tên
-  //     const newFiles: FileObject[] = selectedFileList.filter((file) => !fileExists(file.name));
-  //     if (newFiles.length > 0) {
-  //       // Thêm các tệp mới vào danh sách
-  //       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...newFiles]);
-  //     }
-  //   }
-  // };
+  const handleSubmitBecomeHost = async (values) => {
+    try {
+      const propertyImages: { url: string }[] = await ChangFileImageToUrl(values.listImage);
+      const propertyUtilities: Omit<PropertyUtilitiesType, 'propertyId'> = MatchingUtilities(values.utilities);
+      console.log('propertyUtilities', propertyUtilities);
 
-  const handleSubmitBecomeHost = (values: any) => {
-    console.log(values);
+      const valueCreatePeroperty: PropertyInfoPost = {
+        type: values.typeRoom,
+        bedCount: values.quantityBed,
+        bedroomCount: values.quantityBed,
+        bathroomCount: values.quantityBedRooms,
+        maxAdultCount: values.quantityOld,
+        maxChildCount: values.quantityChild,
+        title: values.roomName,
+        description: values.description,
+        latitude: 44,
+        longitude: -80,
+        address: values.address,
+        city: 'Hà Nội',
+        pricePerNight: values.pricePerNight,
+        cleaningFee: values.feeCleaning,
+        cancellationPolicyType: values.policy,
+        propertyImages: propertyImages,
+        propertyUtilities: propertyUtilities,
+        status: 'Pending',
+        rejectionReason: '',
+      };
+      console.log(valueCreatePeroperty);
+
+      const response = await postCreateProperty(valueCreatePeroperty);
+      if (response && response.status === 200) {
+        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 3000));
+        toast
+          .promise(resolveAfter2Sec, {
+            pending: 'Đang tiến hành tạo phòng!',
+            success: 'Tạo phòng thành công !',
+          })
+          .then(() => {});
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
   };
 
   return (
@@ -104,6 +153,41 @@ const InformationRoomAndPolicy: React.FC = () => {
                     error={!!touched.description && !!errors.description}
                     helperText={touched.description && errors.description}
                   />
+                </div>
+
+                <div className='mb-2'>
+                  <label htmlFor='typeRoom' className=''>
+                    Loại phòng
+                  </label>
+                  <FormControl fullWidth sx={{ marginTop: '10px' }}>
+                    <InputLabel id='typeRoom'>Chọn loại phòng</InputLabel>
+                    <Select
+                      labelId='type-room'
+                      id='type-room'
+                      name='typeRoom'
+                      value={values.typeRoom}
+                      label='Chọn loại phòng'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      MenuProps={MenuProps}
+                      error={!!touched.typeRoom && !!errors.typeRoom}
+                      fullWidth
+                      sx={{
+                        fontFamily: 'Lexend',
+                      }}
+                    >
+                      {listTypeRooms.map((typeRoom, index) => (
+                        <MenuItem key={`typeRoom-${index}`} value={typeRoom}>
+                          {typeRoom}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {touched.typeRoom && errors.typeRoom && (
+                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>
+                        {errors.typeRoom}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
                 </div>
                 <div className='mb-2'>
                   <label htmlFor='address' className=''>
@@ -288,15 +372,37 @@ const InformationRoomAndPolicy: React.FC = () => {
                     helperText={touched.pricePerNight && errors.pricePerNight}
                   />
                 </div>
+                <div className='mb-2'>
+                  <label htmlFor='feeCleaning' className=''>
+                    Phí vệ sinh
+                  </label>
+                  <TextField
+                    sx={{
+                      fontFamily: 'Lexend',
+                      marginTop: '10px',
+                    }}
+                    type='number'
+                    fullWidth
+                    id='feeCleaning'
+                    label='Nhập phí vệ sinh'
+                    variant='outlined'
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.feeCleaning}
+                    error={!!touched.feeCleaning && !!errors.feeCleaning}
+                    helperText={touched.feeCleaning && errors.feeCleaning}
+                  />
+                </div>
+
                 <p className='text-xl py-3 text-cyan-700 uppercase'>Chính sách & Điều khoản</p>
                 <div>
                   <RadioGroup
                     aria-labelledby='demo-radio-buttons-group-label'
-                    defaultValue='flexible'
+                    defaultValue='Flexible'
                     name='policy'
                     onChange={handleChange}
                   >
-                    <FormControlLabel value='flexible' control={<Radio />} label='Flexible' />
+                    <FormControlLabel value='Flexible' control={<Radio />} label='Flexible' />
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChangeAccordion('panel1')}>
                       <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
                         <p className='text-cyan-700'>Chính sách linh hoạt</p>
@@ -329,7 +435,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                         </div>
                       </AccordionDetails>
                     </Accordion>
-                    <FormControlLabel value='strict' control={<Radio />} label='Strict' />
+                    <FormControlLabel value='Strict' control={<Radio />} label='Strict' />
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChangeAccordion('panel2')}>
                       <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
                         <p className='text-cyan-700'>Chính sách nghiêm ngặt</p>
@@ -413,7 +519,7 @@ const InformationRoomAndPolicy: React.FC = () => {
                       Reset
                     </Button>
                     {errors.listImage && touched.listImage && (
-                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>Ít nhất 4 ảnh</FormHelperText>
+                      <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>Ít nhất 8 ảnh</FormHelperText>
                     )}
                     <div>
                       {selectedFiles.length > 0 && (

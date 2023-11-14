@@ -26,18 +26,14 @@ const Evaluate = ({ propertyId }: PropsType) => {
 
   const getListReviewProperty = async (id: number, currentPage: number) => {
     const response = await getPropertyReview(id, currentPage);
-    console.log(response.data);
     if (response && response.status === 200) {
       setListReview(response.data.data);
       setTotalPages(response.data.totalPages);
     }
   };
-  console.log(listReview);
-  
-
   return (
     <div className='pt-6'>
-      <h2 style={{ fontSize: '18px', marginBottom: 10 }}>Đánh giá</h2>
+      <h2 className='text-xl text-cyan-800 font-bold pb-2 pt-5'>Đánh giá</h2>
       <div className='grid grid-cols-2 gap-5'>
         {listReview &&
           listReview.length > 0 &&
