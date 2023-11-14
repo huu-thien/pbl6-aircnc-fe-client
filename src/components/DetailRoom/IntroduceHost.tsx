@@ -22,8 +22,7 @@ const IntroduceHost = ({ hostId }: Propstype) => {
       const response = await getHostDetail(hostId);
     if (response && response.status === 200) {
       setHostInfo(response.data);
-      console.log(response.data);
-      
+      // console.log(response.data);
     }
     } catch(err) {
       console.log(err);

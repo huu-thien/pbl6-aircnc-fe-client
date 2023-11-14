@@ -21,6 +21,7 @@ export interface PropertyType {
   longitude: number;
   address: string;
   city: string;
+  cleaningFee: number;
 }
 
 export interface PropertyImage {

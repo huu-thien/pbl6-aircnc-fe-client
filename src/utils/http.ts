@@ -3,10 +3,7 @@ import autoRefreshToken from './autoRefreshToken';
 import { redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-
-
 // let this.refreshTokenRequest: any = null;
-
 
 class Http {
   instance: AxiosInstance;
@@ -14,7 +11,10 @@ class Http {
   private refreshTokenRequest: Promise<string> | null = null;
   constructor() {
     this.instance = axios.create({
-      baseURL: 'https://pbl6.whitemage.tech/',
+      // baseURL: import.meta.env.BACKEND_API_URL,
+      // import.meta.env.VITE_BACKEND_API_URL
+      // baseURL: 'https://pbl6.whitemage.tech/',
+      baseURL: import.meta.env.VITE_BACKEND_API_URL,
       timeout: 10000,
     });
 
@@ -61,7 +61,7 @@ class Http {
               .catch((errorRefreshToken: any) => {
                 console.log('Refresh token het han ! or Chua dang nhap');
                 localStorage.clear();
-                throw errorRefreshToken;  
+                throw errorRefreshToken;
               })
           );
         }

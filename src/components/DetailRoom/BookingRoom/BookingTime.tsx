@@ -2,61 +2,113 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from 'react';
-interface BookingTimeProps {
-  onDayDifferenceChange: (difference: number) => void;
+import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import { toast } from 'react-toastify';
+
+import { getCurrentDate, getNextYearDate } from '@/helpers/GetTime/getTime';
+import { mergeBusyDates } from '@/hooks/mergeBusyDates';
+import { getScheduleBooking } from '@/services/BookingService/bookingService';
+
+interface PropsType {
+  propertyId: number;
+  dateStart: Date | null;
+  dateEnd: Date | null;
+  setDateStart: React.Dispatch<React.SetStateAction<Date | null>>;
+  setDateEnd: React.Dispatch<React.SetStateAction<Date | null>>;
 }
-const BookingTime: React.FC<BookingTimeProps> = ({ onDayDifferenceChange }) => {
-  const [dateStart, setDateStart] = useState(null);
-  const [dateEnd, setDateEnd] = useState(null);
 
-  const [dayStart, setDayStart] = useState(0);
-  const [monthStart, setMonthStart] = useState(0);
-  const [yearStart, setYearStart] = useState(0);
-  const [dayEnd, setDayEnd] = useState(0);
-  const [monthEnd, setMonthEnd] = useState(0);
-  const [yearEnd, setYearEnd] = useState(0);
+const BookingTime = ({ propertyId, dateStart, dateEnd, setDateStart, setDateEnd }: PropsType) => {
+  const currentDate = dayjs(); // Ngày hiện tại
+  const [scheduleBooking, setScheduleBooking] = useState([]);
 
-  const handleDateStartChange = (date: any) => {
-    if (dateEnd && date > dateEnd) {
-      return;
+  const disabledDates = mergeBusyDates(scheduleBooking);
+  useEffect(() => {
+    const currentDate = getCurrentDate();
+    const nextyear = getNextYearDate();
+    getScheduleBookingOfProperty(propertyId, currentDate, nextyear);
+  }, [propertyId, dateStart, dateEnd]);
+
+  const getScheduleBookingOfProperty = async (propertyId: number, fromDate: string, toDate: string) => {
+    try {
+      const response = await getScheduleBooking(propertyId, fromDate, toDate);
+      if (response && response.status === 200) {
+        setScheduleBooking(response.data);
+        // console.log(response.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
-    setDateStart(date);
-    setDayStart(new Date(String(date)).getDate());
-    setMonthStart(new Date(String(date)).getMonth() + 1);
-    setYearStart(new Date(String(date)).getFullYear());
   };
-  const handleDateEndChange = (date: any) => {
-    if (dateStart && date <= dateStart) {
-      return;
-    }
-    setDateEnd(date);
-    setDayEnd(new Date(String(date)).getDate());
-    setMonthEnd(new Date(String(date)).getMonth() + 1);
-    setYearEnd(new Date(String(date)).getFullYear());
+  const shouldDisableDate = (date: Date) => {
+    return (
+      disabledDates.some(
+        (disabledDate) =>
+          new Date(String(date)).getDate() === disabledDate.getDate() &&
+          new Date(String(date)).getMonth() === disabledDate.getMonth() &&
+          new Date(String(date)).getFullYear() === disabledDate.getFullYear(),
+      ) || currentDate.isAfter(dayjs(date))
+    );
   };
-  let timeDifference = 0;
-  if (dateEnd && dateStart != null) {
-    timeDifference = dateEnd - dateStart;
-  }
-  const dayDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  if (onDayDifferenceChange) {
-    onDayDifferenceChange(dayDifference);
-  }
-  // console.log("khoang cach giua: " ,dayDifference);
-  const StartTime = `${dayStart}/${monthStart}/${yearStart}`;
-  const EndTime = `${dayEnd}/${monthEnd}/${yearEnd}`;
 
-  if (yearStart != 0) console.log('Ngày đi: ', StartTime);
-  if (yearEnd != 0) console.log('Ngày về: ', EndTime);
+  const handleDateStartChange = (date: Date | null) => {
+    if (dateEnd && date && currentDate.isAfter(dayjs(date))) {
+      setDateEnd(null);
+    }
+
+    if (dateEnd && date && dayjs(date).isSame(dayjs(dateEnd), 'day')) {
+      toast.error('Ngày đi không được trùng ngày về');
+      setDateStart(null);
+      setDateEnd(null);
+    } else {
+      setDateStart(date);
+    }
+  };
+
+  const handleDateEndChange = (date: Date | null) => {
+    if (dateStart && date && dayjs(date).isSame(dayjs(dateStart), 'day')) {
+      toast.error('Ngày về không được trùng ngày đi');
+      setDateStart(null);
+      setDateEnd(null);
+    } else {
+      if (dateStart && date) {
+        const startDate = dayjs(dateStart);
+        const endDate = dayjs(date);
+
+        if (startDate.isAfter(endDate)) {
+          toast.error('Ngày về phải sau ngày đi');
+          setDateStart(null);
+          setDateEnd(null);
+        } else {
+          setDateEnd(date);
+        }
+      } else {
+        setDateEnd(date);
+      }
+    }
+  };
+  // console.log(new Date(String(dateStart)).getDate());
+  console.log(dateStart);
+
+  
   return (
     <div className='flex gap-2'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
-          <DatePicker label='Ngày đi' onChange={handleDateStartChange} />
+          <DatePicker
+            label='Ngày đi'
+            value={dateStart}
+            onChange={handleDateStartChange}
+            shouldDisableDate={shouldDisableDate}
+          />
         </DemoContainer>
         <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
-          <DatePicker label='Ngày về' onChange={handleDateEndChange} />
+          <DatePicker
+            label='Ngày về'
+            value={dateEnd}
+            onChange={handleDateEndChange}
+            shouldDisableDate={shouldDisableDate}
+          />
         </DemoContainer>
       </LocalizationProvider>
     </div>

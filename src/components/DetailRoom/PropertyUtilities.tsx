@@ -12,7 +12,6 @@ const PropertyUtilities = ({ propertyUtilities }: PropsType) => {
   let trueUtility: string[] = [];
   if (listUtility) {
     trueUtility = Object.keys(listUtility).filter((utility) => listUtility[utility] === true);
-    console.log(trueUtility);
   }
 
   const [open, setOpen] = useState(false);

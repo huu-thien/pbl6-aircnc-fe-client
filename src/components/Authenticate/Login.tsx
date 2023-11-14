@@ -64,7 +64,7 @@ const Login = ({ toggleLoginRegister }: PropsType) => {
   };
 
   return (
-    <div className='p-6 max-[991px]:w-full rounded-2xl shadow-2xl'>
+    <div className='p-6 max-[991px]:w-full rounded-2xl shadow-2xl bg-white'>
       <div className='text-center'>
         <Button variant='outlined' size='small' startIcon={<ArrowBackIcon />}>
           <Link to='/' className=' text-blue-700'>
