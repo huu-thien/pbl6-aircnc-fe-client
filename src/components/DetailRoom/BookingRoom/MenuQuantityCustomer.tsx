@@ -4,18 +4,41 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { toast } from 'react-toastify';
 
-const MenuQuantityCustomer = () => {
-  const [quantityOld, setQuantityOld] = React.useState(0);
-  const [quantityYoung, setQuantityYoung] = React.useState(0);
+interface PropsType {
+  quantityOld: number;
+  setQuantityOld: React.Dispatch<React.SetStateAction<number>>;
+  quantityYoung: number;
+  setQuantityYoung: React.Dispatch<React.SetStateAction<number>>;
+  maxAdultCount: number;
+  maxChildCount: number;
+}
+
+const MenuQuantityCustomer = ({
+  quantityOld,
+  setQuantityOld,
+  quantityYoung,
+  setQuantityYoung,
+  maxAdultCount,
+  maxChildCount,
+}: PropsType) => {
   const handleIncreaseOld = () => {
-    setQuantityOld(quantityOld + 1);
+    if (quantityOld === maxAdultCount) {
+      toast.error(`Số người lớn tối đa không được quá ${maxAdultCount} người !`);
+    } else {
+      setQuantityOld(quantityOld + 1);
+    }
   };
   const handleDecreaseOld = () => {
     if (quantityOld >= 1) setQuantityOld(quantityOld - 1);
   };
   const handleIncreaseYoung = () => {
-    setQuantityYoung(quantityYoung + 1);
+    if (quantityYoung === maxChildCount) {
+      toast.error(`Số người trẻ em tối đa không được quá ${maxChildCount} người !`);
+    } else {
+      setQuantityYoung(quantityYoung + 1);
+    }
   };
   const handleDecreaseYoung = () => {
     if (quantityYoung >= 1) setQuantityYoung(quantityYoung - 1);
@@ -28,8 +51,6 @@ const MenuQuantityCustomer = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log('Quantity old: ', quantityOld);
-  console.log('Quantity young: ', quantityYoung);
   const numberOfGuest = quantityOld + quantityYoung;
   return (
     <div className=''>

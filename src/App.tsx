@@ -20,6 +20,7 @@ import { UserType } from './@types/user';
 import ListBookingGuest from './pages/ListBookingGuest';
 import BookingConfirmed from './pages/BookingConfirmed';
 import InfoAccount from './pages/InfoAccount';
+import BookingChecked from './pages/BookingChecked';
 
 function App() {
   const theme = createTheme({
@@ -32,16 +33,16 @@ function App() {
   const accessTokenLocal = localStorage.getItem('accessToken');
   const refreshTokenLocal = localStorage.getItem('refreshToken');
 
-    let user: UserType | null = null;
-    let accessToken: string | null = null;
-    let refreshToken: string | null = null;
+  let user: UserType | null = null;
+  let accessToken: string | null = null;
+  let refreshToken: string | null = null;
 
-    if (userLocal !== null && accessTokenLocal !== null && refreshTokenLocal !== null) {
-      user = JSON.parse(userLocal);
-      accessToken = JSON.parse(accessTokenLocal);
-      refreshToken = JSON.parse(refreshTokenLocal);
-      dispatch(saveUserLogin({ user, accessToken, refreshToken }));
-    }
+  if (userLocal !== null && accessTokenLocal !== null && refreshTokenLocal !== null) {
+    user = JSON.parse(userLocal);
+    accessToken = JSON.parse(accessTokenLocal);
+    refreshToken = JSON.parse(refreshTokenLocal);
+    dispatch(saveUserLogin({ user, accessToken, refreshToken }));
+  }
 
   return (
     <div className=''>
@@ -57,8 +58,9 @@ function App() {
             <Route path='/host/:id' element={<MainLayout page={<HostInfo />} />} />
             <Route path='/become-host' element={<MainLayout page={<BecomeHost />} />} />
             <Route path='/list-booking-guest' element={<MainLayout page={<ListBookingGuest />} />} />
-            <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
             <Route path='/info-account' element={<MainLayout page={<InfoAccount />} />} />
+            <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
+            <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>

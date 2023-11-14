@@ -28,7 +28,7 @@ const DetailRoom = () => {
         setPropertyDetail(response.data);
         console.log(response.data);
       }
-    } catch (err) { 
+    } catch (err) {
       console.log(err);
     }
   };
@@ -63,7 +63,15 @@ const DetailRoom = () => {
             />
           </div>
         )}
-        {propertyDetail && <BookingRoom pricePerNight={propertyDetail.pricePerNight} />}
+        {propertyDetail && (
+          <BookingRoom
+            pricePerNight={propertyDetail.pricePerNight}
+            propertyId={Number(id)}
+            cleaningFee={propertyDetail.cleaningFee}
+            maxAdultCount={propertyDetail.maxAdultCount}
+            maxChildCount={propertyDetail.maxChildCount}
+          />
+        )}
       </div>
       <Divider />
       {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude} />}
