@@ -135,6 +135,13 @@ const Header = () => {
                     </Link>
                   </MenuItem>
                 )}
+                {userLogin?.isHost && (
+                  <MenuItem onClick={handleClose}>
+                    <Link className='w-full text-cyan-800' to='/chat'>
+                      Tin nhắn
+                    </Link>
+                  </MenuItem>
+                )}
                 <Divider light />
                 <MenuItem onClick={handleClose}>
                   <Link className='w-full text-cyan-800' to='/help'>

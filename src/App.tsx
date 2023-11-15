@@ -24,6 +24,7 @@ import BookingChecked from './pages/BookingChecked';
 import { LocalStorageEventTarget } from './utils/http';
 import { useEffect } from 'react';
 import HostManageProperty from './pages/HostManageProperty';
+import Chat from './pages/Chat';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +52,6 @@ function App() {
       dispatch(saveLogout());
     });
   }, [dispatch]);
-
   return (
     <div className=''>
       <ThemeProvider theme={theme}>
@@ -70,6 +70,7 @@ function App() {
             <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
             <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
             <Route path='/host-manage-property' element={<MainLayout page={<HostManageProperty />} />} />
+            <Route path='/chat' element={<MainLayout page={<Chat />} />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
