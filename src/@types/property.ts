@@ -71,6 +71,16 @@ export interface PropertyReview {
   propertyId: number;
   reviewTime: string;
   value: number;
+  userId: number;
+}
+export interface GeneralScore {
+  cleanliness: number;
+  accuracy: number;
+  communication: number;
+  checkIn: number;
+  value: number;
+  location: number;
+  numberOfReviews: number;
 }
 export interface PropertyFilterParams {
   [key: string]: number | undefined | string | string[];
@@ -147,4 +157,14 @@ export interface PropertyInfoPost {
   ];
   status: 'Pending';
   rejectionReason: string;
+}
+
+export interface ReviewPropertyType {
+  cleanliness: number;
+  communication: number;
+  checkIn: number;
+  accuracy: number;
+  location: number;
+  value: number;
+  content: string;
 }

@@ -27,11 +27,11 @@ import { GeneralSchema, generalInformation } from '@/helpers/BecomeHostValidate/
 import { Formik } from 'formik';
 import { FileObject, MenuProps, getStyles, listUtilities } from '@/shared/BecomeHost';
 import { postCreateProperty } from '@/services/PropertyService/propertyService';
-import { ChangFileImageToUrl } from '@/helpers/ChangFileImageToUrl/ChangFileImageToUrl';
+import { ChangFileImageToUrl } from '@/helpers/ChangFileImageToUrl/ChangFileImagePostPropertyToUrl';
 import MatchingUtilities from '@/helpers/MatchingUtilities/Matchingutilities';
 import { PropertyInfoPost, PropertyUtilitiesType } from '@/@types/property';
-import { useDispatch } from 'react-redux';
-import { saveLogout } from '@/redux-toolkit/auth.slice';
+// import { useDispatch } from 'react-redux';
+// import { saveLogout } from '@/redux-toolkit/auth.slice';
 import { toast } from 'react-toastify';
 
 const listTypeRooms = [
@@ -60,8 +60,12 @@ const InformationRoomAndPolicy = () => {
   };
 
   const handleSubmitBecomeHost = async (values) => {
+    console.log(values.listImage);
+    
     try {
       const propertyImages: { url: string }[] = await ChangFileImageToUrl(values.listImage);
+      console.log(propertyImages);
+      
       const propertyUtilities: Omit<PropertyUtilitiesType, 'propertyId'> = MatchingUtilities(values.utilities);
       console.log('propertyUtilities', propertyUtilities);
 
