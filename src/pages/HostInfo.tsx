@@ -11,9 +11,11 @@ import { useParams } from 'react-router';
 const HostInfo = () => {
   const { id } = useParams();
   const [hostInfo, setHostInfo] = useState<HostType | null>(null);
+
+  const [postReviewUpdate, setPostReviewUpdate] = useState(0);
   useEffect(() => {
     getHostInfoApi(Number(id));
-  }, [id]);
+  }, [id, postReviewUpdate]);
 
   const getHostInfoApi = async (hostId: number) => {
     const response = await getHostDetail(hostId);
@@ -41,7 +43,7 @@ const HostInfo = () => {
             city={hostInfo.city}
           />
           <Divider />
-          <CustomerReview hostId={Number(id) as number} />
+          <CustomerReview hostId={Number(id) as number} name={hostInfo.name} setPostReviewUpdate={setPostReviewUpdate}/>
           <Divider />
           <ListOfRoomsForRent hostId={Number(id) as number} />
         </div>

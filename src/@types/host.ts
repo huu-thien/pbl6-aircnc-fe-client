@@ -10,3 +10,8 @@ export interface HostType {
   rating: number;
   userId: number;
 }
+
+export interface ContentReviewHostType {
+  content: string;
+  rating: number;
+}
