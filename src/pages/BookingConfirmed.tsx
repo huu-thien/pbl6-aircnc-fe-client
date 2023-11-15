@@ -36,13 +36,11 @@ const BookingConfirmed = () => {
         note: noteValue,
       };
       const response = await postRequestBooking(bodyRequest);
-      console.log(response);
-      
       if (response && response.status === 200) {
         const bookingId = response.data.id;
         const payment = await postCreatepayment({ bookingId, bankCode: '' });
         console.log(payment);
-        
+
         if (payment && payment.status === 200) {
           const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
           toast
@@ -53,7 +51,7 @@ const BookingConfirmed = () => {
             .then(() => {
               const urlPayment = payment.data;
               window.open(urlPayment);
-              navigate('/list-booking-guest')
+              navigate('/list-booking-guest');
             });
         }
       }
@@ -116,7 +114,7 @@ const BookingConfirmed = () => {
           <h2 className='text-xl text-cyan-800 font-bold pb-3 pt-5'>Ghi chú cho chủ nhà</h2>
           <textarea
             rows={4}
-            className='block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  '
+            className='block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none '
             placeholder='Ghi chú cho chủ nhà ... '
             value={noteValue}
             onChange={(e) => setNoteValue(e.target.value)}
