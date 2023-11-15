@@ -26,3 +26,10 @@ export interface VNPayHookUrlType {
   vnp_TxnRef: string | null;
   vnp_SecureHash: string | null;
 }
+export interface GuestCancelType {
+  bookingId: number;
+  cancellationReason: string;
+  reason: string;
+  isGuest: boolean;
+  attachments: string[];
+}

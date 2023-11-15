@@ -1,13 +1,7 @@
 import { postImagePropertyUrl } from '@/services/PropertyService/propertyService';
 import { toast } from 'react-toastify';
 
-// export const ChangFileImageToUrl = (listImage: File[]) => {
-//   const list: { url: string }[] = [];
-//   listImage.forEach((img: File) => {
-//     ChangeOneFile(img).then((res) => list.push(res));
-//   });
-//   return list;
-// };
+
 export const ChangFileImageToUrl = async (listImage: File[]) => {
   try {
     const promises = listImage.map((img: File) => ChangeOneFile(img));

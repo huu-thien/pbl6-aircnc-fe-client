@@ -12,10 +12,12 @@ import { Divider } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { useParams, useNavigate } from 'react-router-dom';
+import PostReview from '@/components/DetailRoom/PostReview';
 
 const DetailRoom = () => {
   const navigate = useNavigate();
   const [propertyDetail, setPropertyDetail] = useState<PropertyType | null>(null);
+  const [updateReview, setUpdateReview] = useState(0);
   const { id } = useParams();
   useEffect(() => {
     getPropertyDetailApi(id as string);
@@ -76,7 +78,10 @@ const DetailRoom = () => {
       <Divider />
       {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude} />}
       <Divider />
-      {propertyDetail && <Evaluate propertyId={propertyDetail.id} />}
+      {propertyDetail && <Evaluate propertyId={propertyDetail.id} updateReview={updateReview} />}
+      {propertyDetail && (
+        <PostReview propertyId={propertyDetail.id} onUpdateReview={setUpdateReview} />
+      )}
     </div>
   );
 };
