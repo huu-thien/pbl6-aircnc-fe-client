@@ -14,6 +14,7 @@ import { formatDateTime } from '@/helpers/FormatDateTime/formatDateTime';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
 
 const style = {
   position: 'absolute',
@@ -46,6 +47,7 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const handleChangePage = (event: ChangeEvent<unknown>, value: number) => {
@@ -74,7 +76,19 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
   const handleDeleteReview = async (id: number) => {
     try {
       const response = await deleteReviewProperty(id);
-      console.log(response);
+      if (response && response.status === 204) {
+        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
+        toast
+          .promise(resolveAfter2Sec, {
+            pending: 'Đang xóa đánh giá của bạn',
+            success: 'Xóa đánh giá thành công',
+          })
+          .then(() => {
+            setCurrentPage(1);
+            handleClose();
+            getListReviewProperty(propertyId, 1);
+          });
+      }
     } catch (error) {
       console.log(error);
     }
