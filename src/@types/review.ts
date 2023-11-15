@@ -6,4 +6,5 @@ export interface ReviewHostType {
   reviewerAvatarUrl: string;
   reviewerId: number;
   reviewerName: string;
+  userId: number;
 }
