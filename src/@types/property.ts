@@ -129,7 +129,7 @@ export interface PropertyInfoPost {
   pricePerNight: number;
   cleaningFee: number;
   cancellationPolicyType: 'Flexible' | 'Strict';
-  propertyImages: { url: string }[];
+  propertyImages: { url: string }[] | undefined;
   propertyUtilities: [
     {
       isWifi: boolean;

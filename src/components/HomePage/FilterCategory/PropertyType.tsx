@@ -29,7 +29,7 @@ interface PropsType {
 const PropertyType = ({ propertyType, handleChangePropertyType }: PropsType) => {
   return (
     <div>
-      <FormControl sx={{ minWidth: 200, maxWidth: 200, minHeight: 12 }}>
+      <FormControl sx={{ width: 200, minHeight: 12 }}>
         <InputLabel id='demo-multiple-checkbox-label'>Loại phòng</InputLabel>
         <Select
           labelId='demo-multiple-checkbox-label'

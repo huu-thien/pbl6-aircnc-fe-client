@@ -33,8 +33,8 @@ const IntroduceRoom = ({
 }: PropsType) => {
   return (
     <>
-      <div className='flex justify-between'>
-        <div className='grid gap-1'>
+      <div className='sm:flex sm:justify-center lg:justify-between'>
+        <div className='grid gap-1 px-4'>
           <h2 className='text-xl text-cyan-800 font-bold'>Thông tin cơ bản</h2>
           <div className='flex gap-3 py-2'>
             <BathroomIcon sx={{ color: '#257b9a' }} />
@@ -54,10 +54,10 @@ const IntroduceRoom = ({
           </div>
           <div className='flex gap-3 py-2'>
             <StarIcon sx={{ color: '#feb207' }} />
-            <p className='font-thin'>Điểm đánh giá: {rating.toFixed(2)}</p>
+            <p className='font-thin'>Điểm đánh giá: {rating > 0 ? rating.toFixed(2) : 'chưa có'}</p>
           </div>
         </div>
-        <div className='grid gap-1'>
+        <div className='grid gap-1 px-4'>
           <h2 className='text-xl text-cyan-800 font-bold'>Nơi này có những thứ</h2>
           <div className='flex gap-3 py-2'>
             <WifiIcon sx={{ color: '#257b9a' }} />
@@ -80,7 +80,7 @@ const IntroduceRoom = ({
       <PropertyUtilities propertyUtilities={propertyUtilities} />
       <div>
         <h4 className='text-xl text-cyan-800 font-bold pb-2'>Mô tả phòng</h4>
-        <p className='font-thin text-gray-500'>{description}</p>
+        <p className='font-thin text-gray-500 text-justify pb-3'>{description}</p>
       </div>
     </>
   );
