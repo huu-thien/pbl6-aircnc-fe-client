@@ -67,11 +67,19 @@ const Header = () => {
           </div>
           <div className='flex items-center gap-8'>
             <div className='hidden md:block'>
-              <Tooltip title='Trở nhà chủ nhà và kinh doanh' arrow>
-                <Button variant='contained' size='medium' endIcon={<GiteIcon />}>
-                  <Link to='/become-host'>Become a host</Link>
-                </Button>
-              </Tooltip>
+              {userLogin?.isHost ? (
+                <Tooltip title='Trở nhà chủ nhà và kinh doanh' arrow>
+                  <Button variant='contained' size='medium' endIcon={<GiteIcon />}>
+                    <Link to='/become-host'>Quản lý phòng cho thuê</Link>
+                  </Button>
+                </Tooltip>
+              ) : (
+                <Tooltip title='Trở nhà chủ nhà và kinh doanh' arrow>
+                  <Button variant='contained' size='medium' endIcon={<GiteIcon />}>
+                    <Link to='/become-host'>Become a host</Link>
+                  </Button>
+                </Tooltip>
+              )}
             </div>
             <span
               className='hidden xs:flex items-center gap-2 border px-2 py-1 rounded-full cursor-pointer'
@@ -120,6 +128,13 @@ const Header = () => {
                     Tài khoản
                   </Link>
                 </MenuItem>
+                {userLogin?.isHost && (
+                  <MenuItem onClick={handleClose}>
+                    <Link className='w-full text-cyan-800' to='/host-manage-property'>
+                      Quản lý phòng cho thuê
+                    </Link>
+                  </MenuItem>
+                )}
                 <Divider light />
                 <MenuItem onClick={handleClose}>
                   <Link className='w-full text-cyan-800' to='/help'>

@@ -12,7 +12,18 @@ interface Propstype {
   hostId: number;
 }
 const IntroduceHost = ({ hostId }: Propstype) => {
-  const [hostInfo, setHostInfo] = useState<HostType | null>(null);
+  const [hostInfo, setHostInfo] = useState<HostType>({
+    address: '',
+    avatarUrl: '',
+    city: '',
+    id: 0,
+    introduction: '',
+    joinedAt: '',
+    name: '',
+    numberOfReviews: 0,
+    rating: 0,
+    userId: 0,
+  });
   useEffect(() => {
     getHostInfoApi(hostId);
   }, [hostId]);
@@ -20,36 +31,35 @@ const IntroduceHost = ({ hostId }: Propstype) => {
   const getHostInfoApi = async (hostId: number) => {
     try {
       const response = await getHostDetail(hostId);
-    if (response && response.status === 200) {
-      setHostInfo(response.data);
-      // console.log(response.data);
-    }
-    } catch(err) {
+      if (response && response.status === 200) {
+        setHostInfo(response.data);
+        // console.log(response.data);
+      }
+    } catch (err) {
       console.log(err);
-      
     }
   };
   return (
     <div className=''>
       <div className='flex justify-between items-center'>
         <div className='flex flex-col items-center'>
-          <Avatar alt='Travis Howard' src={hostInfo?.avatarUrl} sx={{ width: 70, height: 70 }} />
-          <p className='pt-2'>Host {hostInfo?.name}</p>
+          <Avatar alt='Travis Howard' src={hostInfo.avatarUrl} sx={{ width: 70, height: 70 }} />
+          <p className='pt-2'>Host {hostInfo.name}</p>
         </div>
         <Button variant='contained' sx={{ height: 50 }}>
           <Link to={`/host/${hostId}`}>Liên hệ với chủ nhà</Link>
         </Button>
       </div>
-      <p className='font-thin text-gray-500 pt-2 italic'>{hostInfo?.introduction}</p>
+      <p className='font-thin text-gray-500 pt-2 italic'>{hostInfo.introduction}</p>
       <div className='flex text-gray-800'>
         <div className='pt-4 pr-4 '>
           <RateReviewIcon sx={{ color: '#743de3' }} />
-          <span className='pl-2'>{hostInfo?.numberOfReviews} Đánh giá</span>
+          <span className='pl-2'>{hostInfo.numberOfReviews > 0 ? hostInfo.numberOfReviews : 'Chưa có'} đánh giá</span>
         </div>
         <Divider orientation='vertical' />
         <div className='pt-4'>
           <StarIcon sx={{ color: '#feb207' }} />
-          <span className='pl-2'>{hostInfo?.rating.toFixed(2)} Điểm rating</span>
+          <span className='pl-2'>{hostInfo.rating > 0 ?hostInfo.rating.toFixed(2) : 'Chưa có'} điểm rating</span>
         </div>
       </div>
     </div>

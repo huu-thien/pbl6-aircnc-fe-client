@@ -44,6 +44,10 @@ export const getPropertyList = createAsyncThunk(
         queryParams.push(`${key}=${body[key]}`);
       }
     }
+    console.log(body);
+    
+    console.log(queryParams.join('&'));
+    
     const response = await http.get(`api/properties?${queryParams.join('&')}&PageSize=16`, {
       signal: thunkAPI.signal,
     });

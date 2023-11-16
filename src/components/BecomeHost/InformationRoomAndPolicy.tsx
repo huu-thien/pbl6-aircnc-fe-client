@@ -9,6 +9,7 @@ import {
   Chip,
   FormControl,
   FormHelperText,
+  IconButton,
   ImageListItem,
   InputLabel,
   MenuItem,
@@ -33,7 +34,15 @@ import { PropertyInfoPost, PropertyUtilitiesType } from '@/@types/property';
 // import { useDispatch } from 'react-redux';
 // import { saveLogout } from '@/redux-toolkit/auth.slice';
 import { toast } from 'react-toastify';
+import _, { debounce } from 'lodash';
+import { useRef, useEffect } from 'react';
+import mapboxgl from 'mapbox-gl';
+import { Map } from 'mapbox-gl';
+import { getAddressResult } from '@/services/GetMapService/getMapService';
+import AddressResult from './AddressResult';
+import CancelIcon from '@mui/icons-material/Cancel';
 
+mapboxgl.accessToken = 'pk.eyJ1IjoicHAzMTEiLCJhIjoiY2xvMW9hazBtMWRuczJ0cWh0eDl1andncCJ9.cINZ3UYbzs7plrM2seqPjg';
 const listTypeRooms = [
   'Room',
   'House',
@@ -46,8 +55,49 @@ const listTypeRooms = [
   'Cabin',
 ];
 const InformationRoomAndPolicy = () => {
-  const [utilities] = useState<string[]>([]);
+  // Map
+  const [position, setPosition] = useState<{ lat: number; lon: number }>({ lat: 0, lon: 0 });
+  const mapContainer = useRef<HTMLDivElement | null>(null);
+  const map = useRef<Map | null>(null);
+  const [zoom, setZoom] = useState(12);
+  const [listAddressResult, setListAddressResult] = useState([]);
+  const [city, setCity] = useState<string>('');
+  useEffect(() => {
+    // Initialize map
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current as HTMLDivElement,
+      style: 'mapbox://styles/pp311/clo1ucw6g00fd01r26ds09u1z',
+      center: [position.lon, position.lat],
+      zoom: zoom,
+    });
 
+    // Add marker
+    new mapboxgl.Marker().setLngLat([position.lon, position.lat]).addTo(map.current);
+
+    // Update map on move
+    map.current.on('move', () => {
+      const newCenter = map.current?.getCenter();
+      if (newCenter) {
+        const newLat = newCenter.lat.toFixed(4);
+        const newLng = newCenter.lng.toFixed(4);
+
+        // Update position state
+        setPosition({ lat: Number(newLat), lon: Number(newLng) });
+      }
+
+      // Update zoom state
+      setZoom(Number(map.current?.getZoom().toFixed(2)));
+    });
+
+    // Clean up map on component unmount
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    };
+  }, [position.lon, position.lat, zoom]);
+  // =======================================
+  const [utilities] = useState<string[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<FileObject[]>([]);
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
   const theme = useTheme();
@@ -61,11 +111,11 @@ const InformationRoomAndPolicy = () => {
 
   const handleSubmitBecomeHost = async (values) => {
     console.log(values.listImage);
-    
+
     try {
-      const propertyImages: { url: string }[] = await ChangFileImageToUrl(values.listImage);
+      const propertyImages: { url: string }[] | undefined = await ChangFileImageToUrl(values.listImage);
       console.log(propertyImages);
-      
+
       const propertyUtilities: Omit<PropertyUtilitiesType, 'propertyId'> = MatchingUtilities(values.utilities);
       console.log('propertyUtilities', propertyUtilities);
 
@@ -78,10 +128,10 @@ const InformationRoomAndPolicy = () => {
         maxChildCount: values.quantityChild,
         title: values.roomName,
         description: values.description,
-        latitude: 44,
-        longitude: -80,
+        latitude: position.lat,
+        longitude: position.lon,
         address: values.address,
-        city: 'Hà Nội',
+        city: city,
         pricePerNight: values.pricePerNight,
         cleaningFee: values.feeCleaning,
         cancellationPolicyType: values.policy,
@@ -105,9 +155,21 @@ const InformationRoomAndPolicy = () => {
     } catch (err) {
       console.log(err);
     }
-
   };
-
+  const customHandleChange = debounce(async (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    try {
+      const { value } = event.target;
+      const response = await getAddressResult(value as string);
+      if (response && response.status === 200) {
+        // setListAddressResult(response.data.result)
+        console.log(response.data.results);
+        setListAddressResult(response.data.results);
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error('Địa chỉ bạn nhập chưa chính xác !');
+    }
+  }, 1000);
   return (
     <div className='py-8'>
       <h2 className='text-center text-2xl text-cyan-700 pb-4'>NHẬP CÁC THÔNG TIN VỀ PHÒNG, ĐIỀU KHOẢN VÀ CHÍNH SÁCH</h2>
@@ -193,26 +255,61 @@ const InformationRoomAndPolicy = () => {
                     )}
                   </FormControl>
                 </div>
-                <div className='mb-2'>
-                  <label htmlFor='address' className=''>
-                    Địa chỉ
-                  </label>
-                  <TextField
-                    sx={{
-                      fontFamily: 'Lexend',
-                      marginTop: '10px',
-                    }}
-                    fullWidth
-                    id='address'
-                    label='Nhập địa chỉ phòng'
-                    variant='outlined'
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.address}
-                    error={!!touched.address && !!errors.address}
-                    helperText={touched.address && errors.address}
-                  />
-                </div>
+                <>
+                  <div className='mb-2'>
+                    <label htmlFor='address' className=''>
+                      Địa chỉ
+                    </label>
+                    <TextField
+                      sx={{
+                        fontFamily: 'Lexend',
+                        marginTop: '10px',
+                      }}
+                      fullWidth
+                      id='address'
+                      label='Nhập địa chỉ phòng'
+                      variant='outlined'
+                      onBlur={handleBlur}
+                      onChange={(e) => {
+                        const { value } = e.target;
+                        setFieldValue('address', value || '');
+                        if (value === '') {
+                          setListAddressResult([]);
+                          return;
+                        }
+                        customHandleChange(e);
+                      }}
+                      value={values.address}
+                      error={!!touched.address && !!errors.address}
+                      helperText={touched.address && errors.address}
+                    />
+                  </div>
+                  <div>
+                    {listAddressResult.length > 0 && (
+                      <div className='p-2 shadow-lg rounded-md'>
+                        <div className='flex justify-end'>
+                          <IconButton onClick={() => setListAddressResult([])}>
+                            <CancelIcon sx={{ color: '#f12d37', fontSize: 20 }} />
+                          </IconButton>
+                        </div>
+                        {listAddressResult.map((address, index) => (
+                          <AddressResult
+                            key={`${address.address.freeformAddress}-${index}`}
+                            address={address.address.freeformAddress}
+                            position={address.position}
+                            setPosition={setPosition}
+                            setListAddressResult={setListAddressResult}
+                            setFieldValue={setFieldValue}
+                            setCity={setCity}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className='py-2'>
+                    <div ref={mapContainer} className='map-container' style={{ height: '600px' }} />
+                  </div>
+                </>
                 <p className='text-xl py-3 text-cyan-700 uppercase'>Thông tin chi tiết</p>
                 <div className='mb-2'>
                   <label htmlFor='quantityOld' className=''>

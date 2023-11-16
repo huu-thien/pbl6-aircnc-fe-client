@@ -37,8 +37,7 @@ const MenuQuantityCustomer = ({ quantityOld, setQuantityOld, quantityYoung, setQ
   return (
     <div className=''>
       <Button
-        sx={{ height: 60 }}
-        fullWidth
+        sx={{ height: 60, width: 200 }}
         variant='outlined'
         aria-controls={open ? 'account-menu' : undefined}
         aria-haspopup='true'

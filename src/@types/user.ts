@@ -17,4 +17,5 @@ export interface UserType {
   email: string;
   userName: string;
   avatarUrl: null | string;
+  isHost: boolean;
 }
