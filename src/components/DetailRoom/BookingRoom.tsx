@@ -9,58 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { DataSendConfirmType } from '@/@types/booking';
-import Box from '@mui/material/Box';
-
-import Backdrop from '@mui/material/Backdrop';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Login from '../Authenticate/Login';
-import Register from '../Authenticate/Register';
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role='tabpanel'
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <p>{children}</p>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 500,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  borderRadius: 4,
-};
-
 interface Propstype {
   pricePerNight: number;
   propertyId: number;
@@ -79,15 +27,6 @@ const BookingRoom = ({ pricePerNight, propertyId, cleaningFee, maxAdultCount, ma
 
   const diffInMs = new Date(String(dateEnd)).getTime() - new Date(String(dateStart)).getTime();
   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => setOpen(false);
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
 
   const handleBooking = () => {
     if (user) {
@@ -116,12 +55,12 @@ const BookingRoom = ({ pricePerNight, propertyId, cleaningFee, maxAdultCount, ma
         toast.error('Bạn phải nhập đầy đủ thông tin để đặt phòng !');
       }
     } else {
-      setOpen(true);
+      toast.error('Bạn phải đăng nhập để đặt phòng !');
     }
   };
   return (
-    <div className='border shadow-xl rounded-xl'>
-      <div className='grid p-5'>
+    <div className='border shadow-xl rounded-xl '>
+      <div className='grid p-5 max-w-[400xp]'>
         <p className='py-4 text-cyan-800 text-xl'>{formatMoney(pricePerNight)} vnd/đêm</p>
         <div className='flex flex-col gap-5'>
           <BookingTime
@@ -144,38 +83,6 @@ const BookingRoom = ({ pricePerNight, propertyId, cleaningFee, maxAdultCount, ma
           <Button variant='contained' sx={{ height: 56, mt: 3 }} onClick={handleBooking}>
             ĐẶT PHÒNG
           </Button>
-          <Modal
-            aria-labelledby='transition-modal-title'
-            aria-describedby='transition-modal-description'
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            slots={{ backdrop: Backdrop }}
-            slotProps={{
-              backdrop: {
-                timeout: 500,
-              },
-            }}
-          >
-            <Fade in={open}>
-              <Box sx={style}>
-                <Box sx={{ width: '100%' }}>
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-                      <Tab label='Đăng nhập' {...a11yProps(0)} />
-                      <Tab label='Đăng kí' {...a11yProps(1)} />
-                    </Tabs>
-                  </Box>
-                  <CustomTabPanel value={value} index={0}>
-                    <Login />
-                  </CustomTabPanel>
-                  <CustomTabPanel value={value} index={1}>
-                    <Register />
-                  </CustomTabPanel>
-                </Box>
-              </Box>
-            </Fade>
-          </Modal>
         </>
       </div>
       <div className='p-5'>
@@ -193,7 +100,7 @@ const BookingRoom = ({ pricePerNight, propertyId, cleaningFee, maxAdultCount, ma
         </div>
         <Divider />
         <div className='flex justify-between py-3' style={{ fontSize: 18 }}>
-          <p className='text-gray-500 font-thin'>Tổng tiền </p>
+          {!isNaN(diffInDays) && <p className='text-gray-500 font-thin'>Tổng tiền </p>}
           {!isNaN(diffInDays) && (
             <p className='text-gray-500 font-thin'>{formatMoney(pricePerNight * diffInDays + cleaningFee)} vnd</p>
           )}

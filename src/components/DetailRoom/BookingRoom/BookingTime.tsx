@@ -34,7 +34,6 @@ const BookingTime = ({ propertyId, dateStart, dateEnd, setDateStart, setDateEnd 
       const response = await getScheduleBooking(propertyId, fromDate, toDate);
       if (response && response.status === 200) {
         setScheduleBooking(response.data);
-        // console.log(response.data);
       }
     } catch (err) {
       console.log(err);
@@ -89,12 +88,10 @@ const BookingTime = ({ propertyId, dateStart, dateEnd, setDateStart, setDateEnd 
   };
   // console.log(new Date(String(dateStart)).getDate());
   console.log(dateStart);
-
-  
   return (
     <div className='flex gap-2'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
+        <DemoContainer components={['DatePicker']} sx={{ width: '100%' }}>
           <DatePicker
             label='Ngày đi'
             value={dateStart}
@@ -102,7 +99,7 @@ const BookingTime = ({ propertyId, dateStart, dateEnd, setDateStart, setDateEnd 
             shouldDisableDate={shouldDisableDate}
           />
         </DemoContainer>
-        <DemoContainer components={['DatePicker']} sx={{ minWidth: 200 }}>
+        <DemoContainer components={['DatePicker']} sx={{ width: '100%' }}>
           <DatePicker
             label='Ngày về'
             value={dateEnd}

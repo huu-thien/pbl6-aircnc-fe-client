@@ -3,6 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { provinces } from '@/@types/city';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 1;
@@ -14,68 +15,6 @@ const MenuProps = {
     },
   },
 };
-const provinces = [
-  'An Giang',
-  'Bà Rịa',
-  'Bà Rịa-Vũng Tàu',
-  'Bạc Liêu',
-  'Bắc Giang',
-  'Bắc Ninh',
-  'Bến Tre',
-  'Bình Định',
-  'Bình Dương',
-  'Bình Phước',
-  'Cà Mau',
-  'Cao Bằng',
-  'Cần Thơ',
-  'Đà Nẵng',
-  'Đắk Lắk',
-  'Đắk Nông',
-  'Điện Biên',
-  'Đồng Bằng Sông Cửu Long',
-  'Đồng Nai',
-  'Đồng Tháp',
-  'Gia Lai',
-  'Hà Giang',
-  'Hà Nội',
-  'Hà Tĩnh',
-  'Hải Dương',
-  'Hải Phòng',
-  'Hậu Giang',
-  'Hoà Bình',
-  'Hòa Bình',
-  'Hưng Yên',
-  'Khánh Hòa',
-  'Kiên Giang',
-  'Kon Tum',
-  'Lai Châu',
-  'Lâm Đồng',
-  'Long An',
-  'Nghệ An',
-  'Ninh Bình',
-  'Ninh Thuận',
-  'Phú Thọ',
-  'Phú Yên',
-  'Quảng Bình',
-  'Quảng Nam',
-  'Quảng Ngãi',
-  'Quảng Ninh',
-  'Quảng Trị',
-  'Sài Gòn',
-  'Sóc Trăng',
-  'Sơn La',
-  'Tây Ninh',
-  'Thái Bình',
-  'Thái Nguyên',
-  'Thanh Hóa',
-  'Thừa Thiên-Huế',
-  'Tiền Giang',
-  'TP. Hồ Chí Minh',
-  'Trà Vinh',
-  'Vĩnh Long',
-  'Vĩnh Phúc',
-  'Yên Bái',
-];
 
 function Provinces() {
   const [city, setCity] = React.useState('');

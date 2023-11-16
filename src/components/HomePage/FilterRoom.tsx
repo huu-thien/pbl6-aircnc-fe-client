@@ -115,7 +115,7 @@ const FilterRoom = () => {
 
   return (
     <>
-      <div className='grid justify-between grid-cols-3 md:flex md:items-center flex-wrap m-0 pb-6'>
+      <div className='justify-between md:flex md:items-center flex-wrap m-0 pb-6'>
         <PropertyType
           propertyType={propertyType}
           handleChangePropertyType={handleChangePropertyType}

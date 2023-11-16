@@ -36,7 +36,7 @@ const DetailRoom = () => {
   };
 
   return (
-    <div className='max-w-7xl mx-auto w-full py-8'>
+    <div className='max-w-7xl mx-auto w-full py-8 px-6 lg:px-0'>
       <Breadcrumbs aria-label='breadcrumb'>
         <p className='hover:underline hover:text-cyan-600' onClick={() => navigate(-1)}>
           Trang chủ
@@ -48,9 +48,9 @@ const DetailRoom = () => {
       )}
       {propertyDetail && <ImageList propertyImages={propertyDetail.propertyImages} />}
 
-      <div className='flex items-start justify-between mb-5'>
+      <div className='lg:flex lg:items-start lg:justify-between mb-5 gap-16'>
         {propertyDetail && (
-          <div className='flex flex-col gap-8 mr-60'>
+          <div className='flex flex-col gap-6 w-full lg:w-3/5'>
             <IntroduceHost hostId={propertyDetail.hostId} />
             <Divider />
             <IntroduceRoom

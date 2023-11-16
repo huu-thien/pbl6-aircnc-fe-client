@@ -34,8 +34,7 @@ const RoomList = () => {
       behavior: 'smooth', // Sử dụng thuộc tính behavior để tạo hiệu ứng cuộn mượt
     });
   };
-  console.log(propertyList);
-
+  // console.log(propertyList);
   return (
     <div>
       {propertyList.length > 0 ? (
