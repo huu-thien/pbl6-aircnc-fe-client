@@ -15,7 +15,7 @@ const LocationOnMap = ({ latitude, longitude }: Propstype) => {
   const map = useRef<Map | null>(null);
   const [lng, setLng] = useState(longitude);
   const [lat, setLat] = useState(latitude);
-  const [zoom, setZoom] = useState(12);
+  const [zoom, setZoom] = useState(15);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once

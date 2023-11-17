@@ -70,7 +70,7 @@ const Header = () => {
               {userLogin?.isHost ? (
                 <Tooltip title='Trở nhà chủ nhà và kinh doanh' arrow>
                   <Button variant='contained' size='medium' endIcon={<GiteIcon />}>
-                    <Link to='/become-host'>Quản lý phòng cho thuê</Link>
+                    <Link to='/host-manage-property'>Quản lý phòng cho thuê</Link>
                   </Button>
                 </Tooltip>
               ) : (

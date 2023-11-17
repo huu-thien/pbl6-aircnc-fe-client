@@ -126,7 +126,8 @@ const PostReview = ({ propertyId, onUpdateReview }: PropsType) => {
   useEffect(() => {
     CheckUserStayedInProperty(propertyId);
   }, [propertyId]);
-
+  // console.log(isStayed);
+  
   return (
     <>
       <h2 className='text-xl text-cyan-800 font-bold pb-4 pt-5'>Đánh giá của bạn</h2>

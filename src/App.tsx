@@ -15,20 +15,23 @@ import { ToastContainer } from 'react-toastify';
 // import { Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
-import { saveUserLogin } from './redux-toolkit/auth.slice';
+import { saveLogout, saveUserLogin } from './redux-toolkit/auth.slice';
 import { UserType } from './@types/user';
 import ListBookingGuest from './pages/ListBookingGuest';
 import BookingConfirmed from './pages/BookingConfirmed';
 import InfoAccount from './pages/InfoAccount';
 import BookingChecked from './pages/BookingChecked';
+import { LocalStorageEventTarget } from './utils/http';
+import { useEffect } from 'react';
+import HostManageProperty from './pages/HostManageProperty';
 
 function App() {
+  const dispatch = useDispatch();
   const theme = createTheme({
     typography: {
       fontFamily: 'Lexend',
     },
   });
-  const dispatch = useDispatch();
   const userLocal = localStorage.getItem('user');
   const accessTokenLocal = localStorage.getItem('accessToken');
   const refreshTokenLocal = localStorage.getItem('refreshToken');
@@ -43,6 +46,11 @@ function App() {
     refreshToken = JSON.parse(refreshTokenLocal);
     dispatch(saveUserLogin({ user, accessToken, refreshToken }));
   }
+  useEffect(() => {
+    LocalStorageEventTarget.addEventListener('clearLS', () => {
+      dispatch(saveLogout());
+    });
+  }, [dispatch]);
 
   return (
     <div className=''>
@@ -61,6 +69,7 @@ function App() {
             <Route path='/info-account' element={<MainLayout page={<InfoAccount />} />} />
             <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
             <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
+            <Route path='/host-manage-property' element={<MainLayout page={<HostManageProperty />} />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
