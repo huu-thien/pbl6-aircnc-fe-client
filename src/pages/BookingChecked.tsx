@@ -6,12 +6,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PaymentSuccessImage from '@/assets/images/payment-success.webp';
 import PaymentFailedImage from '@/assets/images/payment-failed.jpg';
+import CircularProgress from '@mui/material/CircularProgress';
+// import Box from '@mui/material/Box';
 
 const BookingCheckedPage = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
 
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   // Lấy giá trị của các tham số từ query string
   const vnp_Amount = params.get('vnp_Amount');
@@ -61,15 +63,28 @@ const BookingCheckedPage = () => {
   }, [dataPostChecked]);
 
   const postCheckedPayment = async (dataPostChecked: VNPayHookUrlType) => {
-    const response = await postVNPayHookUrl(dataPostChecked);
-    if (response && response.status === 200) {
-      setIsSuccess(true);
+    try {
+      const response = await postVNPayHookUrl(dataPostChecked);
+      if (response && response.status === 200) {
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      console.error('Lỗi trong quá trình xử lý thanh toán:', error);
+      setIsSuccess(false);
     }
   };
 
   return (
     <>
-      {isSuccess ? (
+      {isSuccess === null && (
+        <div className='flex flex-col items-center my-4 h-screen '>
+          <h2 className='text-2xl font-bold text-cyan-800 my-4'>Đang tiến hành thanh toán</h2>
+          <CircularProgress />
+        </div>
+      )}
+      {isSuccess === true && (
         <div className='flex flex-col items-center my-4 h-screen '>
           <img className='w-1/2 my-4' src={PaymentSuccessImage} alt='Success' />
           <h2 className='text-2xl font-bold text-cyan-800 my-2'>Thanh toán thành công!</h2>
@@ -78,7 +93,8 @@ const BookingCheckedPage = () => {
             <Link to='/list-booking-guest'>Quản lý đặt phòng</Link>
           </Button>
         </div>
-      ) : (
+      )}
+      {isSuccess === false && (
         <div className='flex flex-col items-center my-4 h-screen '>
           <img className='w-2/5 my-4' src={PaymentFailedImage} alt='Success' />
           <h2 className='text-2xl font-bold text-[#cb2b2f] my-2'>Thanh toán của bạn đã thất bại !</h2>
