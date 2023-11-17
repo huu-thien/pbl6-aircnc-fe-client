@@ -25,3 +25,18 @@ export const postCreateReviewHost = (hostId: number, body: ContentReviewHostType
 export const deleteReviewHost = (reviewId: number) => {
   return http.delete(`api/reviews/host/${reviewId}`, { signal: controller.signal });
 };
+export const getCheckUserStayedInPropertyOfHost = (hostId: number) => {
+  return http.get(`api/hosts/${hostId}/is-stayed`, { signal: controller.signal });
+};
+
+// Get host id by user id
+export const getHostIdByUserIdApi = (userId: number) => {
+  return http.get(`api/hosts/user/${userId}`, { signal: controller.signal });
+};
+export const getListPropertyOfHostApi = (hostId: number) => {
+  return http.get(`api/properties/host/${hostId}`, { signal: controller.signal });
+};
+
+export const deleteHostRemoveProperty = (propertyId: number) => {
+  return http.delete(`api/properties/${propertyId}`, { signal: controller.signal });
+};

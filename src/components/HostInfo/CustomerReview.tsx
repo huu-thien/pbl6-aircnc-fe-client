@@ -1,5 +1,9 @@
 import { ReviewHostType } from '@/@types/review';
-import { getHostReviews, postCreateReviewHost } from '@/services/HostService/hostService';
+import {
+  getCheckUserStayedInPropertyOfHost,
+  getHostReviews,
+  postCreateReviewHost,
+} from '@/services/HostService/hostService';
 import { Button, Dialog, DialogActions, DialogContent, Pagination, Rating } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import ReviewItem from './ReviewItem';
@@ -60,6 +64,18 @@ const CustomerReview = ({ hostId, name, setPostReviewUpdate }: PropsType) => {
     setContentReview('');
     setOpen(false);
   };
+
+  const CheckUserStayedInPropertyOfHost = async (hostId: number) => {
+    try {
+      const response = await getCheckUserStayedInPropertyOfHost(hostId);
+      if (response && response.status === 200) {
+        setIsStayed(response.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handlePostReviewHost = async () => {
     if (contentReview !== '' && scoreHost !== null) {
       try {
@@ -79,7 +95,7 @@ const CustomerReview = ({ hostId, name, setPostReviewUpdate }: PropsType) => {
               setPostReviewUpdate((prev) => prev + 1);
               handleCancelReview();
               setCurrentPage(1);
-              getListReview(hostId, 1)
+              getListReview(hostId, 1);
             });
         }
       } catch (error) {
@@ -89,8 +105,11 @@ const CustomerReview = ({ hostId, name, setPostReviewUpdate }: PropsType) => {
       toast.error('Bạn phải nhập đủ thông tin để đánh giá !');
     }
   };
-  console.log(listReview);
-  
+  // console.log(listReview);
+  useEffect(() => {
+    CheckUserStayedInPropertyOfHost(hostId);
+  }, [hostId]);
+
   return (
     <div className='py-4'>
       <h2 className='font-semibold text-2xl text-cyan-700 py-4'>Đánh giá về {name}</h2>

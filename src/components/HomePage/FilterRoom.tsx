@@ -77,7 +77,6 @@ const FilterRoom = () => {
           }),
         );
       });
-    console.log(123);
   };
   const handlerClearFilter = () => {
     const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));

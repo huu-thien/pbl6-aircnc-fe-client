@@ -31,9 +31,14 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
     },
+    setHost: (state) => {
+      if(state.user) {
+        state.user.isHost = true;
+      }
+    },
   },
   // extraReducers: (builder) => {},
 });
-export const { saveUserLogin, saveLogout } = authSlice.actions;
+export const { saveUserLogin, saveLogout, setHost } = authSlice.actions;
 const authReducer = authSlice.reducer;
 export default authReducer;

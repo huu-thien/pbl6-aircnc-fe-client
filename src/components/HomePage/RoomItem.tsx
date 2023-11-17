@@ -19,6 +19,10 @@ import { IconButton } from '@mui/material';
 import { useAppDispatch } from '@/store';
 import { saveLogout } from '@/redux-toolkit/auth.slice';
 
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteHostRemoveProperty } from '@/services/HostService/hostService';
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 interface Propstype {
   id: number;
@@ -28,9 +32,19 @@ interface Propstype {
   numberOfReviews: number;
   rating: number;
   isFavorite: boolean;
+  isHostEditable?: boolean;
 }
 
-const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, rating, isFavorite }: Propstype) => {
+const RoomItem = ({
+  id,
+  title,
+  propertyImage,
+  pricePerNight,
+  numberOfReviews,
+  rating,
+  isFavorite,
+  isHostEditable,
+}: Propstype) => {
   const dispatch = useAppDispatch();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -82,6 +96,18 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
       console.log(err);
     }
   };
+
+  // Host remove property
+  const handleHostDeleteProperty = async (propertyId: number) => {
+    try {
+      const response = await deleteHostRemoveProperty(propertyId);
+      console.log(response);
+      toast.success('Xoá phòng thành công');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className='shadow-md p-2 rounded-lg mx-auto'>
       <Box sx={{ maxWidth: 350 }}>
@@ -138,15 +164,27 @@ const RoomItem = ({ id, title, propertyImage, pricePerNight, numberOfReviews, ra
               </Link>
             </p>
           </div>
-          <div className='cursor-pointer'>
-            {showFavorite ? (
-              <IconButton aria-label='add-wishlist' onClick={() => handleRemoveWishlistProperty(id)}>
-                <FavoriteIcon sx={{ color: '#c92327' }} />
-              </IconButton>
-            ) : (
-              <IconButton aria-label='add-wishlist' onClick={() => handleAddWishlistProperty(id)}>
-                <FavoriteBorderIcon sx={{ color: '#257b9a' }} />
-              </IconButton>
+          <div className='flex items-center justify-between'>
+            <div className='cursor-pointer'>
+              {showFavorite ? (
+                <IconButton aria-label='add-wishlist' onClick={() => handleRemoveWishlistProperty(id)}>
+                  <FavoriteIcon sx={{ color: '#c92327' }} />
+                </IconButton>
+              ) : (
+                <IconButton aria-label='add-wishlist' onClick={() => handleAddWishlistProperty(id)}>
+                  <FavoriteBorderIcon sx={{ color: '#257b9a' }} />
+                </IconButton>
+              )}
+            </div>
+            {isHostEditable && (
+              <div className='flex'>
+                <IconButton aria-label='add-wishlist'>
+                  <AutoFixHighIcon sx={{ color: '#0a67af' }} />
+                </IconButton>
+                <IconButton aria-label='add-wishlist' onClick={() => handleHostDeleteProperty(id)}>
+                  <DeleteIcon sx={{ color: '#c92327' }} />
+                </IconButton>
+              </div>
             )}
           </div>
         </div>
