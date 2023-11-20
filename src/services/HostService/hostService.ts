@@ -12,6 +12,11 @@ export const getHostReviews = (hostId: number, page: number) => {
     signal: controller.signal,
   });
 };
+
+export const getHostDetailByUserID = (userId: number) => {
+  return http.get(`api/hosts/user/${userId}`, { signal: controller.signal });
+};
+
 export const getHostProperties = (hostId: number, page: number) => {
   return http.get(`api/properties/host/${hostId}?PageIndex=${page}&PageSize=2`, { signal: controller.signal });
 };
