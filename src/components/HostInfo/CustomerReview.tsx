@@ -105,10 +105,11 @@ const CustomerReview = ({ hostId, name, setPostReviewUpdate }: PropsType) => {
       toast.error('Bạn phải nhập đủ thông tin để đánh giá !');
     }
   };
-  // console.log(listReview);
+
   useEffect(() => {
     CheckUserStayedInPropertyOfHost(hostId);
   }, [hostId]);
+
 
   return (
     <div className='py-4'>

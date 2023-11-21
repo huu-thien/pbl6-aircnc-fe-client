@@ -27,8 +27,8 @@ const ButtonLoginGoogle = () => {
         const response = await postLoginGoogle({ accessToken: data.access_token });
         // console.log(response);
         if (response.status === 200) {
-          const { user, accessToken, refreshToken } = response.data;
-          dispatch(saveUserLogin({ user, accessToken, refreshToken }));
+          const { user, accessToken, refreshToken, role } = response.data;
+          dispatch(saveUserLogin({ user, accessToken, refreshToken, role  }));
           const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
           toast
             .promise(resolveAfter2Sec, {
@@ -39,6 +39,7 @@ const ButtonLoginGoogle = () => {
               localStorage.setItem('user', JSON.stringify(user));
               localStorage.setItem('accessToken', JSON.stringify(accessToken));
               localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+              localStorage.setItem('role', JSON.stringify(role));
               navigate('/');
             });
         }
