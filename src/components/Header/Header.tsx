@@ -71,7 +71,7 @@ const Header = () => {
               {userLogin?.isHost ? (
                 <Tooltip title='Trở nhà chủ nhà và kinh doanh' arrow>
                   <Button variant='contained' size='medium' endIcon={<GiteIcon />}>
-                    <Link to='/become-host'>Quản lý phòng cho thuê</Link>
+                    <Link to='/host-manage-property'>Quản lý phòng cho thuê</Link>
                   </Button>
                 </Tooltip>
               ) : (
@@ -136,11 +136,18 @@ const Header = () => {
                     </Link>
                   </MenuItem>
                 )}
+
                 {role === 'Admin' && <MenuItem onClick={handleClose}>
                     <Link className='w-full text-cyan-800' to='/admin'>
                       Chức năng Admin
                     </Link>
-                  </MenuItem>}
+                {userLogin?.isHost && (
+                  <MenuItem onClick={handleClose}>
+                    <Link className='w-full text-cyan-800' to='/chat'>
+                      Tin nhắn
+                    </Link>
+                  </MenuItem>
+                )}
                 <Divider light />
                 <MenuItem onClick={handleClose}>
                   <Link className='w-full text-cyan-800' to='/help'>

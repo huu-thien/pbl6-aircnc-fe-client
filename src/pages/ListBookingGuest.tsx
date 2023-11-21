@@ -93,6 +93,7 @@ const ListBookingGuest = () => {
           })
           .then(() => {
             getListBookingFromDB();
+            handleCloseModalCancel();
           });
       }
     } catch (err) {
@@ -354,7 +355,7 @@ const ListBookingGuest = () => {
 
   return (
     <div className='w-full max-w-7xl mx-auto pt-8 pb-2'>
-      <Breadcrumbs aria-aria-label='Breadcrumbs'>
+      <Breadcrumbs>
         <p className='hover:underline hover:text-cyan-600' onClick={() => navigate(-1)}>
           Trang chủ
         </p>

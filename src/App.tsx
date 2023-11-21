@@ -15,7 +15,7 @@ import { ToastContainer } from 'react-toastify';
 // import { Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
-import { saveUserLogin } from './redux-toolkit/auth.slice';
+import { saveLogout, saveUserLogin } from './redux-toolkit/auth.slice';
 import { UserType } from './@types/user';
 import ListBookingGuest from './pages/ListBookingGuest';
 import BookingConfirmed from './pages/BookingConfirmed';
@@ -28,13 +28,19 @@ import ManageProperties from './pages/Admin/ManageProperties/ManageProperties';
 import ManageCancellation from './pages/Admin/ManageCancellation/ManageCancellation';
 import ManagePayment from './pages/Admin/ManagePayment/ManagePayment';
 
+import { LocalStorageEventTarget } from './utils/http';
+import { useEffect } from 'react';
+import HostManageProperty from './pages/HostManageProperty';
+import Chat from './pages/Chat';
+
+
 function App() {
+  const dispatch = useDispatch();
   const theme = createTheme({
     typography: {
       fontFamily: 'Lexend',
     },
   });
-  const dispatch = useDispatch();
   const userLocal = localStorage.getItem('user');
   const accessTokenLocal = localStorage.getItem('accessToken');
   const refreshTokenLocal = localStorage.getItem('refreshToken');
@@ -52,7 +58,11 @@ function App() {
     role = JSON.parse(roleLocal);
     dispatch(saveUserLogin({ user, accessToken, refreshToken, role }));
   }
-
+  useEffect(() => {
+    LocalStorageEventTarget.addEventListener('clearLS', () => {
+      dispatch(saveLogout());
+    });
+  }, [dispatch]);
   return (
     <div className=''>
       <ThemeProvider theme={theme}>
@@ -71,6 +81,8 @@ function App() {
             <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
             <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
             <Route path='/host-manage-property' element={<MainLayout page={<BookingChecked />} />} />
+            <Route path='/host-manage-property' element={<MainLayout page={<HostManageProperty />} />} />
+            <Route path='/chat' element={<MainLayout page={<Chat />} />} />
           </Route>
           <Route element={<AdminLayout />}>
             <Route path='/admin' element={<Dashboard />} />

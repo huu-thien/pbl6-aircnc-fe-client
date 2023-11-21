@@ -1,5 +1,7 @@
+
 import { postImagePropertyUrl } from '@/services/PropertyService/propertyService';
 import { toast } from 'react-toastify';
+import { postAvatarUrl } from '@/services/InfoAccount/infoAccountService';
 
 export const ChangFileImageToUrl = async (listImage: File[]): Promise<{ url: string }[] | undefined> => {
   try {
@@ -15,5 +17,11 @@ const ChangeOneFile = async (image: File) => {
   const formData = new FormData();
   formData.append('file', image);
   const response = await postImagePropertyUrl(formData);
+  return response.data;
+};
+export const AvatarChangeOneFile = async (image: File) => {
+  const formData = new FormData();
+  formData.append('file', image);
+  const response = await postAvatarUrl(formData);
   return response.data;
 };
