@@ -79,7 +79,7 @@ const CustomerReview = ({ hostId, name, setPostReviewUpdate }: PropsType) => {
               setPostReviewUpdate((prev) => prev + 1);
               handleCancelReview();
               setCurrentPage(1);
-              getListReview(hostId, 1)
+              getListReview(hostId, 1);
             });
         }
       } catch (error) {
@@ -90,7 +90,7 @@ const CustomerReview = ({ hostId, name, setPostReviewUpdate }: PropsType) => {
     }
   };
   console.log(listReview);
-  
+
   return (
     <div className='py-4'>
       <h2 className='font-semibold text-2xl text-cyan-700 py-4'>Đánh giá về {name}</h2>

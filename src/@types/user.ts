@@ -9,6 +9,7 @@ export interface LoginResponse {
   user: UserType | null;
   accessToken: string | null;
   refreshToken: string | null;
+  role: string | null;
 }
 
 export interface UserType {

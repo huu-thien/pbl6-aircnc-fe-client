@@ -21,6 +21,12 @@ import ListBookingGuest from './pages/ListBookingGuest';
 import BookingConfirmed from './pages/BookingConfirmed';
 import InfoAccount from './pages/InfoAccount';
 import BookingChecked from './pages/BookingChecked';
+import AdminLayout from './layouts/AdminLayout/AdminLayout';
+import Dashboard from './pages/Admin/Dashboard/Dashboard';
+import ManageAccount from './pages/Admin/ManageAcount/ManageAccount';
+import ManageProperties from './pages/Admin/ManageProperties/ManageProperties';
+import ManageCancellation from './pages/Admin/ManageCancellation/ManageCancellation';
+import ManagePayment from './pages/Admin/ManagePayment/ManagePayment';
 
 function App() {
   const theme = createTheme({
@@ -32,16 +38,19 @@ function App() {
   const userLocal = localStorage.getItem('user');
   const accessTokenLocal = localStorage.getItem('accessToken');
   const refreshTokenLocal = localStorage.getItem('refreshToken');
+  const roleLocal = localStorage.getItem('role');
 
   let user: UserType | null = null;
   let accessToken: string | null = null;
   let refreshToken: string | null = null;
+  let role: string | null = null;
 
-  if (userLocal !== null && accessTokenLocal !== null && refreshTokenLocal !== null) {
+  if (userLocal !== null && accessTokenLocal !== null && refreshTokenLocal !== null && roleLocal !== null) {
     user = JSON.parse(userLocal);
     accessToken = JSON.parse(accessTokenLocal);
     refreshToken = JSON.parse(refreshTokenLocal);
-    dispatch(saveUserLogin({ user, accessToken, refreshToken }));
+    role = JSON.parse(roleLocal);
+    dispatch(saveUserLogin({ user, accessToken, refreshToken, role }));
   }
 
   return (
@@ -61,6 +70,14 @@ function App() {
             <Route path='/info-account' element={<MainLayout page={<InfoAccount />} />} />
             <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
             <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
+            <Route path='/host-manage-property' element={<MainLayout page={<BookingChecked />} />} />
+          </Route>
+          <Route element={<AdminLayout />}>
+            <Route path='/admin' element={<Dashboard />} />
+            <Route path='/admin-manage-accounts' element={<ManageAccount />} />
+            <Route path='/admin-manage-properties' element={<ManageProperties />} />
+            <Route path='/admin-manage-cancellation' element={<ManageCancellation />} />
+            <Route path='/admin-manage-payments' element={<ManagePayment />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
