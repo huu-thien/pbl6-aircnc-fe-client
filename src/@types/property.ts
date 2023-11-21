@@ -15,7 +15,7 @@ export interface PropertyType {
   propertyImages: PropertyImage[];
   propertyUtilities: PropertyUtilitiesType[];
   rejectionReason: string | null;
-  status: string;
+  status: 'Pending' | 'Approved' | 'Rejected' | 'Available' | 'Unavailable';
   isFavorite: boolean;
   latitude: number;
   longitude: number;

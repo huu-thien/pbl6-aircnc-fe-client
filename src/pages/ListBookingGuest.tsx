@@ -190,7 +190,7 @@ const ListBookingGuest = () => {
         return (
           <>
             {status === 'Pending' && (
-              <Chip label='Chờ thanh toán' sx={{ backgroundColor: '#faeacf', color: '#f39c11 ' }} />
+              <Chip label='Chờ thanh toán' sx={{ backgroundColor: '#faeacf', color: '#f39c11' }} />
             )}
             {status === 'Confirmed' && (
               <Chip label='Đã xác nhận' sx={{ backgroundColor: '#b0f7c0', color: '#28a745' }} />

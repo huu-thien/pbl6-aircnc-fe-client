@@ -4,9 +4,7 @@ import autoRefreshToken from './autoRefreshToken';
 import { toast } from 'react-toastify';
 
 // let this.refreshTokenRequest: any = null;
-
 export const LocalStorageEventTarget = new EventTarget();
-
 class Http {
   instance: AxiosInstance;
 

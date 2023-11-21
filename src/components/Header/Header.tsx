@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 
 const Header = () => {
   const userLogin = useSelector((state: RootState) => state.auth.user);
+  const role = useSelector((state: RootState) => state.auth.role);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -132,6 +133,18 @@ const Header = () => {
                   <MenuItem onClick={handleClose}>
                     <Link className='w-full text-cyan-800' to='/host-manage-property'>
                       Quản lý phòng cho thuê
+                    </Link>
+                  </MenuItem>
+                )}
+
+                {role === 'Admin' && <MenuItem onClick={handleClose}>
+                    <Link className='w-full text-cyan-800' to='/admin'>
+                      Chức năng Admin
+                    </Link>
+                {userLogin?.isHost && (
+                  <MenuItem onClick={handleClose}>
+                    <Link className='w-full text-cyan-800' to='/chat'>
+                      Tin nhắn
                     </Link>
                   </MenuItem>
                 )}
