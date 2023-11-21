@@ -137,10 +137,13 @@ const Header = () => {
                   </MenuItem>
                 )}
 
-                {role === 'Admin' && <MenuItem onClick={handleClose}>
+                {role === 'Admin' && (
+                  <MenuItem onClick={handleClose}>
                     <Link className='w-full text-cyan-800' to='/admin'>
                       Chức năng Admin
-                    </Link>
+                    </Link>{' '}
+                  </MenuItem>
+                )}
                 {userLogin?.isHost && (
                   <MenuItem onClick={handleClose}>
                     <Link className='w-full text-cyan-800' to='/chat'>
