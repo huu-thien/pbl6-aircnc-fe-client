@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout/MainLayout';
 import AuthenticationRoute from '@/routes/authenticate-route';
 import Authenticate from '@/pages/Authenticate';
@@ -33,8 +33,8 @@ import { useEffect } from 'react';
 import HostManageProperty from './pages/HostManageProperty';
 import Chat from './pages/Chat';
 
-
 function App() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = createTheme({
     typography: {
@@ -61,8 +61,9 @@ function App() {
   useEffect(() => {
     LocalStorageEventTarget.addEventListener('clearLS', () => {
       dispatch(saveLogout());
+      navigate('/');
     });
-  }, [dispatch]);
+  }, [dispatch, navigate]);
   return (
     <div className=''>
       <ThemeProvider theme={theme}>
