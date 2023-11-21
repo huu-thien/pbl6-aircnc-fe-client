@@ -39,7 +39,7 @@ const ManageProperties = () => {
   const handleChangePage = (event: ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
-  console.log(listProperty);
+  console.log('test');
 
   return (
     <div className='p-4 '>
