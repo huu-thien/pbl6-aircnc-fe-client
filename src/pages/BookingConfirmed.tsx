@@ -138,7 +138,6 @@ const BookingConfirmed = () => {
                 </p>
               </AccordionDetails>
             </Accordion>
-
             <Accordion expanded={expanded === 'panel2'} onChange={handleChangeAccordion('panel2')}>
               <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
                 <p className='text-cyan-700'>Chính sách nghiêm ngặt</p>
@@ -153,7 +152,6 @@ const BookingConfirmed = () => {
               </AccordionDetails>
             </Accordion>
           </div>
-
           <Button variant='contained' fullWidth size='large' onClick={handleRequestBooking}>
             Yêu cầu đặt phòng
           </Button>

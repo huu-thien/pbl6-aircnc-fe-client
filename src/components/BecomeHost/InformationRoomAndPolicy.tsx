@@ -41,6 +41,9 @@ import { Map } from 'mapbox-gl';
 import { getAddressResult } from '@/services/GetMapService/getMapService';
 import AddressResult from './AddressResult';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setHost } from '@/redux-toolkit/auth.slice';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicHAzMTEiLCJhIjoiY2xvMW9hazBtMWRuczJ0cWh0eDl1andncCJ9.cINZ3UYbzs7plrM2seqPjg';
 const listTypeRooms = [
@@ -55,47 +58,39 @@ const listTypeRooms = [
   'Cabin',
 ];
 const InformationRoomAndPolicy = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // Map
   const [position, setPosition] = useState<{ lat: number; lon: number }>({ lat: 0, lon: 0 });
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<Map | null>(null);
-  const [zoom, setZoom] = useState(12);
+  const [zoom] = useState(15);
   const [listAddressResult, setListAddressResult] = useState([]);
   const [city, setCity] = useState<string>('');
   useEffect(() => {
-    // Initialize map
     map.current = new mapboxgl.Map({
       container: mapContainer.current as HTMLDivElement,
       style: 'mapbox://styles/pp311/clo1ucw6g00fd01r26ds09u1z',
       center: [position.lon, position.lat],
       zoom: zoom,
     });
-
-    // Add marker
     new mapboxgl.Marker().setLngLat([position.lon, position.lat]).addTo(map.current);
-
-    // Update map on move
-    map.current.on('move', () => {
-      const newCenter = map.current?.getCenter();
-      if (newCenter) {
-        const newLat = newCenter.lat.toFixed(4);
-        const newLng = newCenter.lng.toFixed(4);
-
-        // Update position state
-        setPosition({ lat: Number(newLat), lon: Number(newLng) });
-      }
-
-      // Update zoom state
-      setZoom(Number(map.current?.getZoom().toFixed(2)));
-    });
-
-    // Clean up map on component unmount
+    // map.current.on('move', () => {
+    //   const newCenter = map.current?.getCenter();
+    //   if (newCenter) {
+    //     const newLat = newCenter.lat.toFixed(4);
+    //     const newLng = newCenter.lng.toFixed(4);
+    //     setPosition({ lat: Number(newLat), lon: Number(newLng) });
+    //   }
+    //   setZoom(Number(map.current?.getZoom().toFixed(2)));
+    // });
     return () => {
       if (map.current) {
         map.current.remove();
       }
     };
-  }, [position.lon, position.lat, zoom]);
+  }, [position.lat, position.lon, zoom]);
+
   // =======================================
   const [utilities] = useState<string[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<FileObject[]>([]);
@@ -150,7 +145,10 @@ const InformationRoomAndPolicy = () => {
             pending: 'Đang tiến hành tạo phòng!',
             success: 'Tạo phòng thành công !',
           })
-          .then(() => {});
+          .then(() => {
+            navigate('/');
+            dispatch(setHost());
+          });
       }
     } catch (err) {
       console.log(err);

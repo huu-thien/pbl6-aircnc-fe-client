@@ -21,6 +21,8 @@ const ButtonLoginGoogle = () => {
       //   })
       //   .catch((err) => console.error(err));
       // console.log(data.access_token);
+      console.log(data.access_token);
+
       try {
         const response = await postLoginGoogle({ accessToken: data.access_token });
         // console.log(response);

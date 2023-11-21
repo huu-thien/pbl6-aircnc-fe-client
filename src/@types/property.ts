@@ -94,7 +94,7 @@ export interface PropertyFilterParams {
   ChildCount: number | undefined;
   Search: string | undefined;
   PageIndex: number;
-  TotalPages: number;
+  TotalPages: number | undefined;
 }
 
 export interface HostInput {

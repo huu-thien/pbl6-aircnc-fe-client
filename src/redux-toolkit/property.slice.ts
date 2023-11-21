@@ -28,7 +28,7 @@ const initialState: PropertyState = {
     AdultCount: undefined,
     ChildCount: undefined,
     Search: undefined,
-    TotalPages: 7,
+    TotalPages: undefined,
   },
   loading: false,
   currentRequestId: undefined,
@@ -44,10 +44,8 @@ export const getPropertyList = createAsyncThunk(
         queryParams.push(`${key}=${body[key]}`);
       }
     }
-    console.log(body);
-    
-    console.log(queryParams.join('&'));
-    
+    // console.log(body);
+    // console.log(queryParams.join('&'));
     const response = await http.get(`api/properties?${queryParams.join('&')}&PageSize=16`, {
       signal: thunkAPI.signal,
     });

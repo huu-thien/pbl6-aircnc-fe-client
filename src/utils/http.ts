@@ -1,10 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
 import autoRefreshToken from './autoRefreshToken';
-import { redirect } from 'react-router-dom';
+// import { redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 // let this.refreshTokenRequest: any = null;
-
+export const LocalStorageEventTarget = new EventTarget();
 class Http {
   instance: AxiosInstance;
 
@@ -15,7 +15,7 @@ class Http {
       // import.meta.env.VITE_BACKEND_API_URL
       // baseURL: 'https://pbl6.whitemage.tech/',
       baseURL: import.meta.env.VITE_BACKEND_API_URL,
-      timeout: 10000, 
+      timeout: 10000,
     });
 
     this.instance.interceptors.request.use(
@@ -34,16 +34,16 @@ class Http {
       (error) => {
         if (error.response.status !== 401) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const data: any | undefined = error.response.data;
-          const message = data.message || error.message;
-          toast.error(message);
+          // const data: any | undefined = error.response.data;
+          // const message = data.message || error.message;
+          // toast.error(message);
         }
 
         // Lỗi Unauthorized có rất nhiều trường hợp: token ko đúng, ko truyền token, token hết hạn
         if (error.response.status === 401) {
           console.log('Acesstolen het han', this.refreshTokenRequest);
-          localStorage.clear();
-          redirect('/authenticate');
+          // localStorage.clear();
+          // redirect('/authenticate');
           this.refreshTokenRequest = this.refreshTokenRequest
             ? this.refreshTokenRequest
             : autoRefreshToken().finally(() => {
@@ -52,7 +52,6 @@ class Http {
           return (
             this.refreshTokenRequest
               .then((accessToken: string) => {
-                console.log('hehehehe');
                 error.response.config.Authorization = `Bearer ${JSON.parse(accessToken)}`;
                 console.log('accessToken', accessToken);
                 return this.instance(error.response.config);
@@ -61,6 +60,9 @@ class Http {
               .catch((errorRefreshToken: any) => {
                 console.log('Refresh token het han ! or Chua dang nhap');
                 localStorage.clear();
+                const clearLSEvent = new Event('clearLS');
+                LocalStorageEventTarget.dispatchEvent(clearLSEvent);
+                toast.error('Bạn đã hết phiên đăng nhập !');
                 throw errorRefreshToken;
               })
           );
