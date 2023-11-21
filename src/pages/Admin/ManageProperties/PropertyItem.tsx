@@ -60,11 +60,11 @@ const PropertyItem = ({ property }: PropsType) => {
           <div className='flex gap-2'>
             <>
               <Button variant='outlined' size='small'>
-                Duyệt phongf
+                Duyệt phòng
               </Button>
               <Modal
                 open={openBlockModal}
-                // onClose={handleCloseResolved}
+                onClose={handleOpenBlockModal}
                 aria-labelledby='modal-modal-title'
                 aria-describedby='modal-modal-description'
               >
