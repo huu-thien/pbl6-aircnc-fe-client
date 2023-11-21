@@ -80,7 +80,6 @@ function App() {
             <Route path='/info-account' element={<MainLayout page={<InfoAccount />} />} />
             <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
             <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
-            <Route path='/host-manage-property' element={<MainLayout page={<BookingChecked />} />} />
             <Route path='/host-manage-property' element={<MainLayout page={<HostManageProperty />} />} />
             <Route path='/chat' element={<MainLayout page={<Chat />} />} />
           </Route>
