@@ -40,6 +40,11 @@ export const getPropertyList = createAsyncThunk(
   async (body: PropertyFilterParams, thunkAPI) => {
     const queryParams = [];
     for (const key in body) {
+      if (Array.isArray(body[key]) && body[key] !== undefined) {
+        for (let i = 0; i < body[key].length; i++) {
+          queryParams.push(`Type=${body[key][i]}`);
+        }
+      }
       if (body[key] !== undefined && !Array.isArray(body[key])) {
         queryParams.push(`${key}=${body[key]}`);
       }
