@@ -69,7 +69,7 @@ const AccountItem = ({ account }: PropsType) => {
                 cancel
               </Button>
               <Button variant='contained' size='small' onClick={() => handleDeleteAccount(account.id)}>
-                Xóa
+                Cấm
               </Button>
             </div>
           </Box>

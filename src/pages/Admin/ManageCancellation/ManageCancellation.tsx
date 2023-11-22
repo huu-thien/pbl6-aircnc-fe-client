@@ -97,7 +97,7 @@ const ManageCancellation = () => {
           </thead>
           <tbody>
             {listCancallation.map((cancellation) => (
-              <CancellationItem cancellationInfo={cancellation} getListAccount={getListAccount} currentPage={currentPage} status={status}/>
+              <CancellationItem key={cancellation.bookingId} cancellationInfo={cancellation} getListAccount={getListAccount} currentPage={currentPage} status={status}/>
             ))}
           </tbody>
         </table>

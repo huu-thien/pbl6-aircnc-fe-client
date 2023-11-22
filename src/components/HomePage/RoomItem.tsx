@@ -107,7 +107,7 @@ const RoomItem = ({
       console.log(err);
     }
   };
-
+  
   return (
     <div className='shadow-md p-2 rounded-lg mx-auto'>
       <Box sx={{ maxWidth: 350 }}>
@@ -149,7 +149,9 @@ const RoomItem = ({
         <div className='p-4'>
           <div className='flex justify-between'>
             <Link to={`/detail-room/${id}`}>
-              <h2 className='text-md text-[#3c3834] font-semibold hover:text-cyan-800 line-clamp-2 pr-6'>{title}</h2>
+              <h2 className='text-md text-[#3c3834] font-semibold hover:text-cyan-800 line-clamp-2 h-[50px] pr-6'>
+                {title}
+              </h2>
             </Link>
             <span className='flex'>
               <StarIcon sx={{ mr: 1, color: '#feb207' }} />

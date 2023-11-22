@@ -15,7 +15,7 @@ class Http {
       // import.meta.env.VITE_BACKEND_API_URL
       // baseURL: 'https://pbl6.whitemage.tech/',
       baseURL: import.meta.env.VITE_BACKEND_API_URL,
-      timeout: 10000,
+      timeout: 20000,
     });
 
     this.instance.interceptors.request.use(
