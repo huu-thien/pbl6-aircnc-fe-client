@@ -25,6 +25,7 @@ import { LocalStorageEventTarget } from './utils/http';
 import { useEffect } from 'react';
 import HostManageProperty from './pages/HostManageProperty';
 import Chat from './pages/Chat';
+import GuestInfo from './pages/GuestInfo';
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ function App() {
             <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
             <Route path='/host-manage-property' element={<MainLayout page={<HostManageProperty />} />} />
             <Route path='/chat' element={<MainLayout page={<Chat />} />} />
+            <Route path='/guest/:id' element={<MainLayout page={<GuestInfo />} />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>

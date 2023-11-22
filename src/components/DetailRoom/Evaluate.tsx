@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -234,7 +235,7 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
                   <div key={`${review.guestName}_${index}`} className='flex flex-col p-2 shadow-md rounded-md'>
                     <div className=''>
                       <div className='flex items-center gap-4 p-3'>
-                        <Avatar src={review.guestAvatarUrl} />
+                        <Link to={`/guest/${review.guestId}`}><Avatar src={review.guestAvatarUrl} /></Link>
                         <div className=' w-full flex justify-between'>
                           <div>
                             <p className='text-cyan-700'>{review.guestName}</p>
