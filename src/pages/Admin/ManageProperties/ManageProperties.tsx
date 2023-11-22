@@ -43,7 +43,7 @@ const ManageProperties = () => {
 
   return (
     <div className='p-4 '>
-      <HeaderAdmin title='Quản lý tài khoản' />
+      <HeaderAdmin title='Quản lý đơn tạo phòng' />
       <FormControl size='small' sx={{ width: 200, my: 2, background: 'white' }}>
         <InputLabel id='demo-simple-select-label'>Trạng thái</InputLabel>
         <Select
@@ -93,7 +93,13 @@ const ManageProperties = () => {
           </thead>
           <tbody>
             {listProperty.map((property, index) => (
-              <PropertyItem key={`${property.title}-${index}`} property={property} />
+              <PropertyItem
+                key={`${property.title}-${index}`}
+                property={property}
+                getListProperty={getListProperty}
+                status={status}
+                currentPage={currentPage}
+              />
             ))}
           </tbody>
         </table>

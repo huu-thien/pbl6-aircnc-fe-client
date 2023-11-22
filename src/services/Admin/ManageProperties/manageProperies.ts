@@ -12,3 +12,11 @@ export const getAllPropertysApi = (page: number, status: string) => {
     signal: controller.signal,
   });
 };
+
+export const postConfirmProperty = (propertyId: number) => {
+  return http.post(`api/properties/${propertyId}/confirm`, { signal: controller.signal });
+};
+
+export const postRejectdProperty = (propertyId: number, reason: { reason: string }) => {
+  return http.post(`api/properties/${propertyId}/reject`, reason, { signal: controller.signal });
+};

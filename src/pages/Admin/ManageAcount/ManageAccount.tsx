@@ -12,22 +12,22 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const ManageAccount = () => {
 
-  const [status, setStatus] = useState<string>('All');
+  const [isHostOnly, setIsHostOnly] = useState<string>('All');
 
   const handleChange = (event: SelectChangeEvent) => {
-    setStatus(event.target.value as string);
+    setIsHostOnly(event.target.value as string);
   };
 
   const [listAccount, setListAccount] = useState<AccountType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   useEffect(() => {
-    getListAccount(currentPage);
-  }, [currentPage]);
+    getListAccount(currentPage, isHostOnly);
+  }, [currentPage, isHostOnly]);
 
-  const getListAccount = async (currentPage: number) => {
+  const getListAccount = async (currentPage: number, isHostOnly: string) => {
     try {
-      const response = await getAllAccountsApi(currentPage);
+      const response = await getAllAccountsApi(currentPage, isHostOnly);
       if (response && response.status === 200) {
         setTotalPages(response.data.totalPages);
         setListAccount(response.data.data);
@@ -40,7 +40,7 @@ const ManageAccount = () => {
   const handleChangePage = (event: ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
-  console.log(listAccount);
+  // console.log(listAccount);
 
   return (
     <div className='p-4 '>
@@ -50,13 +50,12 @@ const ManageAccount = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={status}
+          value={isHostOnly}
           label="Vai trò"
           onChange={handleChange}
         >
           <MenuItem value="All">Tất cả</MenuItem>
-          <MenuItem value="Pending">Khách</MenuItem>
-          <MenuItem value="Resolved">Chủ nhà</MenuItem>
+          <MenuItem value="onlyHost">Chủ nhà</MenuItem>
         </Select>
       </FormControl>
       <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>

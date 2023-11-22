@@ -93,7 +93,6 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
       console.log(error);
     }
   };
-  // console.log(listReview);
   return (
     <div className='pt-6'>
       {/* general */}
