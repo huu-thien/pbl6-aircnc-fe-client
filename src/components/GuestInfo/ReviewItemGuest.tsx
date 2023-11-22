@@ -5,8 +5,8 @@ import { Fade, Modal, Box, Backdrop, IconButton, Button } from '@mui/material';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { deleteReviewHost } from '@/services/HostService/hostService';
 import { toast } from 'react-toastify';
+import { deleteReviewGuest } from '@/services/GuestService/guestService';
 import { Link } from 'react-router-dom';
 
 const style = {
@@ -27,25 +27,27 @@ interface PropsType {
   reviewTime: string;
   rating: number;
   userId: number;
+  hostId: number;
   reviewId: number;
   setPostReviewUpdate: React.Dispatch<React.SetStateAction<number>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  getListReview: (hostId: number, page: number) => Promise<void>;
-  hostId: number;
+  getListReview: (guestId: number, page: number) => Promise<void>;
+  guestId: number;
 }
 
-const ReviewItem = ({
+const ReviewItemGuest = ({
   content,
   reviewerAvatarUrl,
   reviewerName,
   reviewTime,
   rating,
   userId,
+  hostId,
   reviewId,
   setPostReviewUpdate,
   setCurrentPage,
   getListReview,
-  hostId,
+  guestId,
 }: PropsType) => {
   const userIdLogin = useSelector((state: RootState) => state.auth.user?.id) || null;
 
@@ -60,7 +62,7 @@ const ReviewItem = ({
 
   const handleDeleteReview = async (reviewId: number) => {
     try {
-      const response = await deleteReviewHost(reviewId);
+      const response = await deleteReviewGuest(reviewId);
       if (response && response.status === 204) {
         const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
         toast
@@ -72,19 +74,19 @@ const ReviewItem = ({
             setPostReviewUpdate((prev) => prev + 1);
             setCurrentPage(1);
             handleClose();
-            getListReview(hostId, 1);
+            getListReview(guestId, 1);
           });
       }
     } catch (err) {
       console.log(err);
     }
   };
-
+  
   return (
     <div className='shadow-md p-4 rounded-lg'>
       <div className='m-2'>
         <div className='flex gap-4 items-center'>
-          <Link to={`/guest/${userId}`}><img src={reviewerAvatarUrl} alt={reviewerName} className='w-[70px] h-[70px] rounded-full' /></Link>
+          <Link to={`/host/${hostId}`}><img src={reviewerAvatarUrl} alt={reviewerName} className='w-[70px] h-[70px] rounded-full' /></Link>
           <div className=''>
             <p className='font-semibold pb-2'>{reviewerName}</p>
             <p className='font-thin text-gray-400 text-xs'>{formatDateTime(reviewTime)}</p>
@@ -140,4 +142,4 @@ const ReviewItem = ({
   );
 };
 
-export default ReviewItem;
+export default ReviewItemGuest;
