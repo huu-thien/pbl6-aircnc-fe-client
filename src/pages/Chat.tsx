@@ -1,15 +1,20 @@
-// import ListUserContact from "@/components/Chat/ListUserContact";
-// import Message from "@/components/Chat/Message/Message";
+
 import ConversationScreen from "@/components/Chat/ConversationScreen";
 import SideBar from "@/components/Chat/SideBar";
+import { useState } from "react";
 
 const Chat = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleSelectUser = (user:never) => {
+    setSelectedUser(user);
+  };
     return (
-      <div className="flex gap-1">
+      <div className="flex gap-1 mt-2">
         {/* <ListUserContact/> */}
         
-        <SideBar/>
-        <ConversationScreen/>
+        <SideBar onSelectUser={handleSelectUser}/>
+        <ConversationScreen selectedUser={selectedUser}/>
       </div>
     );
 }
