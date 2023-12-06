@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Paper } from '@material-ui/core';
+import React, { useEffect, useRef, useState } from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import MessageLeft from '@/components/Chat/Message/MessageLeft';
 import MessageRight from '@/components/Chat/Message/MessageRight';
@@ -11,7 +10,11 @@ import * as signalR from '@microsoft/signalr';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CollectionsIcon from '@mui/icons-material/Collections';
+import GifBoxIcon from '@mui/icons-material/GifBox';
+import IconButton from '@mui/material/IconButton';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       width: '100%',
-      height: '100%',
+      height: '75vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -36,39 +39,38 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '5px',
       overflowY: 'scroll',
       height: 'calc(100% - 20px)',
+      borderBottom: '1px solid #999',
     },
-    wrapForm : {
-      display: "flex",
-      justifyContent: "center",
-      width: "95%",
-      margin: `${theme.spacing(0)} auto`
+    wrapText: {
+      width: '100%',
     },
-    wrapText  : {
-        width: "100%"
-    },
-    button: {
-        margin: theme.spacing(1),
-    },
-  })
+  }),
 );
 
 interface MessageProps {
   selectedUser: PropsContact | null;
+  getListContacts: () => Promise<void>;
 }
 
-const Message: React.FC<MessageProps> = ({ selectedUser }) => {
+const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const classes = useStyles();
   const [messages, setMessages] = useState<PropsMessage[]>([]);
   const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
-  const accessToken:string|null = useSelector((state: RootState) => state.auth.accessToken)
+  const accessToken: string | null = useSelector((state: RootState) => state.auth.accessToken);
   const [message, setMessage] = useState('');
-  useEffect(() => {
-    if (selectedUser)
-    getMessages(selectedUser?.id);
-  }, [selectedUser?.id]);
+  const scrollableDivRef = useRef<HTMLDivElement | null>(null);
 
-  const getMessages = async (userId:number) => {
+  useEffect(() => {
+    if (selectedUser) getMessages(selectedUser?.id);
+  }, [selectedUser, selectedUser?.id]);
+  useEffect(() => {
+    if (scrollableDivRef.current) {
+      scrollableDivRef.current.scrollTop = scrollableDivRef.current.scrollHeight;
+    }
+  });
+
+  const getMessages = async (userId: number) => {
     try {
       const response = await getMessagesByUserId(userId);
       if (response && response.status === 200) {
@@ -80,35 +82,51 @@ const Message: React.FC<MessageProps> = ({ selectedUser }) => {
   };
   const initializeConnection = async () => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("http://pbl6.whitemage.tech/chathub", {
-        accessTokenFactory: () => accessToken ? accessToken : Promise.reject("Access token is null."),
+      .withUrl('http://pbl6.whitemage.tech/chathub', {
+        accessTokenFactory: () => (accessToken ? accessToken : Promise.reject('Access token is null.')),
         skipNegotiation: true,
-        transport: signalR.HttpTransportType.WebSockets
+        transport: signalR.HttpTransportType.WebSockets,
       })
       .build();
-    setConnection(newConnection);
-    console.log('connection: ',newConnection);
-    
-    newConnection.start()
+    newConnection.on('ReceiveMessage', () => {
+      if (selectedUser) getMessages(selectedUser?.id);
+      getListContacts();
+      console.log('Nhan tin nhan:');
+    });
+    newConnection
+      .start()
       .then(() => {
-        console.log("Connected!");
+        console.log('Connected!');
       })
       .catch((err) => {
         console.error(err.toString());
       });
+    setConnection(newConnection);
   };
   const sendMessage = () => {
     if (connection && connection.state === signalR.HubConnectionState.Connected && message) {
-      connection.invoke("SendMessageToUser", selectedUser?.id.toString(), message)
-      .then(() => {
-        setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: message }]);
-        console.log(messages);
-        
-        setMessage('');
-      })
-      .catch(error => console.error("Error invoking SendMessageToUser:", error));
+      connection
+        .invoke('SendMessageToUser', selectedUser?.id.toString(), message)
+        .then(() => {
+          setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: message }]);
+          setMessage('');
+        })
+        .catch((error) => console.error('Error invoking SendMessageToUser:', error));
     } else {
-      console.error("SignalR connection not in a valid state.");
+      console.error('SignalR connection not in a valid state.');
+    }
+  };
+  const handleSendIcon = () => {
+    if (connection && connection.state === signalR.HubConnectionState.Connected && message.length === 0) {
+      connection
+        .invoke('SendMessageToUser', selectedUser?.id.toString(), '❤️')
+        .then(() => {
+          setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: message }]);
+          setMessage('');
+        })
+        .catch((error) => console.error('Error invoking SendMessageToUser:', error));
+    } else {
+      console.error('SignalR connection not in a valid state.');
     }
   };
   useEffect(() => {
@@ -121,33 +139,62 @@ const Message: React.FC<MessageProps> = ({ selectedUser }) => {
   }, []);
   return (
     <div className={classes.container}>
-      <Paper className={classes.paper}>
-        <Paper id="style-1" className={classes.messagesBody}>
+      <div className={classes.paper}>
+        <div id='style-1' className={classes.messagesBody} ref={scrollableDivRef}>
           {messages.map((message) => {
             if (selectedUser && message.receiverId == user?.id) {
               return <MessageLeft key={message.id} message={message.content} photoURL={selectedUser.avatarUrl} />;
-            } else if (selectedUser && message.senderId == user?.id){
+            } else if (selectedUser && message.senderId == user?.id) {
               return <MessageRight key={message.id} message={message.content} />;
             }
-            return null; 
+            return null;
           })}
-        </Paper>
-        <>
-        <form className={classes.wrapForm}  noValidate autoComplete="off">
-          <TextField
-            id="standard-text"
-            label="Nhập chat ở đây"
-            className={classes.wrapText}
-            margin='normal'
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <Button variant="contained" color="primary" className={classes.button} onClick={sendMessage}>
-            <SendIcon />
-          </Button>
-        </form>
-      </>
-      </Paper>
+        </div>
+        <div className='flex items-center justify-between gap-4'>
+          <div className=''>
+            <IconButton>
+              <AddCircleIcon sx={{ color: '#0084ff' }} />
+            </IconButton>
+            <IconButton>
+              <CollectionsIcon sx={{ color: '#0084ff' }} />
+            </IconButton>
+            <IconButton>
+              <GifBoxIcon sx={{ color: '#0084ff' }} />
+            </IconButton>
+          </div>
+          <div className='flex: 1'>
+            <TextField
+              id='standard-text'
+              label='Aa'
+              className={classes.wrapText}
+              margin='normal'
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
+                const keycode = e.keyCode ? e.keyCode : e.which;
+                if (keycode === 13) {
+                  sendMessage();
+                }
+              }}
+              fullWidth
+              // sx={{ width: '900px !important' }}
+            />
+          </div>
+          <div className=''>
+            {message.length > 0 ? (
+              <Button variant='contained' color='primary' onClick={sendMessage}>
+                <SendIcon />
+              </Button>
+            ) : (
+              <>
+                <IconButton onClick={handleSendIcon}>
+                  <FavoriteIcon sx={{ color: '#f8312f' }} />
+                </IconButton>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

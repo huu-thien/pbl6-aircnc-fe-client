@@ -1,9 +1,6 @@
 export const differentTime = (inputDateString: string) => {
     const currentTime = new Date();
-    console.log('curent: ',currentTime);
-    
     const providedTime = new Date(inputDateString);
-    console.log('provided: ',providedTime);
     const differenceInMilliseconds = currentTime - providedTime;
     const minutesDifference = Math.floor(differenceInMilliseconds / (1000 * 60));
     const hoursDifference = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));

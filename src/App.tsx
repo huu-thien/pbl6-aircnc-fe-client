@@ -34,6 +34,7 @@ import HostManageProperty from './pages/HostManageProperty';
 import Chat from './pages/Chat';
 import GuestInfo from './pages/GuestInfo';
 import ConversationId from './pages/Conversations/ConversationId';
+import ChatLayout from './layouts/ChatLayout/ChatLayout';
 
 function App() {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ function App() {
             <Route path='/booking-confirmed' element={<MainLayout page={<BookingConfirmed />} />} />
             <Route path='/booking-checked' element={<MainLayout page={<BookingChecked />} />} />
             <Route path='/host-manage-property' element={<MainLayout page={<HostManageProperty />} />} />
-            <Route path='/chat' element={<MainLayout page={<Chat />} />} />
+            <Route path='/chat' element={<ChatLayout page={<Chat />} />} />
             <Route path='/guest/:id' element={<MainLayout page={<GuestInfo />} />} />
             <Route path='/chat/conversations/:id' element={<MainLayout page={<ConversationId />} />} />
           </Route>
