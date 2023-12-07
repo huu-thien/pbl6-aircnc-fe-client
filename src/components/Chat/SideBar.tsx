@@ -22,7 +22,7 @@
   const SideBar = ({ onSelectUser, listContacts }: Propstype) => {
     const [isOpenDialog, setIsOpenDialog] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState('');
-    const [selectedUser, setSelectedUser] = useState(null);
+    const [selectedUser, setSelectedUser] = useState<number|null>(null);
     const toggleDialog = (isOpen: boolean) => {
       setIsOpenDialog(isOpen);
       if (!isOpen) setRecipientEmail('');
@@ -90,7 +90,7 @@
             />
           </div>
         </div>
-        <div className='pt-2'>
+        <div className='pt-2' style={{ maxHeight: '500px', overflowY: 'auto' }}>
           {listContacts.length > 0 ? (
             <>
               {listContacts.map((contact) => (
@@ -101,7 +101,6 @@
                   avatarUrl={contact.avatarUrl}
                   lastMessage={contact.lastMessage}
                   lastMessageTime={differentTime(contact.lastMessageTime)}
-                  
                   onSelectUser={() => {
                     onSelectUser(contact)
                     setSelectedUser(contact.id);

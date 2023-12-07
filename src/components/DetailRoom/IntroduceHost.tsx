@@ -11,6 +11,7 @@ import * as signalR from '@microsoft/signalr';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { toast } from 'react-toastify';
 
 interface Propstype {
   hostId: number;
@@ -73,6 +74,7 @@ const IntroduceHost = ({ hostId }: Propstype) => {
       connection
         .invoke('SendMessageToUser', hostInfo.userId.toString(), message)
         .then(() => {
+          toast.success('Gửi tin nhắn đầu tiên đến host thành công!');
           setMessage('');
         })
         .catch((error) => console.error('Error invoking SendMessageToUser:', error));

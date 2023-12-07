@@ -17,7 +17,7 @@ const ConversationSelect: React.FC<ConversationSelectProps> = ({
   onSelectUser,
   isSelected,
 }) => {
-  console.log('user:',isSelected);
+  // console.log('user:',isSelected);
   return (
     <div
       className={`flex items-center cursor-pointer p-2 break-all border-b-2 border-solid hover:bg-gray-200 ${isSelected ? 'bg-gray-200' : ''}`}
@@ -26,8 +26,8 @@ const ConversationSelect: React.FC<ConversationSelectProps> = ({
       <Avatar src={avatarUrl} className='m-3' />
       <div className='grid grid-cols-1'>
         <span className='font-medium'>{fullName}</span>
-        <div className='inline-flex gap-5 font-light '>
-          <span className='overflow-hidden max-w-[100px] whitespace-nowrap text-ellipsis'>{lastMessage}</span>
+        <div className='inline-flex gap-4 font-light text-sm'>
+          <span className='overflow-hidden max-w-[90px] whitespace-nowrap text-ellipsis'>{lastMessage}</span>
           <span className=''>{lastMessageTime}</span>
         </div>
       </div>

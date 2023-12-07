@@ -62,8 +62,8 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   const scrollableDivRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (selectedUser) getMessages(selectedUser?.id);
     initializeConnection();
+    if (selectedUser) getMessages(selectedUser?.id);
   }, [selectedUser, selectedUser?.id]);
   useEffect(() => {
     if (scrollableDivRef.current) {
@@ -76,6 +76,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
       const response = await getMessagesByUserId(userId);
       if (response && response.status === 200) {
         setMessages(response.data);
+        // setMessages((prevMessages) => [...prevMessages, ...response.data]);
       }
     } catch (error) {
       console.log(error);
@@ -89,10 +90,12 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
         transport: signalR.HttpTransportType.WebSockets,
       })
       .build();
-    newConnection.on('ReceiveMessage', () => {
-      if (selectedUser) getMessages(selectedUser?.id);
-      console.log('messages:',messages,'id :',selectedUser?.id);
-      
+    newConnection.on('ReceiveMessage', (data) => {
+      if (selectedUser && data && data.userId === selectedUser.id) 
+      {
+        getMessages(selectedUser?.id);
+        console.log('messages:',messages,'id :',selectedUser?.id);
+      }
       getListContacts();
       console.log('Nhan tin nhan:');
     });
@@ -125,7 +128,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
       connection
         .invoke('SendMessageToUser', selectedUser?.id.toString(), '❤️')
         .then(() => {
-          setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: message }]);
+          setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: '❤️' }]);
           // console.log('tin nhan :',messages);
           
           setMessage('');
