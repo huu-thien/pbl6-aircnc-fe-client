@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 import { getHostDetail } from '@/services/HostService/hostService';
 import { useEffect, useState } from 'react';
 import { HostType } from '@/@types/host';
+import * as signalR from '@microsoft/signalr';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 interface Propstype {
   hostId: number;
@@ -24,6 +28,17 @@ const IntroduceHost = ({ hostId }: Propstype) => {
     rating: 0,
     userId: 0,
   });
+  const accessToken: string | null = useSelector((state: RootState) => state.auth.accessToken);
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const toggleDialog = (isOpen: boolean) => {
+    setIsOpenDialog(isOpen);
+    if (!isOpen) setMessage('');
+  };
+  const closeDialog = () => {
+    toggleDialog(false);
+  };
   useEffect(() => {
     getHostInfoApi(hostId);
   }, [hostId]);
@@ -38,6 +53,39 @@ const IntroduceHost = ({ hostId }: Propstype) => {
       console.log(err);
     }
   };
+  const sendMessage = () => {
+    if (message){
+      const connection = new signalR.HubConnectionBuilder()
+      .withUrl('http://pbl6.whitemage.tech/chathub', {
+        accessTokenFactory: () => (accessToken ? accessToken : Promise.reject('Access token is null.')),
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets,
+      })
+      .build();
+
+    connection
+      .start()
+      .then(() => {
+        console.log('Connected!');
+    if (connection && connection.state === signalR.HubConnectionState.Connected) {
+      console.log('id dc chon la:', hostInfo.userId);
+      
+      connection
+        .invoke('SendMessageToUser', hostInfo.userId.toString(), message)
+        .then(() => {
+          setMessage('');
+        })
+        .catch((error) => console.error('Error invoking SendMessageToUser:', error));
+    } else {
+      console.error('SignalR connection not in a valid state.');
+    }
+    closeDialog();
+    })
+    .catch((err) => {
+      console.error(err.toString());
+    });
+    }
+  };
   return (
     <div className=''>
       <div className='flex justify-between items-center'>
@@ -45,8 +93,47 @@ const IntroduceHost = ({ hostId }: Propstype) => {
           <Avatar alt='Travis Howard' src={hostInfo.avatarUrl} sx={{ width: 70, height: 70 }} />
           <p className='pt-2'>Host {hostInfo.name}</p>
         </div>
+        <Button 
+          variant='contained' 
+          sx={{ height: 50 }}
+          onClick={() => {
+            toggleDialog(true);
+          }}
+          size='small'
+        >
+          Nhắn tin cho chủ nhà
+        </Button>
+          <Dialog open={isOpenDialog} onClose={closeDialog}>
+            <DialogTitle>Nhắn tin cho chủ nhà</DialogTitle>
+            <DialogContent>
+              <DialogContentText>Hãy nhắn tin đầu tiên với chủ nhà !</DialogContentText>
+              <TextField
+                id='standard-text'
+                label='Aa'
+                margin='normal'
+                autoFocus
+                fullWidth
+                value={message}
+                onChange={(event) => {
+                  setMessage(event.target.value);
+                }}
+                onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
+                  const keycode = e.keyCode ? e.keyCode : e.which;
+                  if (keycode === 13) {
+                    sendMessage();
+                  }
+                }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={closeDialog}>Cancel</Button>
+              <Button disabled={!setMessage} onClick={sendMessage}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
         <Button variant='contained' sx={{ height: 50 }}>
-          <Link to={`/host/${hostId}`}>Liên hệ với chủ nhà</Link>
+          <Link to={`/host/${hostId}`}>Thông tin của chủ nhà</Link>
         </Button>
       </div>
       <p className='font-thin text-gray-500 pt-2 italic'>{hostInfo.introduction}</p>

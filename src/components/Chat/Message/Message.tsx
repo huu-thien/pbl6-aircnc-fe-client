@@ -63,6 +63,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
 
   useEffect(() => {
     if (selectedUser) getMessages(selectedUser?.id);
+    initializeConnection();
   }, [selectedUser, selectedUser?.id]);
   useEffect(() => {
     if (scrollableDivRef.current) {
@@ -90,6 +91,8 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
       .build();
     newConnection.on('ReceiveMessage', () => {
       if (selectedUser) getMessages(selectedUser?.id);
+      console.log('messages:',messages,'id :',selectedUser?.id);
+      
       getListContacts();
       console.log('Nhan tin nhan:');
     });
@@ -109,6 +112,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
         .invoke('SendMessageToUser', selectedUser?.id.toString(), message)
         .then(() => {
           setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: message }]);
+          // console.log('tin nhan :',messages);
           setMessage('');
         })
         .catch((error) => console.error('Error invoking SendMessageToUser:', error));
@@ -122,6 +126,8 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
         .invoke('SendMessageToUser', selectedUser?.id.toString(), '❤️')
         .then(() => {
           setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: message }]);
+          // console.log('tin nhan :',messages);
+          
           setMessage('');
         })
         .catch((error) => console.error('Error invoking SendMessageToUser:', error));
@@ -129,14 +135,14 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
       console.error('SignalR connection not in a valid state.');
     }
   };
-  useEffect(() => {
-    initializeConnection();
-    return () => {
-      if (connection && connection.state === signalR.HubConnectionState.Connected) {
-        connection.stop();
-      }
-    };
-  }, []);
+  // useEffect(() => {
+  //   initializeConnection();
+  //   return () => {
+  //     if (connection && connection.state === signalR.HubConnectionState.Connected) {
+  //       connection.stop();
+  //     }
+  //   };
+  // }, []);
   return (
     <div className={classes.container}>
       <div className={classes.paper}>

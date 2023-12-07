@@ -5,6 +5,7 @@ import { Avatar } from '@mui/material';
 
 interface ConversationSelectProps extends PropsContact {
   onSelectUser: () => void;
+  isSelected: boolean;
 }
 
 const ConversationSelect: React.FC<ConversationSelectProps> = ({
@@ -14,10 +15,12 @@ const ConversationSelect: React.FC<ConversationSelectProps> = ({
   lastMessage,
   lastMessageTime,
   onSelectUser,
+  isSelected,
 }) => {
+  console.log('user:',isSelected);
   return (
     <div
-      className='flex items-center cursor-pointer p-2 break-all border-b-2 border-solid hover:bg-gray-300'
+      className={`flex items-center cursor-pointer p-2 break-all border-b-2 border-solid hover:bg-gray-200 ${isSelected ? 'bg-gray-200' : ''}`}
       onClick={onSelectUser}
     >
       <Avatar src={avatarUrl} className='m-3' />
