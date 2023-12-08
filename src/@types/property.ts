@@ -114,7 +114,7 @@ export interface HostInput {
   utilities: string[];
 }
 export interface PropertyInfoPost {
-  type: 'Room' | 'House' | 'Apartment' | 'Ralph Hubbard' | 'Villa' | 'HomeStay' | 'Miriam Wagner' | 'Hotel' | 'Cabin';
+  type: 'Room' | 'Resort' | 'Villa' | 'HomeStay' | 'House' | 'Hotel' | 'Cabin' | 'Apartment';
   bedCount: number;
   bedroomCount: number;
   bathroomCount: number;

@@ -35,6 +35,7 @@ import Chat from './pages/Chat';
 import GuestInfo from './pages/GuestInfo';
 import ConversationId from './pages/Conversations/ConversationId';
 import ChatLayout from './layouts/ChatLayout/ChatLayout';
+import Renevue from './pages/Admin/Chart/Renevue';
 
 function App() {
   const navigate = useNavigate();
@@ -95,6 +96,7 @@ function App() {
             <Route path='/admin-manage-properties' element={<ManageProperties />} />
             <Route path='/admin-manage-cancellation' element={<ManageCancellation />} />
             <Route path='/admin-manage-payments' element={<ManagePayment />} />
+            <Route path='/admin-chart-renevue' element={<Renevue />} />
           </Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
