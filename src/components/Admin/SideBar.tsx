@@ -26,12 +26,7 @@ interface PropsType {
 
 const Item = ({ title, to, icon, selected, setSelected }: PropsType) => {
   return (
-    <MenuItem
-      active={selected === title}
-      onClick={() => setSelected(title)}
-      icon={icon}
-      style={{ color: 'red' }}
-    >
+    <MenuItem active={selected === title} onClick={() => setSelected(title)} icon={icon} style={{ color: 'red' }}>
       <p>{title}</p>
       <Link to={to} />
     </MenuItem>
@@ -39,7 +34,6 @@ const Item = ({ title, to, icon, selected, setSelected }: PropsType) => {
 };
 
 const AdminSidebar = () => {
-  // const role = useSelector((state: RootState) => state.auth.role);
   const user = useSelector((state: RootState) => state.auth.user);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState('Dashboard');
@@ -82,7 +76,7 @@ const AdminSidebar = () => {
               <Box display='flex' justifyContent='space-between' alignItems='center' ml='15px'>
                 <p className='font-bold text-gray-100'>ADMIN</p>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon sx={{color: '#fff'}}/>
+                  <MenuOutlinedIcon sx={{ color: '#fff' }} />
                 </IconButton>
               </Box>
             )}
@@ -143,17 +137,17 @@ const AdminSidebar = () => {
               setSelected={setSelected}
             />
             <p className='py-2 px-4 text-sm font-bold text-gray-100'>Chart</p>
-            <Item
-              title='Biểu đồ danh mục'
-              to='admin-chart-category'
-              icon={<PieChartOutlineIcon />}
+            {/* <Item
+              title='Tổng quan'
+              to='admin-chart-quantity-Booking'
+              icon={<BarChartIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
-              title='Loại sản phẩm'
-              to='admin-chart-type'
-              icon={<BarChartIcon />}
+              title='Doanh thu'
+              to='admin-chart-renevue'
+              icon={<PieChartOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />

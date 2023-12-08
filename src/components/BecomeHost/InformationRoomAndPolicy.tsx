@@ -46,17 +46,8 @@ import { useDispatch } from 'react-redux';
 import { setHost } from '@/redux-toolkit/auth.slice';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicHAzMTEiLCJhIjoiY2xvMW9hazBtMWRuczJ0cWh0eDl1andncCJ9.cINZ3UYbzs7plrM2seqPjg';
-const listTypeRooms = [
-  'Room',
-  'House',
-  'Apartment',
-  'Ralph Hubbard',
-  'Villa',
-  'HomeStay',
-  'Miriam Wagner',
-  'Hotel',
-  'Cabin',
-];
+const listTypeRooms = ['Room', 'Resort', 'Villa', 'HomeStay', 'House', 'Hotel', 'Cabin', 'Apartment'];
+
 const InformationRoomAndPolicy = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
