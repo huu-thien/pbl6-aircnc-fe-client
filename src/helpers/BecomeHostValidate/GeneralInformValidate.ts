@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+const regexCardNumber = /^\d{16}$/;
+
 const generalInformation = {
   roomName: '',
   description: '',
@@ -21,6 +23,9 @@ const generalInformation = {
   ],
   feeCleaning: '',
   typeRoom: '',
+  bankName: '',
+  accountNumber: '',
+  accountHolder: '',
 };
 const GeneralSchema = yup.object().shape({
   roomName: yup.string().required('Tên phòng là bắt buộc'),
@@ -43,6 +48,11 @@ const GeneralSchema = yup.object().shape({
   feeCleaning: yup.number().min(0, 'Giá tiền phải lớn hơn hoặc bằng 0').required('Giá tiền là bắt buộc'),
   // policy: yup.string().required('Vui lòng chọn chính sách')
   typeRoom: yup.string().required('Vui lòng chọn loại phòng'),
+  bankName: yup.string(),
+  accountNumber: yup
+    .string()
+    .matches(regexCardNumber, 'Số thẻ phải đúng định dạng 16 chữ số'),
+  accountHolder: yup.string().min(5, 'Tên chủ thẻ phải có ít nhất 5 kí tự'),
 });
 
 export { generalInformation, GeneralSchema };

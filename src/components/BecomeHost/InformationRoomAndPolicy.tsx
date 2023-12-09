@@ -42,13 +42,18 @@ import { getAddressResult } from '@/services/GetMapService/getMapService';
 import AddressResult from './AddressResult';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setHost } from '@/redux-toolkit/auth.slice';
+import { BankType } from '@/@types/bank';
+import { getAllBanks } from '@/services/GetBankService/getBankService';
+import { RootState } from '@/store';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicHAzMTEiLCJhIjoiY2xvMW9hazBtMWRuczJ0cWh0eDl1andncCJ9.cINZ3UYbzs7plrM2seqPjg';
 const listTypeRooms = ['Room', 'Resort', 'Villa', 'HomeStay', 'House', 'Hotel', 'Cabin', 'Apartment'];
 
 const InformationRoomAndPolicy = () => {
+  const isHost = useSelector((state: RootState) => state.auth.user?.isHost);
+  const user = useSelector((state: RootState) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // Map
@@ -59,6 +64,7 @@ const InformationRoomAndPolicy = () => {
   const [listAddressResult, setListAddressResult] = useState([]);
   const [city, setCity] = useState<string>('');
   useEffect(() => {
+    getAllBankApi();
     map.current = new mapboxgl.Map({
       container: mapContainer.current as HTMLDivElement,
       style: 'mapbox://styles/pp311/clo1ucw6g00fd01r26ds09u1z',
@@ -96,15 +102,9 @@ const InformationRoomAndPolicy = () => {
   };
 
   const handleSubmitBecomeHost = async (values) => {
-    console.log(values.listImage);
-
     try {
       const propertyImages: { url: string }[] | undefined = await ChangFileImageToUrl(values.listImage);
-      console.log(propertyImages);
-
       const propertyUtilities: Omit<PropertyUtilitiesType, 'propertyId'> = MatchingUtilities(values.utilities);
-      console.log('propertyUtilities', propertyUtilities);
-
       const valueCreatePeroperty: PropertyInfoPost = {
         type: values.typeRoom,
         bedCount: values.quantityBed,
@@ -123,10 +123,13 @@ const InformationRoomAndPolicy = () => {
         cancellationPolicyType: values.policy,
         propertyImages: propertyImages,
         propertyUtilities: propertyUtilities,
-        status: 'Pending',
-        rejectionReason: '',
+        paymentInfo: {
+          bankName: values.bankName,
+          accountNumber: values.accountNumber,
+          accountHolder: values.accountHolder,
+        },
       };
-      console.log(valueCreatePeroperty);
+      console.log('valueCreatePeroperty ,', valueCreatePeroperty);
 
       const response = await postCreateProperty(valueCreatePeroperty);
       if (response && response.status === 200) {
@@ -134,11 +137,12 @@ const InformationRoomAndPolicy = () => {
         toast
           .promise(resolveAfter2Sec, {
             pending: 'Đang tiến hành tạo phòng!',
-            success: 'Tạo phòng thành công !',
+            success: 'Phòng của bạn đang chờ admin duyệt!',
           })
           .then(() => {
             navigate('/');
             dispatch(setHost());
+           
           });
       }
     } catch (err) {
@@ -150,7 +154,6 @@ const InformationRoomAndPolicy = () => {
       const { value } = event.target;
       const response = await getAddressResult(value as string);
       if (response && response.status === 200) {
-        // setListAddressResult(response.data.result)
         console.log(response.data.results);
         setListAddressResult(response.data.results);
       }
@@ -159,6 +162,16 @@ const InformationRoomAndPolicy = () => {
       toast.error('Địa chỉ bạn nhập chưa chính xác !');
     }
   }, 1000);
+
+  // get list bank
+  const [listbank, setListBank] = useState<BankType[] | null>(null);
+  const getAllBankApi = async () => {
+    const response = await getAllBanks();
+    if (response && response.status === 200) {
+      setListBank(response.data.data);
+    }
+  };
+
   return (
     <div className='py-8'>
       <h2 className='text-center text-2xl text-cyan-700 pb-4'>NHẬP CÁC THÔNG TIN VỀ PHÒNG, ĐIỀU KHOẢN VÀ CHÍNH SÁCH</h2>
@@ -627,6 +640,90 @@ const InformationRoomAndPolicy = () => {
                     </div>
                   </div>
                 </div>
+                {!isHost && (
+                  <>
+                    <p className='text-xl py-3 text-cyan-700 uppercase'>Thông tin thanh toán</p>
+                    <div className='mb-2'>
+                      <label htmlFor='bankName' className=''>
+                        Tên ngân hàng
+                      </label>
+                      <FormControl fullWidth sx={{ marginTop: '10px' }}>
+                        <InputLabel id='bankName'>Chọn ngân hàng</InputLabel>
+                        <Select
+                          labelId='type-room'
+                          id='type-room'
+                          name='bankName'
+                          value={values.bankName}
+                          label='Chọn ngân hàng'
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          MenuProps={MenuProps}
+                          error={!!touched.bankName && !!errors.bankName}
+                          fullWidth
+                          sx={{
+                            fontFamily: 'Lexend',
+                          }}
+                        >
+                          {listbank &&
+                            listbank.map((bank, index) => (
+                              <MenuItem key={`bank-${index}`} value={bank.shortName}>
+                                <div className='flex gap-4 items-center'>
+                                  <img src={bank.logo} alt='' className='w-[100px] h-[40px]' />
+                                  <span>{bank.shortName}</span>
+                                </div>
+                              </MenuItem>
+                            ))}
+                        </Select>
+                        {touched.bankName && errors.bankName && (
+                          <FormHelperText style={{ color: '#D32F2F', marginLeft: '10px' }}>
+                            {errors.bankName}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </div>
+                    <div className='mb-2'>
+                      <label htmlFor='accountNumber' className=''>
+                        Số thẻ
+                      </label>
+                      <TextField
+                        sx={{
+                          fontFamily: 'Lexend',
+                          marginTop: '10px',
+                        }}
+                        fullWidth
+                        id='accountNumber'
+                        label='Nhập số thẻ (16 số)'
+                        variant='outlined'
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.accountNumber}
+                        error={!!touched.accountNumber && !!errors.accountNumber}
+                        helperText={touched.accountNumber && errors.accountNumber}
+                      />
+                    </div>
+
+                    <div className='mb-2'>
+                      <label htmlFor='accountHolder' className=''>
+                        Tên chủ thẻ
+                      </label>
+                      <TextField
+                        sx={{
+                          fontFamily: 'Lexend',
+                          marginTop: '10px',
+                        }}
+                        fullWidth
+                        id='accountHolder'
+                        label='Nhập tên chủ thẻ'
+                        variant='outlined'
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.accountHolder}
+                        error={!!touched.accountHolder && !!errors.accountHolder}
+                        helperText={touched.accountHolder && errors.accountHolder}
+                      />
+                    </div>
+                  </>
+                )}
                 <Button type='submit' variant='contained' color='primary'>
                   Bắt đầu cho thuê
                 </Button>
