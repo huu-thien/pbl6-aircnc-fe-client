@@ -29,77 +29,77 @@ interface PropsType {
 }
 
 const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, status }: PropsType) => {
-  const [note, setNote] = useState<string>('');
+  // const [note, setNote] = useState<string>('');
 
   const [openDetail, setOpenDetail] = useState(false);
   const handleOpenDetail = () => setOpenDetail(true);
   const handleCloseDetail = () => setOpenDetail(false);
 
-  const [openResolved, setOpenResolved] = useState(false);
-  const handleOpenResolved = () => setOpenResolved(true);
-  const handleCloseResolved = () => {
-    setOpenResolved(false);
-    setNote('');
-  };
+  // const [openResolved, setOpenResolved] = useState(false);
+  // const handleOpenResolved = () => setOpenResolved(true);
+  // const handleCloseResolved = () => {
+  //   setOpenResolved(false);
+  //   setNote('');
+  // };
 
-  const [openRejected, setOpenRejected] = useState(false);
-  const handleOpenRejected = () => setOpenRejected(true);
-  const handleCloseRejected = () => {
-    setOpenRejected(false);
-    setNote('');
-  };
+  // const [openRejected, setOpenRejected] = useState(false);
+  // const handleOpenRejected = () => setOpenRejected(true);
+  // const handleCloseRejected = () => {
+  //   setOpenRejected(false);
+  //   setNote('');
+  // };
 
-  const handleAcceptCancelBooking = async (
-    cancellationTicketId: number,
-    resolveNote: string,
-    refundAmount: number,
-    chargeAmount: number,
-  ) => {
-    try {
-      const dataCancel: CancellationInfoType = {
-        resolveNote,
-        refundAmount,
-        chargeAmount,
-      };
-      const response = await postAcceptCancellations(cancellationTicketId, dataCancel);
-      if (response && response.status === 204) {
-        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
-        toast
-          .promise(resolveAfter2Sec, {
-            pending: 'Đang xử lý !',
-            success: 'Đã chấp nhận đơn hủy !',
-          })
-          .then(() => {
-            getListAccount(currentPage, status);
-          });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const handleRejectedCancelBooking = async (cancellationTicketId: number, resolveNote: string) => {
-    try {
-      const dataCancel: Omit<CancellationInfoType, 'refundAmount' | 'chargeAmount'> = {
-        resolveNote,
-      };
-      const response = await postRejectedCancellations(cancellationTicketId, dataCancel);
-      console.log(response);
+  // const handleAcceptCancelBooking = async (
+  //   cancellationTicketId: number,
+  //   resolveNote: string,
+  //   refundAmount: number,
+  //   chargeAmount: number,
+  // ) => {
+  //   try {
+  //     const dataCancel: CancellationInfoType = {
+  //       resolveNote,
+  //       refundAmount,
+  //       chargeAmount,
+  //     };
+  //     const response = await postAcceptCancellations(cancellationTicketId, dataCancel);
+  //     if (response && response.status === 204) {
+  //       const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
+  //       toast
+  //         .promise(resolveAfter2Sec, {
+  //           pending: 'Đang xử lý !',
+  //           success: 'Đã chấp nhận đơn hủy !',
+  //         })
+  //         .then(() => {
+  //           getListAccount(currentPage, status);
+  //         });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // const handleRejectedCancelBooking = async (cancellationTicketId: number, resolveNote: string) => {
+  //   try {
+  //     const dataCancel: Omit<CancellationInfoType, 'refundAmount' | 'chargeAmount'> = {
+  //       resolveNote,
+  //     };
+  //     const response = await postRejectedCancellations(cancellationTicketId, dataCancel);
+  //     console.log(response);
 
-      if (response && response.status === 204) {
-        const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
-        toast
-          .promise(resolveAfter2Sec, {
-            pending: 'Đang xử lý !',
-            success: 'Đã từ chối đơn hủy !',
-          })
-          .then(() => {
-            getListAccount(currentPage, status);
-          });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     if (response && response.status === 204) {
+  //       const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
+  //       toast
+  //         .promise(resolveAfter2Sec, {
+  //           pending: 'Đang xử lý !',
+  //           success: 'Đã từ chối đơn hủy !',
+  //         })
+  //         .then(() => {
+  //           getListAccount(currentPage, status);
+  //         });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <tr className='odd:bg-white even:bg-gray-50 border-b '>
@@ -200,7 +200,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
           </Box>
         </Modal>
       </td>
-      <td className='px-6 my-4 line-clamp-1'>
+      {/* <td className='px-6 my-4 line-clamp-1'>
         {cancellationInfo.status === 'Pending' && (
           <div className='flex gap-2'>
             <>
@@ -291,7 +291,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
             </p>
           </div>
         )}
-      </td>
+      </td> */}
     </tr>
   );
 };

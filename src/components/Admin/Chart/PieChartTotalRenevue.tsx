@@ -68,8 +68,6 @@ const PieChartTotalRenevue = ({ dataStatictis, totalRenevue, totalProfit }: Prop
       };
     });
   }
-  console.log('mockPieData', mockPieData);
-
   return (
     <>
       <div className='text-center'>

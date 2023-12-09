@@ -1,7 +1,6 @@
 import { PropertyTypeStatsType, StatisticType } from '@/@types/statistic';
 import { ResponsiveBar } from '@nivo/bar';
 
-
 interface BarCharType {
   TypeRoom: 'Room' | 'Resort' | 'Villa' | 'HomeStay' | 'House' | 'Hotel' | 'Cabin' | 'Apartment';
   QuantityBooking: number;
@@ -61,8 +60,6 @@ const BarChartQuantityBooking = ({
       };
     });
   }
-  console.log('mockBarData: ', mockBarData);
-
   return (
     <>
       <div className='text-center'>
