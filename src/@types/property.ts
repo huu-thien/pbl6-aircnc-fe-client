@@ -155,8 +155,14 @@ export interface PropertyInfoPost {
       isCamperFriendly: boolean;
     },
   ];
-  status: 'Pending';
-  rejectionReason: string;
+  status?: 'Pending';
+  rejectionReason?: string;
+  paymentInfo?: PaymentInfoType;
+}
+export interface PaymentInfoType {
+  bankName: string;
+  accountNumber: string;
+  accountHolder: string;
 }
 
 export interface ReviewPropertyType {
