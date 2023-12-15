@@ -60,7 +60,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   const accessToken: string | null = useSelector((state: RootState) => state.auth.accessToken);
   const [message, setMessage] = useState('');
   const scrollableDivRef = useRef<HTMLDivElement | null>(null);
-
+  console.log(selectedUser?.id);
   useEffect(() => {
     initializeConnection();
     if (selectedUser) getMessages(selectedUser?.id);
@@ -91,7 +91,9 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
       })
       .build();
     newConnection.on('ReceiveMessage', (data) => {
-      if (selectedUser && data && data.userId === selectedUser.id) 
+      console.log('data 1:',data.fromUserId,' select:',selectedUser?.id);
+      if (selectedUser && data && data.fromUserId === selectedUser?.id)
+      // if (selectedUser)  
       {
         getMessages(selectedUser?.id);
         console.log('messages:',messages,'id :',selectedUser?.id);
