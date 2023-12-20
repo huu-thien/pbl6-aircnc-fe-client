@@ -18,7 +18,7 @@ const MenuProps = {
   },
 };
 
-const names = ['Room', 'House', 'Apartment', 'Ralph Hubbard', 'Villa', 'HomeStay', 'Miriam Wagner', 'Hotel', 'Cabin'];
+const names = ['Room', 'Resort', 'Villa', 'HomeStay', 'House', 'Hotel', 'Cabin', 'Apartment'];
 
 interface PropsType {
   propertyType: string[];

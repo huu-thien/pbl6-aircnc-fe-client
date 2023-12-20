@@ -114,7 +114,7 @@ export interface HostInput {
   utilities: string[];
 }
 export interface PropertyInfoPost {
-  type: 'Room' | 'House' | 'Apartment' | 'Ralph Hubbard' | 'Villa' | 'HomeStay' | 'Miriam Wagner' | 'Hotel' | 'Cabin';
+  type: 'Room' | 'Resort' | 'Villa' | 'HomeStay' | 'House' | 'Hotel' | 'Cabin' | 'Apartment';
   bedCount: number;
   bedroomCount: number;
   bathroomCount: number;
@@ -155,8 +155,14 @@ export interface PropertyInfoPost {
       isCamperFriendly: boolean;
     },
   ];
-  status: 'Pending';
-  rejectionReason: string;
+  status?: 'Pending';
+  rejectionReason?: string;
+  paymentInfo?: PaymentInfoType;
+}
+export interface PaymentInfoType {
+  bankName: string;
+  accountNumber: string;
+  accountHolder: string;
 }
 
 export interface ReviewPropertyType {

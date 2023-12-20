@@ -39,6 +39,7 @@ const authSlice = createSlice({
     setHost: (state) => {
       if (state.user) {
         state.user.isHost = true;
+        localStorage.setItem('user', JSON.stringify(state.user));
       }
     },
     saveInfoUserUpdate: (state, action: PayloadAction<InfoAccountPut>) => {

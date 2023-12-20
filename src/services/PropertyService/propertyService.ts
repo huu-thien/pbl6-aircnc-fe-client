@@ -25,7 +25,7 @@ export const getGeneralScore = (propertyId: number) => {
 
 // Create image property
 export const postImagePropertyUrl = (body: FormData) => {
-  return http.post(`api/attachments/property`, body, { signal: controller.signal });
+  return http.post(`api/attachments/property-v2`, body, { signal: controller.signal });
 };
 
 // Create a property

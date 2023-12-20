@@ -11,5 +11,5 @@ export const updateInfoAccount = (id: number, body: InfoAccountPut) => {
 };
 // Create avatar
 export const postAvatarUrl = (body: FormData) => {
-  return http.post(`api/attachments/avatar`, body, { signal: controller.signal });
+  return http.post(`api/attachments/avatar-v2`, body, { signal: controller.signal });
 };
