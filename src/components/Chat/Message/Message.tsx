@@ -84,7 +84,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   };
   const initializeConnection = async () => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${baseURL}chathub`, {
+      .withUrl(`${baseURL}`, {
         accessTokenFactory: () => (accessToken ? accessToken : Promise.reject('Access token is null.')),
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets,
