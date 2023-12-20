@@ -7,3 +7,6 @@ export const getContacts = () => {
 export const getMessagesByUserId = (id:number) => {
   return http.get(`api/chat/messages/${id}`, { signal: controller.signal });
 };
+export const connectionChat = ()=>{
+  return http.get(`chathub`,{signal: controller.signal})
+}

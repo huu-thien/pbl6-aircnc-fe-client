@@ -26,8 +26,8 @@ const ConversationSelect: React.FC<ConversationSelectProps> = ({
       <Avatar src={avatarUrl} className='m-3' />
       <div className='grid grid-cols-1'>
         <span className='font-medium'>{fullName}</span>
-        <div className='inline-flex gap-5 font-light '>
-          <span className='overflow-hidden max-w-[100px] whitespace-nowrap text-ellipsis'>{lastMessage}</span>
+        <div className='inline-flex gap-4 font-light text-sm'>
+          <span className='overflow-hidden max-w-[90px] whitespace-nowrap text-ellipsis'>{lastMessage}</span>
           <span className=''>{lastMessageTime}</span>
         </div>
       </div>

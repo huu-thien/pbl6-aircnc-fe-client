@@ -7,11 +7,19 @@ export const differentTime = (inputDateString: string) => {
     const daysDifference = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
     // Xác định cách hiển thị dựa trên khoảng cách thời gian
-    if (minutesDifference < 60) {
+    if (minutesDifference>0)
+    {
+      if (minutesDifference < 60 ) {
         return `${minutesDifference} phút`;
       } else if (hoursDifference < 24) {
         return `${hoursDifference} giờ`;
       } else {
         return `${daysDifference} ngày`;
       }
+    }
+    else
+    {
+      return `0 phút`
+    }
+
 };

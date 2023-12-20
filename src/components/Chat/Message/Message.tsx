@@ -15,6 +15,7 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import GifBoxIcon from '@mui/icons-material/GifBox';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import http from '@/utils/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +52,7 @@ interface MessageProps {
   selectedUser: PropsContact | null;
   getListContacts: () => Promise<void>;
 }
-
+const baseURL= import.meta.env.VITE_BACKEND_API_URL
 const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const classes = useStyles();
@@ -83,7 +84,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   };
   const initializeConnection = async () => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl('http://pbl6.whitemage.tech/chathub', {
+      .withUrl(`${baseURL}chathub`, {
         accessTokenFactory: () => (accessToken ? accessToken : Promise.reject('Access token is null.')),
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets,
