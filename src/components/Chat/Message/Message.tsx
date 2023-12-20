@@ -52,7 +52,7 @@ interface MessageProps {
   selectedUser: PropsContact | null;
   getListContacts: () => Promise<void>;
 }
-const baseURL= import.meta.env.VITE_BACKEND_API_URL
+const baseURL= import.meta.env.VITE_CHAT_API_URL
 const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const classes = useStyles();
