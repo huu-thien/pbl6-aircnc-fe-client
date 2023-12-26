@@ -80,6 +80,9 @@ const ManageProperties = () => {
               <th scope='col' className='px-6 py-3 w-[250px]'>
                 Địa chỉ
               </th>
+              <th scope='col' className='px-6 py-3 w-[200px]'>
+                Tên chủ nhà
+              </th>
               <th scope='col' className='px-6 py-3'>
                 Trạng thái
               </th>

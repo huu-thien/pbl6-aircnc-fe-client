@@ -14,25 +14,26 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const ManageCancellation = () => {
 
-  const [status, setStatus] = useState<string>('All');
+  const [canceller, setCanceller] = useState<string>('All');
 
   const handleChange = (event: SelectChangeEvent) => {
-    setStatus(event.target.value as string);
+    setCanceller(event.target.value as string);
+    console.log(canceller);
   };
 
-  const [listCancallation, setListCancallation] = useState<Cancellationtype[]>([]);
+  const [listCancallation, setListCancellation] = useState<Cancellationtype[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   useEffect(() => {
-    getListAccount(currentPage , status);
-  }, [currentPage, status]);
+    getListAccount(currentPage , canceller);
+  }, [currentPage, canceller]);
 
-  const getListAccount = async (currentPage: number, status: string) => {
+  const getListAccount = async (currentPage: number, canceller: string) => {
     try {
-      const response = await getAllCancellations(currentPage, status);
+      const response = await getAllCancellations(currentPage, canceller);
       if (response && response.status === 200) {
         setTotalPages(response.data.totalPages);
-        setListCancallation(response.data.data);
+        setListCancellation(response.data.data);
       }
     } catch (err) {
       console.log(err);
@@ -42,24 +43,23 @@ const ManageCancellation = () => {
   const handleChangePage = (event: ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
-  console.log(status);
+  console.log(canceller);
 
   return (
     <div className='p-4 '>
       <HeaderAdmin title='Quản lý đơn hủy booking'/>
       <FormControl size='small' sx={{width: 200, my: 2, background: 'white'}}>
-        <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+        <InputLabel id="demo-simple-select-label">Bên hủy</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={status}
-          label="Trạng thái"
+          value={canceller}
+          label="Bên hủy"
           onChange={handleChange}
         >
           <MenuItem value="All">Tất cả</MenuItem>
-          <MenuItem value="Pending">Chưa duyệt</MenuItem>
-          <MenuItem value="Resolved">Đã duyệt</MenuItem>
-          <MenuItem value="Rejected">Thất bại</MenuItem>
+          <MenuItem value='true'>Khách hàng</MenuItem>
+          <MenuItem value='false'>Chủ nhà</MenuItem>
         </Select>
       </FormControl>
       <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
@@ -85,7 +85,7 @@ const ManageCancellation = () => {
                 Số tiền hoàn trả
               </th>
               <th scope='col' className='px-6 py-3'>
-                Trạng thái
+                Bên hủy
               </th>
               <th scope='col' className='px-6 py-3'>
                 Xem chi tiết
@@ -97,7 +97,7 @@ const ManageCancellation = () => {
           </thead>
           <tbody>
             {listCancallation.map((cancellation) => (
-              <CancellationItem key={cancellation.bookingId} cancellationInfo={cancellation} getListAccount={getListAccount} currentPage={currentPage} status={status}/>
+              <CancellationItem key={cancellation.bookingId} cancellationInfo={cancellation} getListAccount={getListAccount} currentPage={currentPage} canceller={canceller}/>
             ))}
           </tbody>
         </table>
