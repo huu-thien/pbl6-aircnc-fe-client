@@ -100,10 +100,17 @@ const AdminSidebar = () => {
           )}
           {/* Menu Item */}
           <Box paddingLeft={isCollapsed ? undefined : '10%'}>
-            <Item
+            {/* <Item
               title='Dashboard'
               to='/admin'
               icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
+            <Item
+              title='Doanh thu'
+              to='admin-chart-renevue'
+              icon={<PieChartOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -136,7 +143,7 @@ const AdminSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <p className='py-2 px-4 text-sm font-bold text-gray-100'>Chart</p>
+            {/* <p className='py-2 px-4 text-sm font-bold text-gray-100'>Chart</p> */}
             {/* <Item
               title='Tổng quan'
               to='admin-chart-quantity-Booking'
@@ -144,13 +151,7 @@ const AdminSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             /> */}
-            <Item
-              title='Doanh thu'
-              to='admin-chart-renevue'
-              icon={<PieChartOutlineIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            
           </Box>
         </Menu>
       </ProSidebar>

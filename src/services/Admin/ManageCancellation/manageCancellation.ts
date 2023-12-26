@@ -1,15 +1,17 @@
 import { CancellationInfoType } from '@/@types/manageCancellation';
 import http from '@/utils/http';
+// import { boolean } from 'yup';
 
 const controller = new AbortController();
 
-export const getAllCancellations = (page: number, status: string) => {
-  if(status === 'All') {
+export const getAllCancellations = (page: number, canceller: string) => {
+  if(canceller === 'All') {
     return http.get(`api/cancellations?OrderBy=Id&PageIndex=${page}&PageSize=5&IsDescending=true`, {
       signal: controller.signal,
     });
   }
-  return http.get(`api/cancellations?OrderBy=Id&Status=${status}&PageIndex=${page}&PageSize=5&IsDescending=true`, {
+  const cancellerBoolean = canceller.toLowerCase() === 'true';
+  return http.get(`api/cancellations?OrderBy=Id&IsGuest=${cancellerBoolean}&PageIndex=${page}&PageSize=5&IsDescending=true`, {
     signal: controller.signal,
   });
 };
