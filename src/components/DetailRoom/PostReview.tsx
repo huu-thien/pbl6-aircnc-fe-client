@@ -75,8 +75,8 @@ const PostReview = ({ propertyId, onUpdateReview }: PropsType) => {
   const CheckUserStayedInProperty = async (propertyId: number) => {
     try {
       const response = await getCheckGuestStayed(propertyId);
-      if(response && response.status === 200) {
-        setIsStayed(response.data)
+      if (response && response.status === 200) {
+        setIsStayed(response.data);
       }
     } catch (err) {
       console.log(err);
@@ -127,7 +127,7 @@ const PostReview = ({ propertyId, onUpdateReview }: PropsType) => {
     CheckUserStayedInProperty(propertyId);
   }, [propertyId]);
   // console.log(isStayed);
-  
+
   return (
     <>
       <h2 className='text-xl text-cyan-800 font-bold pb-4 pt-5'>Đánh giá của bạn</h2>

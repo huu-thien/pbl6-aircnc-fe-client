@@ -17,6 +17,5 @@ export interface ReviewGuestType {
   reviewerId: number;
   reviewerName: string;
   userId: number;
-  hostId:number;
+  hostId: number;
 }
-

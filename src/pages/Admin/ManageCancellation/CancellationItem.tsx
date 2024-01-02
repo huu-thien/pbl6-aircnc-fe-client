@@ -138,10 +138,11 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, cance
       <td className='px-6 py-4'>{formatMoney(cancellationInfo.chargeAmount)} vnd</td>
       <td className='px-6 py-4'>{formatMoney(cancellationInfo.refundAmount)} vnd</td>
       <td className='px-6 py-4'>
-        {cancellationInfo.isIssuerGuest ? 
-        (<Chip label='Khách hàng' sx={{ backgroundColor: '#dfcedc', color: '#0a5817' }} />):
-        (<Chip label='Chủ nhà' sx={{ backgroundColor: '#cee0d4', color: '#080f66' }} />)
-        }
+        {cancellationInfo.isIssuerGuest ? (
+          <Chip label='Khách hàng' sx={{ backgroundColor: '#dfcedc', color: '#0a5817' }} />
+        ) : (
+          <Chip label='Chủ nhà' sx={{ backgroundColor: '#cee0d4', color: '#080f66' }} />
+        )}
       </td>
       {/* <td className='px-6 py-4'>
         {cancellationInfo.canceller === 'Pending' && (

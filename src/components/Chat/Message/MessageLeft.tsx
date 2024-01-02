@@ -1,8 +1,7 @@
 // MessageLeft.tsx
-import React from "react";
-import Avatar from "@mui/material/Avatar";
-import { useStyles } from "./MessageType";
-
+import React from 'react';
+import Avatar from '@mui/material/Avatar';
+import { useStyles } from './MessageType';
 
 interface MessageLeftProps {
   message?: string;
@@ -12,7 +11,7 @@ interface MessageLeftProps {
 }
 
 const MessageLeft: React.FC<MessageLeftProps> = (props) => {
-  const { message = "no message", timestamp = "", photoURL = "", displayName = "" } = props;
+  const { message = 'no message', timestamp = '', photoURL = '', displayName = '' } = props;
   const classes = useStyles();
 
   return (

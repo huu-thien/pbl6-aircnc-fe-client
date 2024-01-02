@@ -11,4 +11,4 @@ export interface AccountType {
   createdAt: string;
   isDeleted: boolean;
   isHost: boolean;
-} 
+}

@@ -19,7 +19,7 @@ const GuestInfo = () => {
   const getGuestInfoApi = async (guestId: number) => {
     const response = await getGuestDetail(guestId);
     if (response && response.status === 200) {
-        setGuestInfo(response.data);
+      setGuestInfo(response.data);
     }
   };
   return (
@@ -42,7 +42,7 @@ const GuestInfo = () => {
             city={guestInfo.city}
           />
           <Divider />
-          <HostReview guestId={Number(id) as number} name={guestInfo.name} setPostReviewUpdate={setPostReviewUpdate}/>
+          <HostReview guestId={Number(id) as number} name={guestInfo.name} setPostReviewUpdate={setPostReviewUpdate} />
         </div>
       )}
     </div>

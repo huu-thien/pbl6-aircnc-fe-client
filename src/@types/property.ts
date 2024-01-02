@@ -174,3 +174,48 @@ export interface ReviewPropertyType {
   value: number;
   content: string;
 }
+export interface PropertyInfo {
+  type: 'Room' | 'Resort' | 'Villa' | 'HomeStay' | 'House' | 'Hotel' | 'Cabin' | 'Apartment';
+  bedCount: number;
+  bedroomCount: number;
+  bathroomCount: number;
+  maxAdultCount: number;
+  maxChildCount: number;
+  title: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  city: string;
+  pricePerNight: number;
+  cleaningFee: number;
+  cancellationPolicyType: 'Flexible' | 'Strict';
+  propertyImages: { url: string }[] | undefined;
+  propertyUtilities: [
+    {
+      isWifi: boolean;
+      isTv: boolean;
+      isKitchen: boolean;
+      isAirConditioning: boolean;
+      isLaptopFriendlyWorkspace: boolean;
+      isHotWater: boolean;
+      isBreakfast: boolean;
+      isRoomService: boolean;
+      isBar: boolean;
+      isSwimmingPool: boolean;
+      isGym: boolean;
+      isSpa: boolean;
+      isBeachFront: boolean;
+      isMountainView: boolean;
+      isLakeView: boolean;
+      isSeaView: boolean;
+      isLandmarkView: boolean;
+      isWheelchairAccessible: boolean;
+      isElevator: boolean;
+      isSecurityCamera: boolean;
+      isCamperFriendly: boolean;
+    },
+  ];
+  status?: 'Pending';
+  rejectionReason?: string;
+}

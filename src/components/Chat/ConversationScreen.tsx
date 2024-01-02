@@ -24,7 +24,7 @@ const ConversationScreen: React.FC<ConversationScreenProps> = ({ selectedUser, g
               </div>
             </>
             <>
-              <IconButton>
+              {/* <IconButton>
                 <CallIcon sx={{ color: '#0084ff' }} />
               </IconButton>
               <IconButton>
@@ -32,7 +32,7 @@ const ConversationScreen: React.FC<ConversationScreenProps> = ({ selectedUser, g
               </IconButton>
               <IconButton>
                 <InfoIcon sx={{ color: '#0084ff' }} />
-              </IconButton>
+              </IconButton> */}
             </>
           </div>
           <Message selectedUser={selectedUser} getListContacts={getListContacts} />

@@ -2,7 +2,6 @@ import { PropertyImage } from '@/@types/property';
 import ImageListMUI from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-
 interface PropsType {
   propertyImages: PropertyImage[];
 }
@@ -10,8 +9,8 @@ interface PropsType {
 const ImageList = ({ propertyImages }: PropsType) => {
   const numberDevide4 = propertyImages.length - (propertyImages.length % 4);
   const listImageCustom = [];
-  for(let i = 0; i < numberDevide4; i++) {
-    listImageCustom.push(propertyImages[i])
+  for (let i = 0; i < numberDevide4; i++) {
+    listImageCustom.push(propertyImages[i]);
   }
   return (
     <div className='rounded-md pb-6'>

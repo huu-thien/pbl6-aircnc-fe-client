@@ -16,7 +16,6 @@ import { toast } from 'react-toastify';
 import { saveInfoUserUpdate } from '@/redux-toolkit/auth.slice';
 import { AvatarChangeOneFile } from '@/helpers/ChangFileImageToUrl/ChangFileImagePostPropertyToUrl';
 
-
 const InfoAccount = () => {
   // const userLogin = useSelector((state: RootState) => state.auth.user);
   const id = useSelector((state: RootState) => state.auth.user?.id);
@@ -133,7 +132,7 @@ const InfoAccount = () => {
       fileInput.click();
     }
   };
-  const handleSaveClick = async (field:string, successMessage:string) => {
+  const handleSaveClick = async (field: string, successMessage: string) => {
     const value = field === 'name' ? name : email;
     const setIsEditing = field === 'name' ? setIsEditingName : setIsEditingEmail;
     if (value.trim() !== '') {
@@ -170,7 +169,7 @@ const InfoAccount = () => {
   const handleSaveEmailClick = () => {
     handleSaveClick('email', 'Cập nhật email thành công!');
   };
-  const updateInfo = async (infoType:string, successMessage:string) => {
+  const updateInfo = async (infoType: string, successMessage: string) => {
     try {
       const infoAccount = {
         fullName: name,
@@ -181,11 +180,10 @@ const InfoAccount = () => {
         address: infoType === 'address' ? address : '',
         avatarUrl: avatar,
       };
-      if (id !== undefined)
-      {
+      if (id !== undefined) {
         const response = await updateInfoAccount(id, infoAccount);
         console.log('response:', response);
-    
+
         if (response && response.status === 200) {
           toast.success(successMessage);
         } else {

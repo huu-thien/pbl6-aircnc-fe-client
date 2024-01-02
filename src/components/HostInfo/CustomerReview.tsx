@@ -110,7 +110,6 @@ const CustomerReview = ({ hostId, name, setPostReviewUpdate }: PropsType) => {
     CheckUserStayedInPropertyOfHost(hostId);
   }, [hostId]);
 
-
   return (
     <div className='py-4'>
       <h2 className='font-semibold text-2xl text-cyan-700 py-4'>Đánh giá về {name}</h2>

@@ -142,7 +142,6 @@ const InformationRoomAndPolicy = () => {
           .then(() => {
             navigate('/');
             dispatch(setHost());
-           
           });
       }
     } catch (err) {

@@ -5,15 +5,18 @@ import http from '@/utils/http';
 const controller = new AbortController();
 
 export const getAllCancellations = (page: number, canceller: string) => {
-  if(canceller === 'All') {
+  if (canceller === 'All') {
     return http.get(`api/cancellations?OrderBy=Id&PageIndex=${page}&PageSize=5&IsDescending=true`, {
       signal: controller.signal,
     });
   }
   const cancellerBoolean = canceller.toLowerCase() === 'true';
-  return http.get(`api/cancellations?OrderBy=Id&IsGuest=${cancellerBoolean}&PageIndex=${page}&PageSize=5&IsDescending=true`, {
-    signal: controller.signal,
-  });
+  return http.get(
+    `api/cancellations?OrderBy=Id&IsGuest=${cancellerBoolean}&PageIndex=${page}&PageSize=5&IsDescending=true`,
+    {
+      signal: controller.signal,
+    },
+  );
 };
 
 export const postAcceptCancellations = (cancellationTicketId: number, cancelInfo: CancellationInfoType) => {

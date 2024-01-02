@@ -1,4 +1,3 @@
-
 import HeaderAdmin from '@/components/Admin/HeaderAdmin';
 import Pagination from '@mui/material/Pagination';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -13,7 +12,6 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const ManageCancellation = () => {
-
   const [canceller, setCanceller] = useState<string>('All');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -25,7 +23,7 @@ const ManageCancellation = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   useEffect(() => {
-    getListAccount(currentPage , canceller);
+    getListAccount(currentPage, canceller);
   }, [currentPage, canceller]);
 
   const getListAccount = async (currentPage: number, canceller: string) => {
@@ -47,17 +45,17 @@ const ManageCancellation = () => {
 
   return (
     <div className='p-4 '>
-      <HeaderAdmin title='Quản lý đơn hủy booking'/>
-      <FormControl size='small' sx={{width: 200, my: 2, background: 'white'}}>
-        <InputLabel id="demo-simple-select-label">Bên hủy</InputLabel>
+      <HeaderAdmin title='Quản lý đơn hủy booking' />
+      <FormControl size='small' sx={{ width: 200, my: 2, background: 'white' }}>
+        <InputLabel id='demo-simple-select-label'>Bên hủy</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          labelId='demo-simple-select-label'
+          id='demo-simple-select'
           value={canceller}
-          label="Bên hủy"
+          label='Bên hủy'
           onChange={handleChange}
         >
-          <MenuItem value="All">Tất cả</MenuItem>
+          <MenuItem value='All'>Tất cả</MenuItem>
           <MenuItem value='true'>Khách hàng</MenuItem>
           <MenuItem value='false'>Chủ nhà</MenuItem>
         </Select>
@@ -97,21 +95,22 @@ const ManageCancellation = () => {
           </thead>
           <tbody>
             {listCancallation.map((cancellation) => (
-              <CancellationItem key={cancellation.bookingId} cancellationInfo={cancellation} getListAccount={getListAccount} currentPage={currentPage} canceller={canceller}/>
+              <CancellationItem
+                key={cancellation.bookingId}
+                cancellationInfo={cancellation}
+                getListAccount={getListAccount}
+                currentPage={currentPage}
+                canceller={canceller}
+              />
             ))}
           </tbody>
         </table>
         <div className='py-4 px-4 flex justify-end'>
-          <Pagination
-            color='primary'
-            count={totalPages}
-            page={currentPage}
-            onChange={handleChangePage}
-          />
+          <Pagination color='primary' count={totalPages} page={currentPage} onChange={handleChangePage} />
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default ManageCancellation
+export default ManageCancellation;

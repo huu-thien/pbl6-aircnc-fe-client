@@ -43,7 +43,11 @@ const HostInfo = () => {
             city={hostInfo.city}
           />
           <Divider />
-          <CustomerReview hostId={Number(id) as number} name={hostInfo.name} setPostReviewUpdate={setPostReviewUpdate}/>
+          <CustomerReview
+            hostId={Number(id) as number}
+            name={hostInfo.name}
+            setPostReviewUpdate={setPostReviewUpdate}
+          />
           <Divider />
           <ListOfRoomsForRent hostId={Number(id) as number} />
         </div>

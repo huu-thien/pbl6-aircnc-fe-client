@@ -4,6 +4,6 @@ const controller = new AbortController();
 export const getContacts = () => {
   return http.get(`api/chat/contacts`, { signal: controller.signal });
 };
-export const getMessagesByUserId = (id:number) => {
+export const getMessagesByUserId = (id: number) => {
   return http.get(`api/chat/messages/${id}`, { signal: controller.signal });
 };
