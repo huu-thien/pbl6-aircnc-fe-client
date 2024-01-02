@@ -103,8 +103,8 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
             Chấm điểm trung bình của khách ({generalScore.numberOfReviews} đánh giá)
           </h2>
           <div className='flex items-center justify-between py-4'>
-            <div className='w-full pr-4'>
-              {/* <p className='text-sm pb-2'>Xếp hạng tổng thể</p> */}
+            {/* <div className='w-full pr-4'>
+              <p className='text-sm pb-2'>Xếp hạng tổng thể</p>
               <>
                 <div className='flex my-1 items-center gap-2'>
                   <EditLocationIcon sx={{ color: '#c92327', fontSize: 16 }} />
@@ -143,11 +143,11 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
                       (generalScore.checkIn / 5) * 100,
                     )}%] before:bg-[#1e5bf8]`}
                   >
-                    {/* <div
+                    <div
                     className={`absolute top-0 h-full w-[${Math.floor(
                       (generalScore.checkIn / 5) * 100,
                     )}%] bg-[#1e5bf8]`}
-                  ></div> */}
+                  ></div>
                   </div>
                 </div>
                 <div className='flex my-1 items-center gap-2'>
@@ -157,11 +157,11 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
                       (generalScore.accuracy / 5) * 100,
                     )}%] before:bg-[#1e5bf8]`}
                   >
-                    {/* <div
+                    <div
                     className={`absolute top-0 h-full w-[${Math.floor(
                       (generalScore.accuracy / 5) * 100,
                     )}%] bg-[#27a645]`}
-                  ></div> */}
+                  ></div>
                   </div>
                 </div>
                 <div className='flex my-1 items-center gap-2'>
@@ -176,8 +176,8 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
                   </div>
                 </div>
               </>
-            </div>
-            <div className='w-full border-l-2 flex flex-col items-start gap-3 pl-4'>
+            </div> */}
+            <div className='w-full flex flex-col items-start gap-3 pl-4'>
               <p className='text-gray-700'>Vị trí</p>
               <p className='text-3xl text-gray-600 font-thin'>{generalScore.location.toFixed(2)}</p>
               <p>
@@ -234,7 +234,9 @@ const Evaluate = ({ propertyId, updateReview }: PropsType) => {
                   <div key={`${review.guestName}_${index}`} className='flex flex-col p-2 shadow-md rounded-md'>
                     <div className=''>
                       <div className='flex items-center gap-4 p-3'>
-                        <Link to={`/guest/${review.guestId}`}><Avatar src={review.guestAvatarUrl} /></Link>
+                        <Link to={`/guest/${review.guestId}`}>
+                          <Avatar src={review.guestAvatarUrl} />
+                        </Link>
                         <div className=' w-full flex justify-between'>
                           <div>
                             <p className='text-cyan-700'>{review.guestName}</p>

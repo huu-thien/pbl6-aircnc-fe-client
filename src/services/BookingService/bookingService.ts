@@ -19,6 +19,10 @@ export const postRequestBooking = (body: RequestBookingType) => {
 export const getListBookingGuest = (guestId: number) => {
   return http.get(`api/bookings/guest/${guestId}?OrderBy=Id&IsDescending=true`, { signal: controller.signal });
 };
+// get list booking of host
+export const getListBookingOfHost = (hostId: number) => {
+  return http.get(`api/bookings/host/${hostId}?OrderBy=Id&IsDescending=true`, { signal: controller.signal });
+};
 
 // CANCEL
 // Create one image cancel booking
@@ -29,4 +33,4 @@ export const postImageCancelBooking = (body: FormData) => {
 // Create requets cancel booking
 export const postRequestCancelBooking = (body: GuestCancelType) => {
   return http.post(`api/cancellations`, body, { signal: controller.signal });
-}
+};

@@ -1,4 +1,3 @@
-
 import { postImagePropertyUrl } from '@/services/PropertyService/propertyService';
 import { toast } from 'react-toastify';
 import { postAvatarUrl } from '@/services/InfoAccount/infoAccountService';

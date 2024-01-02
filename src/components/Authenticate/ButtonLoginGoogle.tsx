@@ -28,7 +28,7 @@ const ButtonLoginGoogle = () => {
         // console.log(response);
         if (response.status === 200) {
           const { user, accessToken, refreshToken, role } = response.data;
-          dispatch(saveUserLogin({ user, accessToken, refreshToken, role  }));
+          dispatch(saveUserLogin({ user, accessToken, refreshToken, role }));
           const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
           toast
             .promise(resolveAfter2Sec, {

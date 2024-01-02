@@ -54,36 +54,36 @@ const IntroduceHost = ({ hostId }: Propstype) => {
     }
   };
   const sendMessage = () => {
-    if (message){
+    if (message) {
       const connection = new signalR.HubConnectionBuilder()
-      .withUrl('http://pbl6.whitemage.tech/chathub', {
-        accessTokenFactory: () => (accessToken ? accessToken : Promise.reject('Access token is null.')),
-        skipNegotiation: true,
-        transport: signalR.HttpTransportType.WebSockets,
-      })
-      .build();
-
-    connection
-      .start()
-      .then(() => {
-        console.log('Connected!');
-    if (connection && connection.state === signalR.HubConnectionState.Connected) {
-      console.log('id dc chon la:', hostInfo.userId);
-      
-      connection
-        .invoke('SendMessageToUser', hostInfo.userId.toString(), message)
-        .then(() => {
-          setMessage('');
+        .withUrl('http://pbl6.whitemage.tech/chathub', {
+          accessTokenFactory: () => (accessToken ? accessToken : Promise.reject('Access token is null.')),
+          skipNegotiation: true,
+          transport: signalR.HttpTransportType.WebSockets,
         })
-        .catch((error) => console.error('Error invoking SendMessageToUser:', error));
-    } else {
-      console.error('SignalR connection not in a valid state.');
-    }
-    closeDialog();
-    })
-    .catch((err) => {
-      console.error(err.toString());
-    });
+        .build();
+
+      connection
+        .start()
+        .then(() => {
+          console.log('Connected!');
+          if (connection && connection.state === signalR.HubConnectionState.Connected) {
+            console.log('id dc chon la:', hostInfo.userId);
+
+            connection
+              .invoke('SendMessageToUser', hostInfo.userId.toString(), message)
+              .then(() => {
+                setMessage('');
+              })
+              .catch((error) => console.error('Error invoking SendMessageToUser:', error));
+          } else {
+            console.error('SignalR connection not in a valid state.');
+          }
+          closeDialog();
+        })
+        .catch((err) => {
+          console.error(err.toString());
+        });
     }
   };
   return (
@@ -93,8 +93,8 @@ const IntroduceHost = ({ hostId }: Propstype) => {
           <Avatar alt='Travis Howard' src={hostInfo.avatarUrl} sx={{ width: 70, height: 70 }} />
           <p className='pt-2'>Host {hostInfo.name}</p>
         </div>
-        <Button 
-          variant='contained' 
+        <Button
+          variant='contained'
           sx={{ height: 50 }}
           onClick={() => {
             toggleDialog(true);
@@ -103,35 +103,35 @@ const IntroduceHost = ({ hostId }: Propstype) => {
         >
           Nhắn tin cho chủ nhà
         </Button>
-          <Dialog open={isOpenDialog} onClose={closeDialog}>
-            <DialogTitle>Nhắn tin cho chủ nhà</DialogTitle>
-            <DialogContent>
-              <DialogContentText>Hãy nhắn tin đầu tiên với chủ nhà !</DialogContentText>
-              <TextField
-                id='standard-text'
-                label='Aa'
-                margin='normal'
-                autoFocus
-                fullWidth
-                value={message}
-                onChange={(event) => {
-                  setMessage(event.target.value);
-                }}
-                onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
-                  const keycode = e.keyCode ? e.keyCode : e.which;
-                  if (keycode === 13) {
-                    sendMessage();
-                  }
-                }}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={closeDialog}>Cancel</Button>
-              <Button disabled={!setMessage} onClick={sendMessage}>
-                OK
-              </Button>
-            </DialogActions>
-          </Dialog>
+        <Dialog open={isOpenDialog} onClose={closeDialog}>
+          <DialogTitle>Nhắn tin cho chủ nhà</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Hãy nhắn tin đầu tiên với chủ nhà !</DialogContentText>
+            <TextField
+              id='standard-text'
+              label='Aa'
+              margin='normal'
+              autoFocus
+              fullWidth
+              value={message}
+              onChange={(event) => {
+                setMessage(event.target.value);
+              }}
+              onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
+                const keycode = e.keyCode ? e.keyCode : e.which;
+                if (keycode === 13) {
+                  sendMessage();
+                }
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeDialog}>Cancel</Button>
+            <Button disabled={!setMessage} onClick={sendMessage}>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Button variant='contained' sx={{ height: 50 }}>
           <Link to={`/host/${hostId}`}>Thông tin của chủ nhà</Link>
         </Button>
@@ -145,7 +145,7 @@ const IntroduceHost = ({ hostId }: Propstype) => {
         <Divider orientation='vertical' />
         <div className='pt-4'>
           <StarIcon sx={{ color: '#feb207' }} />
-          <span className='pl-2'>{hostInfo.rating > 0 ?hostInfo.rating.toFixed(2) : 'Chưa có'} điểm rating</span>
+          <span className='pl-2'>{hostInfo.rating > 0 ? hostInfo.rating.toFixed(2) : 'Chưa có'} điểm rating</span>
         </div>
       </div>
     </div>

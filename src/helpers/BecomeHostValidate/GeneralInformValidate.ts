@@ -49,9 +49,7 @@ const GeneralSchema = yup.object().shape({
   // policy: yup.string().required('Vui lòng chọn chính sách')
   typeRoom: yup.string().required('Vui lòng chọn loại phòng'),
   bankName: yup.string(),
-  accountNumber: yup
-    .string()
-    .matches(regexCardNumber, 'Số thẻ phải đúng định dạng 16 chữ số'),
+  accountNumber: yup.string().matches(regexCardNumber, 'Số thẻ phải đúng định dạng 16 chữ số'),
   accountHolder: yup.string().min(5, 'Tên chủ thẻ phải có ít nhất 5 kí tự'),
 });
 

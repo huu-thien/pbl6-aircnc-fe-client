@@ -1,14 +1,13 @@
 import { postImageCancelBooking } from '@/services/BookingService/bookingService';
 import { toast } from 'react-toastify';
 
-
 export const ChangFileImageCancelBookingToUrl = async (listImage: File[]) => {
   try {
     const promises = listImage.map((img: File) => ChangeOneFileCancelBooking(img));
     const urls = await Promise.all(promises);
     return urls;
   } catch (err) {
-    toast.error("Vui lòng thử lại")
+    toast.error('Vui lòng thử lại');
   }
 };
 

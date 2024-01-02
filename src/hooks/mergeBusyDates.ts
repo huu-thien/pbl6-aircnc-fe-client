@@ -7,7 +7,9 @@ interface Reservation {
 
 export const mergeBusyDates = (reservations: Reservation[]): Date[] => {
   const busyDates: Date[] = [];
-  const confirmBookingList = reservations.filter((booking: Reservation) => booking.status === 'Confirmed' || booking.status === 'Pending');
+  const confirmBookingList = reservations.filter(
+    (booking: Reservation) => booking.status === 'Confirmed' || booking.status === 'Pending',
+  );
 
   confirmBookingList.forEach((reservation) => {
     const startDate = new Date(reservation.checkInDate);

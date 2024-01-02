@@ -83,7 +83,7 @@ interface PropsType {
 
 const CityCategory = ({ city, handleChangeCity }: PropsType) => {
   return (
-    <FormControl fullWidth sx={{  width: 200 }}>
+    <FormControl fullWidth sx={{ width: 200 }}>
       <InputLabel id='demo-simple-select-label'>Tỉnh/Thành</InputLabel>
       <Select
         labelId='demo-simple-select-label'

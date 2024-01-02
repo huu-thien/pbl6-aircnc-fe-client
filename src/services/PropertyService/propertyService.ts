@@ -32,10 +32,13 @@ export const postImagePropertyUrl = (body: FormData) => {
 export const postCreateProperty = (body: PropertyInfoPost) => {
   return http.post(`api/properties`, body, { signal: controller.signal });
 };
-
 // Create  Review Property
 export const postCreateReviewProperty = (propertyId: number, body: ReviewPropertyType) => {
   return http.post(`api/reviews/property/${propertyId}`, body, { signal: controller.signal });
+};
+// Edit a property
+export const putEditProperty = (propertyId: number, body: PropertyInfoPost) => {
+  return http.put(`api/properties/${propertyId}`, body, { signal: controller.signal });
 };
 // Delete Review Property
 export const deleteReviewProperty = (propertyId: number) => {

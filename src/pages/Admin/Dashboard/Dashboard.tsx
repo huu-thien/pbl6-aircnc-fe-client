@@ -108,7 +108,7 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
-        
+
         <div className='grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 2xl:gap-7.5 py-4'>
           <div className='rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark md:p-6 xl:p-7.5'>
             <svg width='34' height='34' viewBox='0 0 34 34' fill='none' xmlns='http://www.w3.org/2000/svg'>

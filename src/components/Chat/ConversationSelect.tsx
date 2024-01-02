@@ -17,10 +17,12 @@ const ConversationSelect: React.FC<ConversationSelectProps> = ({
   onSelectUser,
   isSelected,
 }) => {
-  console.log('user:',isSelected);
+  console.log('user:', isSelected);
   return (
     <div
-      className={`flex items-center cursor-pointer p-2 break-all border-b-2 border-solid hover:bg-gray-200 ${isSelected ? 'bg-gray-200' : ''}`}
+      className={`flex items-center cursor-pointer p-2 break-all border-b-2 border-solid hover:bg-gray-200 ${
+        isSelected ? 'bg-gray-200' : ''
+      }`}
       onClick={onSelectUser}
     >
       <Avatar src={avatarUrl} className='m-3' />

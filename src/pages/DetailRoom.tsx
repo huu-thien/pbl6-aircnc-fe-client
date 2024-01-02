@@ -79,9 +79,7 @@ const DetailRoom = () => {
       {propertyDetail && <LocationOnMap latitude={propertyDetail.latitude} longitude={propertyDetail.longitude} />}
       <Divider />
       {propertyDetail && <Evaluate propertyId={propertyDetail.id} updateReview={updateReview} />}
-      {propertyDetail && (
-        <PostReview propertyId={propertyDetail.id} onUpdateReview={setUpdateReview} />
-      )}
+      {propertyDetail && <PostReview propertyId={propertyDetail.id} onUpdateReview={setUpdateReview} />}
     </div>
   );
 };

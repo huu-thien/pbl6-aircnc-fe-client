@@ -81,12 +81,14 @@ const ReviewItemGuest = ({
       console.log(err);
     }
   };
-  
+
   return (
     <div className='shadow-md p-4 rounded-lg'>
       <div className='m-2'>
         <div className='flex gap-4 items-center'>
-          <Link to={`/host/${hostId}`}><img src={reviewerAvatarUrl} alt={reviewerName} className='w-[70px] h-[70px] rounded-full' /></Link>
+          <Link to={`/host/${hostId}`}>
+            <img src={reviewerAvatarUrl} alt={reviewerName} className='w-[70px] h-[70px] rounded-full' />
+          </Link>
           <div className=''>
             <p className='font-semibold pb-2'>{reviewerName}</p>
             <p className='font-thin text-gray-400 text-xs'>{formatDateTime(reviewTime)}</p>

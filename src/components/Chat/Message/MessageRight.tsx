@@ -1,6 +1,6 @@
 // MessageRight.tsx
-import React from "react";
-import { useStyles } from "./MessageType";
+import React from 'react';
+import { useStyles } from './MessageType';
 
 interface MessageRightProps {
   message?: string;
@@ -8,7 +8,7 @@ interface MessageRightProps {
 }
 
 const MessageRight: React.FC<MessageRightProps> = (props) => {
-  const { message = "no message", timestamp = "" } = props;
+  const { message = 'no message', timestamp = '' } = props;
   const classes = useStyles();
 
   return (

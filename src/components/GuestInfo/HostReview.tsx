@@ -2,7 +2,11 @@ import { Button, Dialog, DialogActions, DialogContent, Pagination, Rating } from
 import { ChangeEvent, useEffect, useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import { toast } from 'react-toastify';
-import { getCheckGuestStayedInPropertyOfHost, getGuestReviews, postCreateReviewGuest } from '@/services/GuestService/guestService';
+import {
+  getCheckGuestStayedInPropertyOfHost,
+  getGuestReviews,
+  postCreateReviewGuest,
+} from '@/services/GuestService/guestService';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { ContentReviewGuestType } from '@/@types/guest';
@@ -26,7 +30,7 @@ interface PropsType {
 }
 
 const HostReview = ({ guestId, name, setPostReviewUpdate }: PropsType) => {
-    const userIdLogin = useSelector((state: RootState) => state.auth.user?.id) || null;
+  const userIdLogin = useSelector((state: RootState) => state.auth.user?.id) || null;
   const [listReview, setListReview] = useState<ReviewGuestType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -105,8 +109,7 @@ const HostReview = ({ guestId, name, setPostReviewUpdate }: PropsType) => {
   };
   // console.log(listReview);
   useEffect(() => {
-    if (userIdLogin)
-    CheckGuestStayedInPropertyOfHost(guestId);
+    if (userIdLogin) CheckGuestStayedInPropertyOfHost(guestId);
   }, [guestId]);
 
   return (
@@ -139,7 +142,7 @@ const HostReview = ({ guestId, name, setPostReviewUpdate }: PropsType) => {
       {isStayed ? (
         <div className='py-4'>
           <Button variant='outlined' color='primary' onClick={() => setOpen(true)}>
-            Nhận xét về khách 
+            Nhận xét về khách
           </Button>
           <Dialog open={open} onClose={handleCancelReview} maxWidth='xs' fullWidth>
             <DialogActions className=''>

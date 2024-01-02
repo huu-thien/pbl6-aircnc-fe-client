@@ -11,7 +11,6 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const ManageAccount = () => {
-
   const [isHostOnly, setIsHostOnly] = useState<string>('All');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -45,17 +44,17 @@ const ManageAccount = () => {
   return (
     <div className='p-4 '>
       <HeaderAdmin title='Quản lý tài khoản' />
-      <FormControl size='small' sx={{width: 200, my: 2, background: 'white'}}>
-        <InputLabel id="demo-simple-select-label">Vai trò</InputLabel>
+      <FormControl size='small' sx={{ width: 200, my: 2, background: 'white' }}>
+        <InputLabel id='demo-simple-select-label'>Vai trò</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          labelId='demo-simple-select-label'
+          id='demo-simple-select'
           value={isHostOnly}
-          label="Vai trò"
+          label='Vai trò'
           onChange={handleChange}
         >
-          <MenuItem value="All">Tất cả</MenuItem>
-          <MenuItem value="onlyHost">Chủ nhà</MenuItem>
+          <MenuItem value='All'>Tất cả</MenuItem>
+          <MenuItem value='onlyHost'>Chủ nhà</MenuItem>
         </Select>
       </FormControl>
       <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
@@ -83,9 +82,9 @@ const ManageAccount = () => {
               <th scope='col' className='px-6 py-3'>
                 Role
               </th>
-              <th scope='col' className='px-6 py-3'>
+              {/* <th scope='col' className='px-6 py-3'>
                 Action
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>

@@ -1,33 +1,34 @@
 import { AccountType } from '@/@types/manageAccount';
 import { formatDateTime } from '@/helpers/FormatDateTime/formatDateTime';
-import { Avatar, Chip, IconButton, Box, Button, Modal } from '@mui/material';
-import BlockIcon from '@mui/icons-material/Block';
-import { useState } from 'react';
+import { Avatar, Chip } from '@mui/material';
+// import { Avatar, Chip, IconButton, Box, Button, Modal } from '@mui/material';
+// import BlockIcon from '@mui/icons-material/Block';
+// import { useState } from 'react';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  borderRadius: 2,
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'background.paper',
+//   borderRadius: 2,
+//   boxShadow: 24,
+//   p: 4,
+// };
 
 interface PropsType {
   account: AccountType;
 }
 
 const AccountItem = ({ account }: PropsType) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
-  const handleDeleteAccount = async (acountId: number) => {
-    console.log(acountId);
-  };
+  // const handleDeleteAccount = async (acountId: number) => {
+  //   console.log(acountId);
+  // };
 
   return (
     <tr className='odd:bg-white even:bg-gray-50 border-b '>
@@ -49,7 +50,7 @@ const AccountItem = ({ account }: PropsType) => {
           <Chip label='Khách' sx={{ backgroundColor: '#fae3ee', color: '#b33871' }} />
         )}
       </td>
-      <td className='px-6 py-4'>
+      {/* <td className='px-6 py-4'>
         <IconButton onClick={handleOpen}>
           <BlockIcon sx={{ color: '#ef3751' }} />
         </IconButton>
@@ -74,7 +75,7 @@ const AccountItem = ({ account }: PropsType) => {
             </div>
           </Box>
         </Modal>
-      </td>
+      </td> */}
     </tr>
   );
 };

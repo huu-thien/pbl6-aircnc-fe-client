@@ -23,12 +23,12 @@ const style = {
 
 interface PropsType {
   cancellationInfo: Cancellationtype;
-  getListAccount: (currentPage: number, status: string) => Promise<void>;
+  getListAccount: (currentPage: number, canceller: string) => Promise<void>;
   currentPage: number;
-  status: string;
+  canceller: string;
 }
 
-const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, status }: PropsType) => {
+const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, canceller }: PropsType) => {
   // const [note, setNote] = useState<string>('');
 
   const [openDetail, setOpenDetail] = useState(false);
@@ -62,7 +62,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
   //       chargeAmount,
   //     };
   //     const response = await postAcceptCancellations(cancellationTicketId, dataCancel);
-  //     if (response && response.status === 204) {
+  //     if (response && response.canceller === 204) {
   //       const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
   //       toast
   //         .promise(resolveAfter2Sec, {
@@ -70,7 +70,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
   //           success: 'Đã chấp nhận đơn hủy !',
   //         })
   //         .then(() => {
-  //           getListAccount(currentPage, status);
+  //           getListAccount(currentPage, canceller);
   //         });
   //     }
   //   } catch (err) {
@@ -85,7 +85,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
   //     const response = await postRejectedCancellations(cancellationTicketId, dataCancel);
   //     console.log(response);
 
-  //     if (response && response.status === 204) {
+  //     if (response && response.canceller === 204) {
   //       const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
   //       toast
   //         .promise(resolveAfter2Sec, {
@@ -93,7 +93,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
   //           success: 'Đã từ chối đơn hủy !',
   //         })
   //         .then(() => {
-  //           getListAccount(currentPage, status);
+  //           getListAccount(currentPage, canceller);
   //         });
   //     }
   //   } catch (err) {
@@ -138,16 +138,23 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
       <td className='px-6 py-4'>{formatMoney(cancellationInfo.chargeAmount)} vnd</td>
       <td className='px-6 py-4'>{formatMoney(cancellationInfo.refundAmount)} vnd</td>
       <td className='px-6 py-4'>
-        {cancellationInfo.status === 'Pending' && (
-          <Chip label='Chờ duyệt' sx={{ backgroundColor: '#faeacf', color: '#f39c11' }} />
-        )}
-        {cancellationInfo.status === 'Resolved' && (
-          <Chip label='Đã duyệt' sx={{ backgroundColor: '#b0f7c0', color: '#28a745' }} />
-        )}
-        {cancellationInfo.status === 'Rejected' && (
-          <Chip label='Thất bại' sx={{ backgroundColor: '#ffd0cc', color: '#e84c3d' }} />
+        {cancellationInfo.isIssuerGuest ? (
+          <Chip label='Khách hàng' sx={{ backgroundColor: '#dfcedc', color: '#0a5817' }} />
+        ) : (
+          <Chip label='Chủ nhà' sx={{ backgroundColor: '#cee0d4', color: '#080f66' }} />
         )}
       </td>
+      {/* <td className='px-6 py-4'>
+        {cancellationInfo.canceller === 'Pending' && (
+          <Chip label='Chờ duyệt' sx={{ backgroundColor: '#faeacf', color: '#f39c11' }} />
+        )}
+        {cancellationInfo.canceller === 'Resolved' && (
+          <Chip label='Đã duyệt' sx={{ backgroundColor: '#b0f7c0', color: '#28a745' }} />
+        )}
+        {cancellationInfo.canceller === 'Rejected' && (
+          <Chip label='Thất bại' sx={{ backgroundColor: '#ffd0cc', color: '#e84c3d' }} />
+        )}
+      </td> */}
       <td className='px-6 py-4'>
         <IconButton onClick={handleOpenDetail}>
           <InfoIcon sx={{ color: '#0071a7' }} />
@@ -184,7 +191,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
                 )}
               </p>
               <p className='py-1'>Mô tả cụ thể : {cancellationInfo.cancellationReasonNote}</p>
-              <p className='py-1'>Tiền phí hệ thống : {formatMoney(cancellationInfo.chargeAmount)} vnd</p>
+              {/* <p className='py-1'>Tiền phí hệ thống : {formatMoney(cancellationInfo.chargeAmount)} vnd</p> */}
               <p className='py-1'>Tiền hoàn trả : {formatMoney(cancellationInfo.refundAmount)} vnd</p>
               <p className='py-1'>Hình ảnh minh chứng</p>
               {cancellationInfo.attachments.length > 0 ? (
@@ -201,7 +208,7 @@ const CancellationItem = ({ cancellationInfo, getListAccount, currentPage, statu
         </Modal>
       </td>
       {/* <td className='px-6 my-4 line-clamp-1'>
-        {cancellationInfo.status === 'Pending' && (
+        {cancellationInfo.canceller === 'Pending' && (
           <div className='flex gap-2'>
             <>
               <Button variant='outlined' size='small' onClick={handleOpenResolved}>

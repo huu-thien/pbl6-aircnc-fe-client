@@ -52,7 +52,7 @@ interface MessageProps {
   selectedUser: PropsContact | null;
   getListContacts: () => Promise<void>;
 }
-const baseURL= import.meta.env.VITE_CHAT_API_URL
+const baseURL = import.meta.env.VITE_CHAT_API_URL;
 const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const classes = useStyles();
@@ -92,8 +92,8 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
       .build();
     newConnection.on('ReceiveMessage', () => {
       if (selectedUser) getMessages(selectedUser?.id);
-      console.log('messages:',messages,'id :',selectedUser?.id);
-      
+      console.log('messages:', messages, 'id :', selectedUser?.id);
+
       getListContacts();
       console.log('Nhan tin nhan:');
     });
@@ -128,7 +128,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
         .then(() => {
           setMessages([...messages, { senderId: Number(user?.id), receiverId: selectedUser?.id, content: message }]);
           // console.log('tin nhan :',messages);
-          
+
           setMessage('');
         })
         .catch((error) => console.error('Error invoking SendMessageToUser:', error));
@@ -158,7 +158,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
           })}
         </div>
         <div className='flex items-center justify-between gap-4'>
-          <div className=''>
+          {/* <div className=''>
             <IconButton>
               <AddCircleIcon sx={{ color: '#0084ff' }} />
             </IconButton>
@@ -168,7 +168,7 @@ const Message: React.FC<MessageProps> = ({ selectedUser, getListContacts }) => {
             <IconButton>
               <GifBoxIcon sx={{ color: '#0084ff' }} />
             </IconButton>
-          </div>
+          </div> */}
           <div className='flex: 1'>
             <TextField
               id='standard-text'

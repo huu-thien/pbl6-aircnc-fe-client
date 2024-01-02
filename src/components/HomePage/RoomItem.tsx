@@ -6,7 +6,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { PropertyImage } from '@/@types/property';
 import { formatMoney } from '@/helpers/FormatMoney/formatMoney';
@@ -46,6 +46,7 @@ const RoomItem = ({
   isHostEditable,
 }: Propstype) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
   const [showFavorite, setShowFavorite] = useState<boolean>(isFavorite);
@@ -107,7 +108,21 @@ const RoomItem = ({
       console.log(err);
     }
   };
-  
+
+  //Host edit property
+  const handleHostEditProperty = (id) => {
+    // navigate('/host-edit-property')
+    // console.log('123 abc');
+    const resolveAfter2Sec = new Promise((resolve) => setTimeout(resolve, 1400));
+    toast
+      .promise(resolveAfter2Sec, {
+        pending: 'Đang xử lý !',
+        success: 'Đã chuyển đến trang chỉnh sửa !',
+      })
+      .then(() => {
+        navigate('/host-edit-property', { state: Number(id) });
+      });
+  };
   return (
     <div className='shadow-md p-2 rounded-lg mx-auto'>
       <Box sx={{ maxWidth: 350 }}>
@@ -181,7 +196,7 @@ const RoomItem = ({
             {isHostEditable && (
               <div className='flex'>
                 <IconButton aria-label='add-wishlist'>
-                  <AutoFixHighIcon sx={{ color: '#0a67af' }} />
+                  <AutoFixHighIcon sx={{ color: '#0a67af' }} onClick={() => handleHostEditProperty(id)} />
                 </IconButton>
                 <IconButton aria-label='add-wishlist' onClick={() => handleHostDeleteProperty(id)}>
                   <DeleteIcon sx={{ color: '#c92327' }} />

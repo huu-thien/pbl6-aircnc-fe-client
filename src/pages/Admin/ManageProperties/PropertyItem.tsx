@@ -1,7 +1,7 @@
 import { Chip, IconButton, Box, Button, Modal } from '@mui/material';
 import { formatMoney } from '@/helpers/FormatMoney/formatMoney';
 import { PropertyType } from '@/@types/property';
-import BlockIcon from '@mui/icons-material/Block';
+// import BlockIcon from '@mui/icons-material/Block';
 import { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 import Alert from '@mui/material/Alert';
@@ -29,9 +29,9 @@ interface PropsType {
 }
 
 const PropertyItem = ({ property, getListProperty, status, currentPage }: PropsType) => {
-  const [openBlockModal, setOpenBlockModal] = useState<boolean>(false);
-  const handleCloseBlockModal = () => setOpenBlockModal(false);
-  const handleOpenBlockModal = () => setOpenBlockModal(true);
+  // const [openBlockModal, setOpenBlockModal] = useState<boolean>(false);
+  // const handleCloseBlockModal = () => setOpenBlockModal(false);
+  // const handleOpenBlockModal = () => setOpenBlockModal(true);
 
   const [openConfirmProperty, setOpenConfirmProperty] = useState<boolean>(false);
   const handleCloseConfirmProperty = () => setOpenConfirmProperty(false);
@@ -95,6 +95,7 @@ const PropertyItem = ({ property, getListProperty, status, currentPage }: PropsT
       <td className='px-6 my-6'>{formatMoney(property.pricePerNight)}</td>
       <td className='px-6 my-6'>{formatMoney(property.cleaningFee)}</td>
       <td className='px-6 my-6 line-clamp-1'>{property.address}</td>
+      <td className='px-6 my-6 '>{property.hostName}</td>
       <td className='px-6 my-6'>
         {property.status === 'Pending' && (
           <Chip label='Chờ duyệt' sx={{ backgroundColor: '#faeacf', color: '#f39c11' }} />
@@ -201,7 +202,7 @@ const PropertyItem = ({ property, getListProperty, status, currentPage }: PropsT
             </>
           </div>
         )}
-        {property.status === 'Approved' && (
+        {/* {property.status === 'Approved' && (
           <div className='flex gap-2'>
             <>
               <IconButton onClick={handleOpenBlockModal}>
@@ -227,7 +228,7 @@ const PropertyItem = ({ property, getListProperty, status, currentPage }: PropsT
               </Modal>
             </>
           </div>
-        )}
+        )} */}
       </td>
     </tr>
   );
