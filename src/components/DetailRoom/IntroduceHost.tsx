@@ -56,7 +56,7 @@ const IntroduceHost = ({ hostId }: Propstype) => {
   const sendMessage = () => {
     if (message) {
       const connection = new signalR.HubConnectionBuilder()
-        .withUrl('http://pbl6.whitemage.tech/chathub', {
+        .withUrl(import.meta.env.VITE_CHAT_API_URL, {
           accessTokenFactory: () => (accessToken ? accessToken : Promise.reject('Access token is null.')),
           skipNegotiation: true,
           transport: signalR.HttpTransportType.WebSockets,
